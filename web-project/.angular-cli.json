@@ -19,7 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "uns",
       "styles": [
-        "assets/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/primeng/resources/themes/bootstrap/theme.css",
+        "assets/layout/layout.css",
+        "assets/theme/theme.css",
         "styles.css"
       ],
       "scripts": [],

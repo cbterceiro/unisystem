@@ -1,11 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthenticationService } from '../authentication';
+
 @Component({
   selector: 'uns-main',
-  templateUrl: 'main.component.html'
+  templateUrl: 'main.component.html',
+  styleUrls: ['main.component.css']
 })
 export class MainComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private authenticationService: AuthenticationService,
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
+
+  logout(): void {
+    this.authenticationService.logout();
+  }
 }

@@ -1,3 +1,24 @@
-<div>
-  LoginComponent
-</div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <div class="card login-panel ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12 login-error-message fadeOutUp" [ngClass]="{'hidden': !loginErrorMessage}">
+        {{ loginErrorMessage }}
+      </div>
+      <div class="ui-g-12">
+        <input type="text" placeholder="Usuário" formControlName="username" pInputText>
+        <small class="validation-error-message" *ngIf="loginForm.controls.username.dirty && loginForm.controls.username.invalid">
+          O nome de usuário é obrigatório.
+        </small>
+      </div>
+      <div class="ui-g-12">
+        <input type="password" placeholder="Senha" formControlName="password" pInputText>
+        <small class="validation-error-message" *ngIf="loginForm.controls.password.dirty && loginForm.controls.password.invalid">
+          A senha é obrigatória.
+        </small>
+      </div>
+      <div class="ui-g-12">
+        <button type="submit" [disabled]="!loginForm.valid" pButton label="Entrar" icon="ui-icon-person"></button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+body a {
+  color: #212121;
+}
+body a:active {
+  color: #000000;
+}
+
+.ui-inputtext.ng-dirty.ng-invalid {
+  border-color: #f44336;
+}
+.validation-error-message {
+  color: #f44336;
+}
+

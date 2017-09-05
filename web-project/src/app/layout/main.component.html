@@ -1,1 +1,36 @@
-MainComponent!
+<div class="topbar" style="display: flex">
+  <div style="align-self: center; margin: 0 auto">Topbar</div>
+</div>
+
+<div class="left-panel">
+  <ul class="left-panel-items">
+    <li>
+      <!-- Colocar ícones
+      <i class="fa fa-check"></i>
+      -->
+      <a href="#" [routerLink]="['/dashboard']">Dashboard</a>
+    </li>
+    <li>
+      <a href="#" [routerLink]="['/profile']">Perfil</a>
+    </li>
+    <li>
+      <a href="#" [routerLink]="['/dashboard']">Feed de Notícias</a>
+    </li>
+    <li>
+      <a href="#" [routerLink]="['/dashboard']">Configurações</a>
+    </li>
+    <li>
+      <a href="#" (click)="logout()">Logout</a>
+    </li>
+  </ul>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="footer">
+  <div class="card ui-g-12">
+    Footer
+  </div>
+</div>
