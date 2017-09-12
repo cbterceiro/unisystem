@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginModel: LoginModel): void {
     if (this.authenticationService.login(loginModel.username, loginModel.password)) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
     } else {
       this.loginErrorMessage = 'Usuário ou senha inválidos.';
     }

@@ -1,23 +1,22 @@
-<ul class="left-panel-items">
-  <li>
-    <a href="#" [routerLink]="['/dashboard']">Dashboard</a>
-  </li>
-  <li>
-    <a href="#" [routerLink]="['/profile']">Perfil</a>
-  </li>
-  <li>
-    <!--
-    <a href="#" [routerLink]="['/dashboard']">Feed de Notícias</a>
-    -->
-    <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Feed de Notícias</a>
-  </li>
-  <li>
-    <!--
-    <a href="#" [routerLink]="['/dashboard']">Configurações</a>
-    -->
-    <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Configurações</a>
-  </li>
-  <li>
-    <a href="#" (click)="logout()">Logout</a>
-  </li>
-</ul>
+<div class="card">
+  <ul class="left-panel-items">
+    <li>
+      <a href="#" [routerLink]="['/profile']">Perfil</a>
+    </li>
+    <li>
+      <!--
+      <a href="#" [routerLink]="['/dashboard']">Feed de Notícias</a>
+      -->
+      <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Feed de Notícias</a>
+    </li>
+    <li>
+      <!--
+      <a href="#" [routerLink]="['/dashboard']">Configurações</a>
+      -->
+      <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Configurações</a>
+    </li>
+    <li>
+      <a href="#" (click)="logout()">Logout</a>
+    </li>
+  </ul>
+</div>

@@ -5,12 +5,11 @@ import { LoginComponent, AuthenticationGuard } from './authentication';
 import { MainComponent, DashboardComponent } from './layout';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: '', component: MainComponent, canActivateChild: [AuthenticationGuard], children: [
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'profile', loadChildren: 'app/profile/profile.module#ProfileModule' },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
     ]
   },
   // Página 404

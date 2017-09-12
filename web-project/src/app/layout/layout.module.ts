@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './main.component';
 import { TopbarComponent } from './topbar.component';
 import { LeftpanelComponent } from './leftpanel.component';
+import { RightpanelComponent } from './rightpanel.component';
 import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DashboardComponent } from './dashboard.component';
     MainComponent,
     TopbarComponent,
     LeftpanelComponent,
+    RightpanelComponent,
     DashboardComponent,
   ],
   providers: [],
