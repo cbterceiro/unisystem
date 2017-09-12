@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 import { MainComponent } from './main.component';
+import { TopbarComponent } from './topbar.component';
+import { LeftpanelComponent } from './leftpanel.component';
 import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
@@ -14,6 +16,8 @@ import { DashboardComponent } from './dashboard.component';
   exports: [],
   declarations: [
     MainComponent,
+    TopbarComponent,
+    LeftpanelComponent,
     DashboardComponent,
   ],
   providers: [],

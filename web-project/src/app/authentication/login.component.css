@@ -10,4 +10,9 @@
   text-align: center;
   color: #f44336;
 }
-
+.logo-container {
+  text-align: center;
+}
+.logo-container .logo {
+  width: 120px;
+}

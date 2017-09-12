@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['dashboard']);
     } else {
       this.loginErrorMessage = 'Usuário ou senha inválidos.';
-      setTimeout(_ => this.loginErrorMessage = null, 3000);
     }
   }
 }

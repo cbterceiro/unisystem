@@ -1,41 +1,15 @@
-.topbar {
-  height: 50px;
-  text-align: center;
-  background-color: #01579b;
-  color: #ffffff;
+.main-wrapper {
+  padding-top: 10px;
 }
 
 .left-panel {
-  position: fixed;
-  width: 250px;
-  height: 100%;
-  border-right: 1px solid #cacaca;
-}
-.left-panel-items {
-  list-style-type: none;
+  float: left;
+  width: 200px;
   padding: 0;
-  margin: 10px 0;
-}
-.left-panel-items li a {
-  padding: 5px 0 5px 20px;
-  display: block;
-  cursor: pointer;
-}
-.left-panel-items li:hover {
-  background-color: #e4e4e4;
+  position: fixed;
 }
 
 .content {
-  margin-left: 250px;
-  padding: 15px;
-}
-
-.footer {
-  margin-left: 250px;
-  text-align: center;
-  padding: 0 15px;
-  display: flex;
-}
-.footer .card {
-  align-self: center;
+  float: right;
+  width: 802px;
 }

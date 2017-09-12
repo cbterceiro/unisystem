@@ -1,0 +1,13 @@
+.left-panel-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+.left-panel-items li a {
+  padding: 5px 0 5px 20px;
+  display: block;
+  cursor: pointer;
+}
+.left-panel-items li:hover {
+  background-color: #e4e4e4;
+}
