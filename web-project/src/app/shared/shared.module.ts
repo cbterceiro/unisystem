@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+
 import { PrimeNgModule } from './primeng/primeng.module';
 
 @NgModule({
@@ -11,6 +13,7 @@ import { PrimeNgModule } from './primeng/primeng.module';
     FormsModule,
     ReactiveFormsModule,
     PrimeNgModule,
+    Angular2FontawesomeModule,
   ]
   //providers: [ NÃO CRIE PROVIDERS AQUI ]
 

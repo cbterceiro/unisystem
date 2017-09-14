@@ -14,7 +14,7 @@ export class AuthenticationGuard implements CanActivateChild {
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const isAuthenticated = this.authenticationService.isAuthenticated;
     if (!isAuthenticated) {
-      this.router.navigate['login'];
+      this.router.navigate(['login']);
     }
     return isAuthenticated;
   }

@@ -1,6 +1,29 @@
 .card {
   padding: 0;
 }
+.fa {
+  margin-right: 7px;
+}
+.profile {
+  min-height: 205px;
+  border-bottom: 1px solid #cacaca;
+  padding: 10px;
+}
+.profile .profile-image {
+  height: 180px;
+  width: 180px;
+  margin: 0 auto;
+  background-image: url('/assets/img/default-user-icon.png');
+  background-repeat: no-repeat;
+  background-size: 160px;
+  background-position: 10px;
+}
+.profile .profile-info {
+  text-align: center;
+}
+.profile .profile-info .name {
+  font-size: 0.9em;
+}
 .left-panel-items {
   list-style-type: none;
   margin: 0;

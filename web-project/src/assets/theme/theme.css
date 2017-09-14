@@ -5,17 +5,6 @@ body a:active {
   color: #000000;
 }
 
-body .ui-button {
-  background-color: #ff5722;
-}
-body .ui-button:focus,
-body .ui-button:enabled:hover {
-    outline: 0 none;
-    background-color: #ff8a65;
-}
-body .ui-button:enabled:active {
-  background-color: #ff8a65;
-}
 body .ui-inputtext.ng-dirty.ng-invalid {
   border-color: #f44336;
 }

@@ -1,22 +1,22 @@
 <div class="card">
+  <div class="profile">
+    <div class="profile-image"></div>
+    <div class="profile-info">
+      <span class="name">{{ name }}</span>
+    </div>
+  </div>
   <ul class="left-panel-items">
     <li>
-      <a href="#" [routerLink]="['/profile']">Perfil</a>
+      <a href="#" [routerLink]="['/profile']">
+        <i fa name="user"></i>
+        Perfil
+      </a>
     </li>
     <li>
-      <!--
-      <a href="#" [routerLink]="['/dashboard']">Feed de Notícias</a>
-      -->
-      <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Feed de Notícias</a>
-    </li>
-    <li>
-      <!--
-      <a href="#" [routerLink]="['/dashboard']">Configurações</a>
-      -->
-      <a href="#" [routerLink]="['/dashboard']" style="background-color: #cacaca; color: #a7a7a7">Configurações</a>
-    </li>
-    <li>
-      <a href="#" (click)="logout()">Logout</a>
+      <a href="#" (click)="logout()">
+        <i fa name="sign-out"></i>
+        Logout
+      </a>
     </li>
   </ul>
 </div>

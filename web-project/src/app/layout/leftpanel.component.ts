@@ -8,11 +8,16 @@ import { AuthenticationService } from '../authentication';
   styleUrls: ['leftpanel.component.css']
 })
 export class LeftpanelComponent implements OnInit {
+
+  name: string;
+
   constructor(
     private authenticationService: AuthenticationService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.name = 'Nome do servidor público';
+  }
 
   logout(): void {
     this.authenticationService.logout();

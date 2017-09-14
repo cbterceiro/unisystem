@@ -4,16 +4,16 @@
 
 .left-panel {
   float: left;
-  width: 200px;
+  width: 240px;
   position: fixed;
 }
 
 .content {
   float: right;
-  width: 802px;
+  width: 762px;
 }
 .content .main-content {
-  width: 612px;
+  width: 572px;
   float: left;
 }
 
