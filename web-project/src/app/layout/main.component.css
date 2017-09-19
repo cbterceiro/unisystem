@@ -20,3 +20,16 @@
   width: 180px;
   float: right;
 }
+
+@media (max-width: 1015px) {
+  .left-panel {
+    width: 100%;
+    float: none;
+  }
+  .content {
+    width: 100%;
+  }
+  .content .main-content {
+    width: calc(100% - 190px);
+  }
+}

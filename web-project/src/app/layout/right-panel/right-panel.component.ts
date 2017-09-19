@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'uns-rightpanel',
-  templateUrl: 'rightpanel.component.html',
-  styleUrls: ['rightpanel.component.css']
+  selector: 'uns-right-panel',
+  templateUrl: 'right-panel.component.html',
+  styleUrls: ['right-panel.component.css']
 })
-export class RightpanelComponent implements OnInit {
+export class RightPanelComponent implements OnInit {
 
   news: any[];
 

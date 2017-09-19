@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../authentication';
-
 @Component({
-  selector: 'uns-leftpanel',
-  templateUrl: 'leftpanel.component.html',
-  styleUrls: ['leftpanel.component.css']
+  selector: 'uns-left-panel-profile',
+  templateUrl: 'left-panel-profile.component.html',
+  styleUrls: ['left-panel-profile.component.css']
 })
-export class LeftpanelComponent implements OnInit {
+export class LeftPanelProfileComponent implements OnInit {
 
   name: string;
   profileImageSource: string;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private router: Router,
   ) { }
 
@@ -25,9 +22,5 @@ export class LeftpanelComponent implements OnInit {
 
   showProfileModal(): void {
     this.router.navigate(['/profile', { show: true }], { skipLocationChange: true });
-  }
-
-  logout(): void {
-    this.authenticationService.logout();
   }
 }

@@ -1,13 +1,5 @@
 <div class="card">
-  <div class="profile">
-    <fa name="edit" class="edit-profile-image-icon" (click)="showProfileModal()"></fa>
-    <div class="profile-image">
-      <img [attr.src]="profileImageSource" />
-    </div>
-    <div class="profile-info">
-      <span class="name">{{ name }}</span>
-    </div>
-  </div>
+  <uns-left-panel-profile></uns-left-panel-profile>
   <ul class="left-panel-items">
     <li>
       <a href="#" [routerLink]="['/profile']">
