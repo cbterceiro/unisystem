@@ -1,0 +1,43 @@
+<p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="profileForm" class="ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Nome</label>
+        <input formControlName="name" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="profileForm.controls.name.pristine || profileForm.controls.name.valid">
+          O nome é obrigatório.
+        </small>
+      </div>
+      <div class="ui-g-6">
+        <label>Sobrenome</label>
+        <input formControlName="surname" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="profileForm.controls.surname.pristine || profileForm.controls.surname.valid">
+          O sobrenome é obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Data de Nascimento</label>
+        <p-calendar formControlName="birthDate" [showIcon]="true"></p-calendar>
+        <small class="validation-error-message" [hidden]="profileForm.controls.birthDate.pristine || profileForm.controls.birthDate.valid">
+          A data de nascimento é obrigatória.
+        </small>
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12" style="padding: 0">Sexo</label>
+        <p-radioButton class="ui-g-4" name="sex" value="M" label="M" formControlName="sex"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sex" value="F" label="F" formControlName="sex"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sex" value="O" label="O" formControlName="sex"></p-radioButton>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label>Estado Civil</label>
+      </div>
+      <div class="ui-g-6">
+        <label>Número Funcional</label>
+      </div>
+    </div>
+  </form>
+</p-dialog>

@@ -1,11 +1,10 @@
 .main-wrapper {
-  padding-top: 10px;
+  padding-top: 60px;
 }
 
 .left-panel {
   float: left;
   width: 240px;
-  position: fixed;
 }
 
 .content {

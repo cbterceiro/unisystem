@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication';
 
@@ -13,10 +14,15 @@ export class LeftpanelComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.name = 'Nome do servidor público';
+  }
+
+  showProfileModal(): void {
+    this.router.navigate(['/profile', { show: true }], { skipLocationChange: true });
   }
 
   logout(): void {

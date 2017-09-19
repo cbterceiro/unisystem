@@ -12,3 +12,11 @@ body .validation-error-message {
   color: #f44336;
 }
 
+body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
+  top: -3px;
+}
+
+body .ui-calendar .ui-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
