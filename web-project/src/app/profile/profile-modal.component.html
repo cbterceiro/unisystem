@@ -1,31 +1,36 @@
 <p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
-  <form [formGroup]="profileForm" class="ui-fluid">
+  <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.isValid, profileForm.value)">
+    <div class="ui-g">
+      <div class="profile-image">
+        <img [attr.src]="profileImageSource" />
+      </div>
+    </div>
     <div class="ui-g">
       <div class="ui-g-6">
-        <label>Nome</label>
+        <label class="form-label">Nome</label>
         <input formControlName="name" type="text" pInputText>
         <small class="validation-error-message" [hidden]="profileForm.controls.name.pristine || profileForm.controls.name.valid">
           O nome é obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
-        <label>Sobrenome</label>
+        <label class="form-label">Sobrenome</label>
         <input formControlName="surname" type="text" pInputText>
         <small class="validation-error-message" [hidden]="profileForm.controls.surname.pristine || profileForm.controls.surname.valid">
           O sobrenome é obrigatório.
         </small>
       </div>
     </div>
-    <div class="ui-g">
+    <div class="ui-g form-group">
       <div class="ui-g-6">
-        <label>Data de Nascimento</label>
+        <label class="form-label">Data de Nascimento</label>
         <p-calendar formControlName="birthDate" [showIcon]="true"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.birthDate.pristine || profileForm.controls.birthDate.valid">
           A data de nascimento é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
-        <label class="ui-g-12" style="padding: 0">Sexo</label>
+        <label class="form-label">Sexo</label>
         <p-radioButton class="ui-g-4" name="sex" value="M" label="M" formControlName="sex"></p-radioButton>
         <p-radioButton class="ui-g-4" name="sex" value="F" label="F" formControlName="sex"></p-radioButton>
         <p-radioButton class="ui-g-4" name="sex" value="O" label="O" formControlName="sex"></p-radioButton>
@@ -33,10 +38,42 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
-        <label>Estado Civil</label>
+        <label class="form-label">Estado Civil</label>
+        <p-dropdown [options]="maritalStatuses" [autoWidth]="false" formControlName="maritalStatus"></p-dropdown>
+        <small class="validation-error-message" [hidden]="profileForm.controls.maritalStatus.pristine || profileForm.controls.maritalStatus.valid">
+          O estado civil é obrigatório.
+        </small>
       </div>
       <div class="ui-g-6">
-        <label>Número Funcional</label>
+        <label class="form-label">Número Funcional</label>
+        <p-inputMask mask="999999" formControlName="functionalNumber"></p-inputMask>
+        <small class="validation-error-message" [hidden]="profileForm.controls.functionalNumber.pristine || profileForm.controls.functionalNumber.valid">
+          O número funcional é obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Nacionalidade</label>
+        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nationality"></p-dropdown>
+      </div>
+      <div class="ui-g-6">
+        <div class="ui-g-4 no-vertical-padding">
+          <label class="form-label">Estado</label>
+          <p-dropdown [options]="states" [autoWidth]="false" formControlName="state"></p-dropdown>
+        </div>
+        <div class="ui-g-8 no-vertical-padding">
+          <label class="form-label">Cidade</label>
+          <input formControlName="city" type="text" pInputText>
+          <small class="validation-error-message" [hidden]="profileForm.controls.city.pristine || profileForm.controls.city.valid">
+            A cidade é obrigatória.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar"></button>
       </div>
     </div>
   </form>

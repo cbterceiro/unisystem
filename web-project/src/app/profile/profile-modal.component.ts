@@ -4,6 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { SelectItem } from 'primeng/primeng';
+
+import { Profile } from './profile.model';
+
 @Component({
   selector: 'uns-profile-modal',
   templateUrl: 'profile-modal.component.html',
@@ -12,7 +16,14 @@ import { Subscription } from 'rxjs/Subscription';
 export class ProfileModalComponent implements OnInit {
 
   visible: boolean;
+
   profileForm: FormGroup;
+  profileImageSource: string;
+
+  maritalStatuses: SelectItem[];
+  nationalities: SelectItem[];
+  states: SelectItem[];
+
   routeParamsSubscription: Subscription;
 
   constructor(
@@ -34,6 +45,10 @@ export class ProfileModalComponent implements OnInit {
   }
 
   setupForm(): void {
+    this.setupDropdownOptions();
+
+    this.profileImageSource = '/assets/img/default-user-icon.png';
+
     this.profileForm = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -45,6 +60,31 @@ export class ProfileModalComponent implements OnInit {
       state: [null, Validators.required],
       city: [null, Validators.required],
     });
+  }
+
+  setupDropdownOptions(): void {
+    this.maritalStatuses = [
+      { label: 'Selecione um estado civil', value: null },
+      { label: 'Solteiro (a)', value: 'Solteiro' },
+      { label: 'Casado (a)', value: 'Casado' },
+      { label: 'Divorciado (a)', value: 'Divorciado' },
+      { label: 'Viúvo (a)', value: 'Viúvo' },
+      { label: 'Separado (a)', value: 'Separado' },
+    ];
+    this.nationalities = [
+      { label: 'Brasileiro', value: 'BR' },
+    ];
+    this.states = [
+      { label: 'ES', value: 'ES' },
+    ];
+  }
+
+  onSubmit(isValid: boolean, profile: Profile): void {
+    console.log('isValid', isValid);
+    console.log('profile', profile);
+    if (isValid) {
+
+    }
   }
 
   closeModal(): void {

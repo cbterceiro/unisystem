@@ -2,7 +2,7 @@
   <div class="profile">
     <fa name="edit" class="edit-profile-image-icon" (click)="showProfileModal()"></fa>
     <div class="profile-image">
-      <img src="/assets/img/default-user-icon.png" />
+      <img [attr.src]="profileImageSource" />
     </div>
     <div class="profile-info">
       <span class="name">{{ name }}</span>

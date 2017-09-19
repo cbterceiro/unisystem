@@ -88,3 +88,15 @@ body a {
 .card h1:first-child {
   margin-top: .667em;
 }
+
+.no-padding {
+  padding: 0;
+}
+.no-vertical-padding {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.no-horizontal-padding {
+  padding-left: 0;
+  padding-right: 0;
+}

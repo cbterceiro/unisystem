@@ -11,6 +11,7 @@ import { AuthenticationService } from '../authentication';
 export class LeftpanelComponent implements OnInit {
 
   name: string;
+  profileImageSource: string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -19,6 +20,7 @@ export class LeftpanelComponent implements OnInit {
 
   ngOnInit() {
     this.name = 'Nome do servidor público';
+    this.profileImageSource = '/assets/img/default-user-icon.png';
   }
 
   showProfileModal(): void {

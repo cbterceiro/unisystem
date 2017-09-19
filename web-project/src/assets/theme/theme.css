@@ -1,3 +1,4 @@
+/* Links */
 body a {
   color: #212121;
 }
@@ -5,18 +6,29 @@ body a:active {
   color: #000000;
 }
 
-body .ui-inputtext.ng-dirty.ng-invalid {
+/* Form elements */
+body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
+  top: -3px;
+}
+body .ui-calendar .ui-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+body .ui-dropdown.ui-state-focus .ui-dropdown-trigger,
+body .ui-dropdown.ui-state-focus .ui-dropdown-label {
+  background-color: #fff;
+}
+body .form-label {
+  display: block;
+}
+
+/* Form validation */
+body .ui-inputtext.ng-dirty.ng-invalid,
+body .ng-dirty.ng-invalid > .ui-inputtext,
+body .ng-dirty.ng-invalid > .ui-calendar .ui-inputtext,
+body .ng-dirty.ng-invalid > .ui-dropdown {
   border-color: #f44336;
 }
 body .validation-error-message {
   color: #f44336;
-}
-
-body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
-  top: -3px;
-}
-
-body .ui-calendar .ui-button {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
