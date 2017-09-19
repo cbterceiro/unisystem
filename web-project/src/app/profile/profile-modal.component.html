@@ -1,8 +1,11 @@
-<p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+<p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
   <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.isValid, profileForm.value)">
     <div class="ui-g">
       <div class="profile-image">
         <img [attr.src]="profileImageSource" />
+        <div class="profile-image-overlay">
+          <span>Alterar foto</span>
+        </div>
       </div>
     </div>
     <div class="ui-g">
@@ -21,10 +24,10 @@
         </small>
       </div>
     </div>
-    <div class="ui-g form-group">
+    <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar formControlName="birthDate" [showIcon]="true"></p-calendar>
+        <p-calendar br-locale formControlName="birthDate" [showIcon]="true"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.birthDate.pristine || profileForm.controls.birthDate.valid">
           A data de nascimento é obrigatória.
         </small>

@@ -6,14 +6,19 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 
 import { PrimeNgModule } from './primeng/primeng.module';
 
+import { CalendarBRLocaleDirective } from './calendar-br-locale.directive';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    CalendarBRLocaleDirective,
+  ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     PrimeNgModule,
     Angular2FontawesomeModule,
+    CalendarBRLocaleDirective,
   ]
   //providers: [ NÃO CRIE PROVIDERS AQUI ]
 

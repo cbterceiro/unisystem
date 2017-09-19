@@ -35,10 +35,6 @@
 }
 .profile:hover .edit-profile-image-icon {
   opacity: 1;
-  -webkit-transition: opacity 300ms ease-in-out;
-  -moz-transition: opacity 300ms ease-in-out;
-  -ms-transition: opacity 300ms ease-in-out;
-  -o-transition: opacity 300ms ease-in-out;
   transition: opacity 300ms ease-in-out;
 }
 .profile .edit-profile-image-icon:hover {
