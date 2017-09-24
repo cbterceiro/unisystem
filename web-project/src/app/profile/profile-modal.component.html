@@ -1,5 +1,5 @@
-<p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
-  <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.isValid, profileForm.value)">
+<p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" (onHide)="closeModal()">
+  <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.valid, profileForm.value)">
     <div class="ui-g">
       <div class="profile-image">
         <img [attr.src]="profileImageSource" />
@@ -9,48 +9,41 @@
       </div>
     </div>
     <div class="ui-g">
-      <div class="ui-g-6">
-        <label class="form-label">Nome</label>
-        <input formControlName="name" type="text" pInputText>
-        <small class="validation-error-message" [hidden]="profileForm.controls.name.pristine || profileForm.controls.name.valid">
+      <div class="ui-g-12">
+        <label class="form-label">Nome Completo</label>
+        <input formControlName="nome" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="profileForm.controls.nome.pristine || profileForm.controls.nome.valid">
           O nome é obrigatório.
-        </small>
-      </div>
-      <div class="ui-g-6">
-        <label class="form-label">Sobrenome</label>
-        <input formControlName="surname" type="text" pInputText>
-        <small class="validation-error-message" [hidden]="profileForm.controls.surname.pristine || profileForm.controls.surname.valid">
-          O sobrenome é obrigatório.
         </small>
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar br-locale formControlName="birthDate" [showIcon]="true"></p-calendar>
-        <small class="validation-error-message" [hidden]="profileForm.controls.birthDate.pristine || profileForm.controls.birthDate.valid">
+        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="getYearRange()"></p-calendar>
+        <small class="validation-error-message" [hidden]="profileForm.controls.dataNascimento.pristine || profileForm.controls.dataNascimento.valid">
           A data de nascimento é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Sexo</label>
-        <p-radioButton class="ui-g-4" name="sex" value="M" label="M" formControlName="sex"></p-radioButton>
-        <p-radioButton class="ui-g-4" name="sex" value="F" label="F" formControlName="sex"></p-radioButton>
-        <p-radioButton class="ui-g-4" name="sex" value="O" label="O" formControlName="sex"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="M" label="Masculino" formControlName="sexo"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="F" label="Feminino" formControlName="sexo"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="O" label="Outro" formControlName="sexo"></p-radioButton>
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Estado Civil</label>
-        <p-dropdown [options]="maritalStatuses" [autoWidth]="false" formControlName="maritalStatus"></p-dropdown>
-        <small class="validation-error-message" [hidden]="profileForm.controls.maritalStatus.pristine || profileForm.controls.maritalStatus.valid">
+        <p-dropdown [options]="maritalStatuses" [autoWidth]="false" formControlName="estadoCivil"></p-dropdown>
+        <small class="validation-error-message" [hidden]="profileForm.controls.estadoCivil.pristine || profileForm.controls.estadoCivil.valid">
           O estado civil é obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Número Funcional</label>
-        <p-inputMask mask="999999" formControlName="functionalNumber"></p-inputMask>
-        <small class="validation-error-message" [hidden]="profileForm.controls.functionalNumber.pristine || profileForm.controls.functionalNumber.valid">
+        <p-inputMask mask="999999" formControlName="numeroFuncional"></p-inputMask>
+        <small class="validation-error-message" [hidden]="profileForm.controls.numeroFuncional.pristine || profileForm.controls.numeroFuncional.valid">
           O número funcional é obrigatório.
         </small>
       </div>
@@ -58,17 +51,17 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Nacionalidade</label>
-        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nationality"></p-dropdown>
+        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nacionalidade"></p-dropdown>
       </div>
       <div class="ui-g-6">
         <div class="ui-g-4 no-vertical-padding">
           <label class="form-label">Estado</label>
-          <p-dropdown [options]="states" [autoWidth]="false" formControlName="state"></p-dropdown>
+          <p-dropdown [options]="states" [autoWidth]="false" formControlName="estado"></p-dropdown>
         </div>
         <div class="ui-g-8 no-vertical-padding">
           <label class="form-label">Cidade</label>
-          <input formControlName="city" type="text" pInputText>
-          <small class="validation-error-message" [hidden]="profileForm.controls.city.pristine || profileForm.controls.city.valid">
+          <input formControlName="cidade" type="text" pInputText>
+          <small class="validation-error-message" [hidden]="profileForm.controls.cidade.pristine || profileForm.controls.cidade.valid">
             A cidade é obrigatória.
           </small>
         </div>

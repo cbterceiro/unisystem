@@ -13,7 +13,8 @@ export class HttpClientService {
   constructor(
     private http: Http,
   ) {
-    this.backendServerPath = environment.backendServerPath += environment.backendServerPath.endsWith('/') ? '' : '/';
+    const path: string = environment.backendServerPath;
+    this.backendServerPath = path.endsWith('/') ? path.slice(0, -1) : path;
   }
 
   get(path: string): Observable<Response> {

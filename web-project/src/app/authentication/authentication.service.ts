@@ -12,11 +12,11 @@ export class AuthenticationService {
   ) { }
 
   login(username: string, password: string): boolean {
-    if (username === 'a' && password === 'a') {
-      this.sessionService.setItem(SessionKeys.user, { username: username, password: password });
-      return true;
-    }
-    return false;
+    //if (username === 'a' && password === 'a') {
+    this.sessionService.setItem(SessionKeys.user, { username: username, password: password });
+    return true;
+    //}
+    //return false;
   }
 
   logout() {

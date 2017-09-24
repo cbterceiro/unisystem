@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, DomHandler } from 'primeng/primeng';
 
-import { Profile } from './profile.model';
+import { markFormGroupDirty } from '../shared/functions';
+
+import { ServidorService } from './servidor.service';
+import { Servidor } from './servidor.model';
 
 @Component({
   selector: 'uns-profile-modal',
@@ -23,6 +26,7 @@ export class ProfileModalComponent implements OnInit {
   maritalStatuses: SelectItem[];
   nationalities: SelectItem[];
   states: SelectItem[];
+  calendarYearRange: string;
 
   routeParamsSubscription: Subscription;
 
@@ -30,16 +34,17 @@ export class ProfileModalComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private servidorService: ServidorService,
   ) { }
 
   ngOnInit() {
     this.subscribeToRouteParams();
     this.setupForm();
+    this.setYearRange();
   }
 
   subscribeToRouteParams(): void {
     this.routeParamsSubscription = this.activatedRoute.params.subscribe(params => {
-      console.log('params in ProfileModalComponent', params);
       this.visible = params['show'] || false;
     });
   }
@@ -50,15 +55,15 @@ export class ProfileModalComponent implements OnInit {
     this.profileImageSource = '/assets/img/default-user-icon.png';
 
     this.profileForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      birthDate: [null, Validators.required],
-      sex: [null, Validators.required],
-      maritalStatus: [null, Validators.required],
-      functionalNumber: [null, Validators.required],
-      nationality: [null, Validators.required],
-      state: [null, Validators.required],
-      city: [null, Validators.required],
+      id: [null],
+      nome: [null, Validators.required],
+      dataNascimento: [null, Validators.required],
+      sexo: [null, Validators.required],
+      estadoCivil: [null, Validators.required],
+      numeroFuncional: [null, Validators.required],
+      nacionalidade: ['Brasileiro', Validators.required],
+      estado: ['ES', Validators.required],
+      cidade: [null, Validators.required],
     });
   }
 
@@ -79,18 +84,29 @@ export class ProfileModalComponent implements OnInit {
     ];
   }
 
-  onSubmit(isValid: boolean, profile: Profile): void {
-    console.log('isValid', isValid);
-    console.log('profile', profile);
+  onSubmit(isValid: boolean, servidor: Servidor): void {
     if (isValid) {
-
+      this.servidorService.save(servidor).subscribe(ok => {
+        console.log('save ok', ok);
+      });
+    } else {
+      markFormGroupDirty(this.profileForm);
     }
   }
 
   closeModal(): void {
     this.visible = false;
     // Navega para a rota atual apenas alterando o parâmetro de exibição
-    this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute })
+    this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute });
+  }
+
+  setYearRange(): void {
+    const currentYear: number = (new Date()).getFullYear();
+    this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
+  }
+
+  getYearRange(): string {
+    return this.calendarYearRange;
   }
 
   ngOnDestroy() {

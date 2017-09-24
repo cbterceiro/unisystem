@@ -8,6 +8,8 @@ import { ProfileModalComponent } from './profile-modal.component';
 import { CargoComponent } from './cargo/cargo.component';
 import { FormacaoAcademicaComponent } from './formacao-academica/formacao-academica.component';
 
+import { ServidorService } from './servidor.service';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -18,6 +20,9 @@ import { FormacaoAcademicaComponent } from './formacao-academica/formacao-academ
     ProfileModalComponent,
     CargoComponent,
     FormacaoAcademicaComponent,
+  ],
+  providers: [
+    ServidorService,
   ],
 })
 export class ProfileModule { }
