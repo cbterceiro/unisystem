@@ -1,0 +1,61 @@
+<p-dialog header="Adicionar Informações de Cargo" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
+  (onHide)="closeModal()">
+  <form [formGroup]="cargoForm" class="ui-fluid" (submit)="onSubmit(cargoForm.isValid, cargoForm.value)">
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Função</label>
+        <p-dropdown [options]="funcaoStatus" [autoWidth]="false" formControlName="funcao"></p-dropdown>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.funcao.pristine || cargoForm.controls.funcao.valid">
+          A função é obrigatória.
+        </small>
+      </div>
+      <div class="ui-g-6">
+        <label class="form-label">Setor</label>
+        <p-dropdown [options]="setorStatus" [autoWidth]="false" formControlName="setor"></p-dropdown>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
+            O setor obrigatório.
+          </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Início</label>
+        <p-calendar br-locale formControlName="dataInicio" [showIcon]="true"></p-calendar>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.dataInicio.pristine || cargoForm.controls.dataInicio.valid">
+          A data de nascimento é obrigatória.
+        </small>
+      </div>
+      <div class="ui-g-6">
+        <label class="form-label">Fim</label>
+        <p-calendar br-locale formControlName="dataFim" [showIcon]="true"></p-calendar>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.dataFim.pristine || cargoForm.controls.dataFim.valid">
+            O setor obrigatório.
+          </small>
+      </div>
+    </div>
+    <!-- <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Nacionalidade</label>
+        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nationality"></p-dropdown>
+      </div>
+      <div class="ui-g-6">
+        <div class="ui-g-4 no-vertical-padding">
+          <label class="form-label">Estado</label>
+          <p-dropdown [options]="states" [autoWidth]="false" formControlName="state"></p-dropdown>
+        </div>
+        <div class="ui-g-8 no-vertical-padding">
+          <label class="form-label">Cidade</label>
+          <input formControlName="city" type="text" pInputText>
+          <small class="validation-error-message" [hidden]="cargoForm.controls.city.pristine || cargoForm.controls.city.valid">
+            A cidade é obrigatória.
+          </small>
+        </div>
+      </div>
+    </div> -->
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar"></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
