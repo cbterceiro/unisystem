@@ -1,3 +1,17 @@
 <div class="card card-w-title">
-  <h1>Cargo</h1>
+  <h1>Cargo
+
+  <button type="button" style="float: right;" (click)="addNewCargo()" class="btn btn-primary" >Add</button>
+  </h1>
+  <uns-cargo-modal [visible]="exibeModalCargo" (visibleChange)="exibeModalCargo=$event"></uns-cargo-modal>
+
+  <p-dataTable [value]="cars">
+    <p-column field="funcao" header="Função"></p-column>
+    <p-column field="setor" header="Setor"></p-column>
+    <p-column field="dataInicio" header="Data Início"></p-column>
+    <p-column field="dataFim" header="Data Fim"></p-column>
+    <p-column field="edit" header=""></p-column>
+    <p-column field="delete" header=""></p-column>
+</p-dataTable>
+
 </div>
