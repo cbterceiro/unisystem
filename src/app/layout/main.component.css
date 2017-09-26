@@ -1,0 +1,35 @@
+.main-wrapper {
+  padding-top: 60px;
+}
+
+.left-panel {
+  float: left;
+  width: 240px;
+}
+
+.content {
+  float: right;
+  width: 762px;
+}
+.content .main-content {
+  width: 572px;
+  float: left;
+}
+
+.right-panel {
+  width: 180px;
+  float: right;
+}
+
+@media (max-width: 1015px) {
+  .left-panel {
+    width: 100%;
+    float: none;
+  }
+  .content {
+    width: 100%;
+  }
+  .content .main-content {
+    width: calc(100% - 190px);
+  }
+}

@@ -1,0 +1,109 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/roboto-v15-latin-300.eot");
+  /* IE9 Compat Modes */
+  src: local("Roboto Light"), local("Roboto-Light"), url("../fonts/roboto-v15-latin-300.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-v15-latin-300.woff2") format("woff2"), url("../fonts/roboto-v15-latin-300.woff") format("woff"), url("../fonts/roboto-v15-latin-300.ttf") format("truetype"), url("../fonts/roboto-v15-latin-300.svg#Roboto") format("svg");
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/roboto-v15-latin-regular.eot");
+  /* IE9 Compat Modes */
+  src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v15-latin-regular.eot#iefix") format("embedded-opentype"), url("../fonts/roboto-v15-latin-regular.woff2") format("woff2"), url("../fonts/roboto-v15-latin-regular.woff") format("woff"), url("../fonts/roboto-v15-latin-regular.ttf") format("truetype"), url("../fonts/roboto-v15-latin-regular.svg#Roboto") format("svg");
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/roboto-v15-latin-700.eot");
+  /* IE9 Compat Modes */
+  src: local("Roboto Bold"), local("Roboto-Bold"), url("../fonts/roboto-v15-latin-700.eot#iefix") format("embedded-opentype"), url("../fonts/roboto-v15-latin-700.woff2") format("woff2"), url("../fonts/roboto-v15-latin-700.woff") format("woff"), url("../fonts/roboto-v15-latin-700.ttf") format("truetype"), url("../fonts/roboto-v15-latin-700.svg#Roboto") format("svg");
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/MaterialIcons-Regular.eot");
+  /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url("../fonts/MaterialIcons-Regular.woff2") format("woff2"), url("../fonts/MaterialIcons-Regular.woff") format("woff"), url("../fonts/MaterialIcons-Regular.ttf") format("truetype");
+}
+
+html {
+  height: 100%;
+}
+body {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #212121;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
+  margin: 0;
+  background-color: #f7f7f7;
+  height: 100%;
+}
+body a {
+  text-decoration: none;
+}
+
+.clearfix:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+*[hidden] {
+  display: none;
+}
+
+.wrapper {
+  max-width: 1012px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1015px) {
+  .wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #ffffff;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-sizing: border-box;
+}
+.card.card-w-title {
+  padding-bottom: 2em;
+}
+.card h1 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 1em 0;
+  margin-left: 0.5em;
+}
+.card h1:first-child {
+  margin-top: .667em;
+}
+
+.no-padding {
+  padding: 0;
+}
+.no-vertical-padding {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.no-horizontal-padding {
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -1,0 +1,12 @@
+<div class="profile">
+  <div class="edit-profile-image-icon" (click)="showProfileModal()">
+    <fa name="edit"></fa>
+    <span>Editar</span>
+  </div>
+  <div class="profile-image">
+    <img [attr.src]="profileImageSource" />
+  </div>
+  <div class="profile-info">
+    <span class="name">{{ name }}</span>
+  </div>
+</div>
