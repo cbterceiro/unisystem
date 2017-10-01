@@ -4,14 +4,14 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Função</label>
-        <p-dropdown [options]="funcaoStatus" [autoWidth]="false" formControlName="funcao"></p-dropdown>
+        <p-autoComplete [(ngModel)]="funcao" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarFuncao($event)" formControlName="funcao" [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.funcao.pristine || cargoForm.controls.funcao.valid">
           A função é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
-        <label class="form-label">Setor</label>
-        <p-dropdown [options]="setorStatus" [autoWidth]="false" formControlName="setor"></p-dropdown>
+        <label class="form-label">Setor -- Pendente Susi</label>
+        <p-autoComplete [(ngModel)]="setor" [suggestions]="resultadoSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor" [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
             O setor obrigatório.
           </small>
