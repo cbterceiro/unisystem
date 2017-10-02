@@ -1,4 +1,5 @@
-.formacao .edit-formacao-image-icon {
+/*botão adicionar nova formação*/
+.formacao .add-formacao-image-icon {
     float: right;
     top: 12px;
     right: 12px;
@@ -9,6 +10,41 @@
     text-align: center;
     border-radius: 5px;
     opacity: 0;
+    overflow: hidden;
+  }
+  .formacao .add-formacao-image-icon span,
+  .formacao .add-formacao-image-icon fa {
+    float: right;
+  }
+  .formacao .add-formacao-image-icon span {
+    font-size: 11px;
+    margin-right: 5px;
+  }
+  .formacao .add-formacao-image-icon fa {
+    margin-right: 2px;
+  }
+  .formacao:hover .add-formacao-image-icon {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+  .formacao .add-formacao-image-icon:hover {
+    background-color: #e5e5e5;
+    width: 75px;
+    transition: all 150ms ease-in-out;
+  }
+/*botão editar formação*/
+  .formacao .edit-formacao-image-icon {
+    position: relative;
+    float: right;
+    top: 10px;
+    right: 0px;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    padding-left: 3px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 1;
     overflow: hidden;
   }
   .formacao .edit-formacao-image-icon span,
@@ -22,12 +58,43 @@
   .formacao .edit-formacao-image-icon fa {
     margin-right: 2px;
   }
-  .formacao:hover .edit-formacao-image-icon {
+/*botão deletar formação*/
+  .formacao .delete-formacao-image-icon {
+    /*position: relative;*/
+    float: right;
+    /*bottom: 25px;*/
+    right: 0px;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    padding-left: 3px;
+    text-align: center;
+    border-radius: 5px;
     opacity: 1;
-    transition: opacity 300ms ease-in-out;
+    overflow: hidden;
   }
-  .formacao .edit-formacao-image-icon:hover {
-    background-color: #e5e5e5;
-    width: 75px;
-    transition: all 150ms ease-in-out;
+  .formacao .delete-formacao-image-icon span,
+  .formacao .delete-formacao-image-icon fa {
+    float: right;
+  }
+  .formacao .delete-formacao-image-icon span {
+    font-size: 11px;
+    margin-right: 5px;
+  }
+  .formacao .delete-formacao-image-icon fa {
+    margin-right: 2px;
+  }
+  /**/
+  .formacaohr{
+    width: 100%;
+  }
+
+  h3{
+    line-height: 1em;
+    margin-left: 0.6em;
+  }
+
+  p{
+    line-height: 1em;
+    margin-left: 0.6em;
   }

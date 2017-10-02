@@ -67,21 +67,21 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   setupDropdownOptions(): void {
     this.nivel = [
       { label: '  ---Nível do curso---  ', value: null },
-      { label: 'teste2', value: 2 },
+      { label: 'Superior', value: 1 },
     ];
     this.curso = [
       { label: '  ---Escolha um curso---  ', value: null},
-      { label: 'teste1', value: 1 },
+      { label: 'Ciência da Computação', value: 1 },
+      { label: 'Sistemas de Informação', value: 2 },
     ];
   }
 
   pesquisarInstituicoesAcademicas(event) {
-    /*this.mylookupservice.getResults(event.query).then(data => {
-        this.resultadoEntidades = data;
-    });*/
-    console.log('buscando entidades' , this.nomeInstituicaoAcademica);
-    this.resultadoInstituicoesAcademicas = ['1']; //único registro criado para teste, id = 1
-    
+    console.log('buscando instituições' , this.nomeInstituicaoAcademica); //único registro criado para teste, id = 1
+    this.resultadoInstituicoesAcademicas = ['1']; 
+    /*this.resultadoInstituicoesAcademicas = [
+      { nome: 'Universidade Vila Velha', value: 1 }
+    ];*/
 }
 
   onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
@@ -89,6 +89,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
     if (isValid) {
       this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
         console.log('salvando', ok);
+        this.closeModal();
       });
     } else{
       markFormGroupDirty(this.formacaoForm);
