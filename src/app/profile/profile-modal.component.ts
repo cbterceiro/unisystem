@@ -8,6 +8,8 @@ import { SelectItem, DomHandler } from 'primeng/primeng';
 
 import { markFormGroupDirty } from '../shared/functions';
 
+import { SessionService, SessionKeys, MessageService } from '../core';
+
 import { ServidorService } from './servidor.service';
 import { Servidor } from './servidor.model';
 
@@ -35,12 +37,15 @@ export class ProfileModalComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private servidorService: ServidorService,
+    private sessionService: SessionService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.subscribeToRouteParams();
     this.setupForm();
     this.setYearRange();
+    this.loadServidor();
   }
 
   subscribeToRouteParams(): void {
@@ -61,7 +66,7 @@ export class ProfileModalComponent implements OnInit {
       sexo: [null, Validators.required],
       estadoCivil: [null, Validators.required],
       numeroFuncional: [null, Validators.required],
-      nacionalidade: ['Brasileiro', Validators.required],
+      nacionalidade: ['br', Validators.required],
       estado: ['ES', Validators.required],
       cidade: [null, Validators.required],
     });
@@ -77,17 +82,32 @@ export class ProfileModalComponent implements OnInit {
       { label: 'Separado (a)', value: 'Separado' },
     ];
     this.nationalities = [
-      { label: 'Brasileiro', value: 'BR' },
+      { label: 'Selecione uma nacionalidade', value: null },
+      { label: 'Brasileiro', value: 'br' },
     ];
     this.states = [
+      { label: 'Selecione', value: null },
       { label: 'ES', value: 'ES' },
     ];
   }
 
+  loadServidor(): void {
+    const name: string = this.sessionService.getItem(SessionKeys.user).username;
+    if (name) {
+      this.servidorService.getByName(name).subscribe(servidor => {
+        this.profileForm.patchValue(servidor);
+      });
+    }
+  }
+
   onSubmit(isValid: boolean, servidor: Servidor): void {
     if (isValid) {
-      this.servidorService.save(servidor).subscribe(ok => {
-        console.log('save ok', ok);
+      this.servidorService.save(servidor).subscribe(success => {
+        this.closeModal();
+        this.messageService.sendSuccess({
+          summary: 'Sucesso',
+          detail: 'Perfil atualizado com sucesso.'
+        });
       });
     } else {
       markFormGroupDirty(this.profileForm);
@@ -103,10 +123,6 @@ export class ProfileModalComponent implements OnInit {
   setYearRange(): void {
     const currentYear: number = (new Date()).getFullYear();
     this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
-  }
-
-  getYearRange(): string {
-    return this.calendarYearRange;
   }
 
   ngOnDestroy() {

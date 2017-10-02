@@ -16,12 +16,17 @@ export class ServidorService {
 
   getAll(): Observable<Servidor[]> {
     return this.httpClientService.get('/servidores')
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => this.jsonToServidores(res.json() || []));
+  }
+
+  getByName(name: string): Observable<Servidor> {
+    return this.httpClientService.get(`/servidores/nome/${name}`)
+      .map((res: Response) => this.jsonToServidor(res.json() || {}));
   }
 
   getById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}`)
-      .map((res: Response) => res.json() || {});
+      .map((res: Response) => this.jsonToServidor(res.json() || {}));
   }
 
   delete(id: number): Observable<any> {
@@ -41,5 +46,19 @@ export class ServidorService {
   private update(servidor: Servidor): Observable<any> {
     return this.httpClientService.put(`/servidores/${servidor.id}`, servidor)
       .map((res: Response) => res.json());
+  }
+
+  private jsonToServidor(json: any): Servidor {
+    const servidor: Servidor = Object.assign(new Servidor(), json);
+    if (json.dataNascimento) {
+      servidor.dataNascimento = new Date(json.dataNascimento);
+    }
+    delete servidor['created_at'];
+    delete servidor['updated_at'];
+    return servidor;
+  }
+
+  private jsonToServidores(json: any[]): Servidor[] {
+    return json.map(obj => this.jsonToServidor(obj));
   }
 }
