@@ -20,7 +20,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="getYearRange()"></p-calendar>
+        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.dataNascimento.pristine || profileForm.controls.dataNascimento.valid">
           A data de nascimento é obrigatória.
         </small>
@@ -30,6 +30,9 @@
         <p-radioButton class="ui-g-4" name="sexo" value="M" label="Masculino" formControlName="sexo"></p-radioButton>
         <p-radioButton class="ui-g-4" name="sexo" value="F" label="Feminino" formControlName="sexo"></p-radioButton>
         <p-radioButton class="ui-g-4" name="sexo" value="O" label="Outro" formControlName="sexo"></p-radioButton>
+        <small class="validation-error-message" [hidden]="profileForm.controls.sexo.pristine || profileForm.controls.sexo.valid">
+          O sexo é obrigatório.
+        </small>
       </div>
     </div>
     <div class="ui-g">
@@ -52,11 +55,17 @@
       <div class="ui-g-6">
         <label class="form-label">Nacionalidade</label>
         <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nacionalidade"></p-dropdown>
+        <small class="validation-error-message" [hidden]="profileForm.controls.nacionalidade.pristine || profileForm.controls.nacionalidade.valid">
+          A nacionalidade é obrigatória.
+        </small>
       </div>
       <div class="ui-g-6">
         <div class="ui-g-4 no-vertical-padding">
           <label class="form-label">Estado</label>
           <p-dropdown [options]="states" [autoWidth]="false" formControlName="estado"></p-dropdown>
+          <small class="validation-error-message" [hidden]="profileForm.controls.estado.pristine || profileForm.controls.estado.valid">
+            O estado é obrigatório.
+          </small>
         </div>
         <div class="ui-g-8 no-vertical-padding">
           <label class="form-label">Cidade</label>
