@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SelectItem } from 'primeng/primeng';
 
 import { Cargo } from './cargo.model';
+import {CargoService} from './cargo.service'
 
 @Component({
   selector: 'uns-cargo-modal',
@@ -21,8 +22,8 @@ export class CargoModalComponent implements OnInit {
 
   cargoForm: FormGroup;
 
-  funcaoStatus: SelectItem[];
-  setorStatus: SelectItem[];
+  resultadoFuncoes: string[]; //resultado da pesquisa de funcoes
+  resultadoSetores: string[]; //resultado da pesquisa de setores
 
   routeParamsSubscription: Subscription;
 
@@ -30,6 +31,7 @@ export class CargoModalComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private cService: CargoService,
   ) { }
 
   ngOnInit() {
@@ -45,9 +47,8 @@ export class CargoModalComponent implements OnInit {
   }
 
   setupForm(): void {
-    this.setupDropdownOptions();
+    //this.setupDropdownOptions();
 
-    // this.cargoImageSource = '/assets/img/default-user-icon.png';
 
     this.cargoForm = this.formBuilder.group({
       funcao: ['', Validators.required],
@@ -56,15 +57,20 @@ export class CargoModalComponent implements OnInit {
       dataFim: [null, Validators.required],
     });
   }
+  
+  pesquisarFuncao(event) {
+    //this.resultadoFuncoes = this.cService.getAllFuncoesContains(funcao);
+    console.log('Buscando funções');
+    this.resultadoFuncoes = ['Funcao 1', 'Funcao 2'];
+}
 
-  setupDropdownOptions(): void {
-    this.funcaoStatus = [
-      { label: '  ---Escolha uma Função---  ', value: null },
-    ];
-    this.setorStatus = [
-      { label: '  ---Escolha um Setor---  ', value: null},
-    ];
-  }
+  pesquisarSetor(event) {
+    //this.resultadoSetores = this.cService.getAllSetoresContains(setor);
+    console.log('buscando setores');
+    this.resultadoSetores = ['Setor 1', 'Setor 2'];
+}
+
+
 
   onSubmit(isValid: boolean, cargo: Cargo): void {
     console.log('isValid', isValid);

@@ -14,6 +14,7 @@ import { CargoComponent } from './cargo/cargo.component';
 import { CargoModalComponent } from './cargo/cargo-modal.component';
 
 import { ServidorService } from './servidor.service';
+import { CargoService } from './cargo/cargo.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ServidorService } from './servidor.service';
   providers: [
     ServidorService,
     FormacaoAcademicaService,
+    CargoService,
   ],
 })
 export class ProfileModule { }

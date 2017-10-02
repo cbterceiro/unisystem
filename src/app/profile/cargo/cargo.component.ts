@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 
 import { CargoModalComponent } from './cargo-modal.component';
 
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import {DataListModule, SharedModule} from 'primeng/primeng';
+import {Cargo} from './cargo.model'
+
+import {CargoService} from './cargo.service'
 
 @Component({
   selector: 'uns-cargo',
@@ -16,8 +19,22 @@ export class CargoComponent implements OnInit {
 
   modalCargo: CargoModalComponent;
   exibeModalCargo: boolean = false;
+  
+  constructor(private cService: CargoService) { }
+  cargos : Cargo[];
+ 
+ /* 
+  this.CountryService.GetCountries()
+    .subscribe(countries => {
+        this.myGridOptions.rowData = countries as CountryData[]
+    })*/
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+    this.cService.getAllCargos().subscribe(c => { this.cargos = c as Cargo[];});
+    //this.cargos = 
+    
+  }
 
   addNewCargo(): void {
     console.log('modal: ' + this.exibeModalCargo + '  interno: ');

@@ -1,17 +1,22 @@
-<div class="card card-w-title">
+<div class="cargo card card-w-title">
   <h1>Cargo
 
-  <button type="button" style="float: right;" (click)="addNewCargo()" class="btn btn-primary" >Add</button>
+<div class="add-cargo-image-icon" (click)="addNewCargo()">
+        <fa name="plus"></fa>
+        <span>Adicionar</span>
+      </div>
+      
+  <!-- <button type="button" style="float: right;" (click)="addNewCargo()" class="btn btn-primary" >Add</button> -->
   </h1>
   <uns-cargo-modal [visible]="exibeModalCargo" (visibleChange)="exibeModalCargo=$event"></uns-cargo-modal>
 
-  <p-dataTable [value]="cars">
-    <p-column field="funcao" header="Função"></p-column>
-    <p-column field="setor" header="Setor"></p-column>
-    <p-column field="dataInicio" header="Data Início"></p-column>
-    <p-column field="dataFim" header="Data Fim"></p-column>
-    <p-column field="edit" header=""></p-column>
-    <p-column field="delete" header=""></p-column>
-</p-dataTable>
+
+<p-dataList [value]="cargos">
+   <!-- <p-header>Cargos</p-header> -->
+   <!-- <p-footer>Choose from the list.</p-footer> -->
+    <ng-template let-cargo pTemplate="item">
+        Car content
+    </ng-template>
+</p-dataList>
 
 </div>
