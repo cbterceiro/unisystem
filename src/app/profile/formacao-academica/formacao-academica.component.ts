@@ -1,9 +1,14 @@
+import { NgModule } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FormacaoAcademicaModalComponent } from './formacao-academica-modal.component';
+import { Observable } from 'rxjs/Observable';
 
 import {DataTableModule, SharedModule} from 'primeng/primeng';
+
+import { FormacaoAcademicaModalComponent } from './formacao-academica-modal.component';
+import { FormacaoAcademica } from './formacao-academica.model';
+import { FormacaoAcademicaService } from './formacao-academica.service';
 
 @Component({
   selector: 'uns-formacao-academica',
@@ -15,13 +20,25 @@ export class FormacaoAcademicaComponent implements OnInit {
   modalFormacao: FormacaoAcademicaModalComponent;
   exibeModalFormacao: boolean = false;
 
-  //constructor() { }
+  formacoesAcademicas: FormacaoAcademica[];
 
-  ngOnInit() { }
+  constructor(
+    private formacaAcademicaService: FormacaoAcademicaService,
+  ) { }
 
+  ngOnInit() {
+    this.formacaAcademicaService.getAll(1).subscribe(result => {
+      this.formacoesAcademicas = result as FormacaoAcademica[];
+    });
+
+    //for(var i = 0; i < this.formacoesAcademicas.length; i++){
+      //console.log(i + ': ' + this.formacoesAcademicas[i].instituicoes_academica_id);  
+      console.log( " " + this.formacoesAcademicas[0]);
+    //}
+
+  }
 
   showModalFormacao(): void {
     this.exibeModalFormacao = true;
-    console.log('modal: ' + this.exibeModalFormacao);
   }
 }

@@ -3,11 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
+import { markFormGroupDirty } from '../../shared/functions';
 
 import { SelectItem } from 'primeng/primeng';
 import {AutoCompleteModule} from 'primeng/primeng';
 
 import { FormacaoAcademica } from './formacao-academica.model';
+import { FormacaoAcademicaService } from './formacao-academica.service';
 
 @Component({
   selector: 'uns-formacao-academica-modal',
@@ -24,8 +26,9 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   nivel: SelectItem[];
   curso: SelectItem[];
-  entidadePesquisa: string;     //string para pesquisar as entidades
-  resultadoEntidades: string[]; //resultado da pesquisa de entidades
+  instituicoesAcademicas: SelectItem[];       //
+  nomeInstituicaoAcademica: string;           //string para pesquisar as instituicoes academicas
+  resultadoInstituicoesAcademicas: string[];  //resultado da pesquisa de instituicoes academicas
 
   routeParamsSubscription: Subscription;
 
@@ -33,6 +36,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private formacaAcademicaService: FormacaoAcademicaService,
   ) { }
 
   ngOnInit() {
@@ -49,51 +53,50 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   setupForm(): void {
     this.setupDropdownOptions();
 
-    // this.cargoImageSource = '/assets/img/default-user-icon.png';
-
     this.formacaoForm = this.formBuilder.group({
-      entidade: ['', Validators.required],
-      curso: ['', Validators.required],
+      id: [null],
+      curso: [null, Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
       nivel: [null, Validators.required],
+      servidore_id: [1, Validators.required], //todos os testes feitos com o servidor de id 1
+      instituicoes_academica_id: [null, Validators.required],
     });
   }
 
   setupDropdownOptions(): void {
     this.nivel = [
       { label: '  ---Nível do curso---  ', value: null },
+      { label: 'teste2', value: 2 },
     ];
     this.curso = [
       { label: '  ---Escolha um curso---  ', value: null},
+      { label: 'teste1', value: 1 },
     ];
   }
 
-  pesquisarEntidades(event) {
+  pesquisarInstituicoesAcademicas(event) {
     /*this.mylookupservice.getResults(event.query).then(data => {
         this.resultadoEntidades = data;
     });*/
-    console.log('buscando entidades');
-    this.resultadoEntidades = ['entidade 1', 'entidade 2'];
+    console.log('buscando entidades' , this.nomeInstituicaoAcademica);
+    this.resultadoInstituicoesAcademicas = ['1']; //único registro criado para teste, id = 1
+    
 }
 
-handleDropdown(event) {
-    //event.query = current value in input field
-}
-
-  onSubmit(isValid: boolean, formacao: FormacaoAcademica): void {
-    console.log('isValid', isValid);
-    console.log('formacao:', formacao);
+  onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
+    isValid = true; //passou por todas as validações
     if (isValid) {
-
+      this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
+        console.log('salvando', ok);
+      });
+    } else{
+      markFormGroupDirty(this.formacaoForm);
     }
   }
 
   closeModal(): void {
     this.visible = false;
     this.visibleChange.emit(this.visible);
-    console.log('close formacao');
-    // Navega para a rota atual apenas alterando o parâmetro de exibição
-    // this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute })
   }
 }

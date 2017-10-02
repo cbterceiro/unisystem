@@ -3,18 +3,20 @@
 <form [formGroup]="formacaoForm" class="ui-fluid" (submit)="onSubmit(formacaoForm.isValid, formacaoForm.value)">
   <div class="ui-g">
     <div class="ui-g-6">
-      <label class="form-label">Entidade</label>
-      <p-autoComplete [(ngModel)]="text" [suggestions]="resultadoEntidades" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade" [dropdown]="true"></p-autoComplete>
+      <label class="form-label">Instituição Acadêmica</label>
+      <p-autoComplete [(ngModel)]="nomeInstituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" 
+      (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicoes_academica_id" [dropdown]="true" 
+      [minLength]="3" (onDropdownClick)="pesquisarInstituicoesAcademicas($event)"></p-autoComplete>
       <!--<p-dropdown [options]="entidade" [autoWidth]="false" formControlName="entidade"></p-dropdown>-->
-      <small class="validation-error-message" [hidden]="formacaoForm.controls.entidade.pristine || formacaoForm.controls.entidade.valid">
-        A entidade é obrigatória.
+      <small class="validation-error-message" [hidden]="formacaoForm.controls.instituicoes_academica_id.pristine || formacaoForm.controls.instituicoes_academica_id.valid">
+        A instituição acadêmica é um campo obrigatório.
       </small>
     </div>
     <div class="ui-g-6">
       <label class="form-label">Curso</label>
       <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
-          A modalidade é obrigatória.
+          O curso é um campo é obrigatório.
         </small>
     </div>
   </div>
@@ -23,26 +25,28 @@
       <label class="form-label">Data de Início</label>
       <p-calendar br-locale formControlName="dataInicio" [showIcon]="true"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataInicio.pristine || formacaoForm.controls.dataInicio.valid">
-        A data de início é obrigatória.
+        A data de início é um campo obrigatório.
       </small>
     </div>
     <div class="ui-g-6">
       <label class="form-label">Data de Término</label>
       <p-calendar br-locale formControlName="dataFim" [showIcon]="true"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataFim.pristine || formacaoForm.controls.dataFim.valid">
-          A data de término é obrigatória.
+          A data de término é um campo obrigatório.
         </small>
     </div>
   </div>
   <div class="ui-g">
   <div class="ui-g-4">
         <label class="form-label">Nível</label>
-        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="curso"></p-dropdown>
+        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="nivel"></p-dropdown>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.nivel.pristine || formacaoForm.controls.nivel.valid">
-          Nível é obrigatório.
+          Nível é um campo obrigatório.
         </small>
       </div>
     </div>
+    <input formControlName="servidore_id" type="text" hidden="true" pInputText>
+    <!--<input formControlName="id" type="text" pInputText>-->
   <div class="ui-g">
     <div class="ui-g-12">
       <button pButton type="submit" label="Salvar"></button>
