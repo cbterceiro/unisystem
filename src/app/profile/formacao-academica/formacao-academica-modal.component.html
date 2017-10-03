@@ -2,7 +2,7 @@
 (onHide)="closeModal()">
 <form [formGroup]="formacaoForm" class="ui-fluid" (submit)="onSubmit(formacaoForm.isValid, formacaoForm.value)">
   <div class="ui-g">
-    <div class="ui-g-6">
+    <div class="ui-g-12">
       <label class="form-label">Instituição Acadêmica</label>
       <p-autoComplete [(ngModel)]="instituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" field="nome"
       (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicoes_academica_id" [dropdown]="true" 
@@ -12,14 +12,23 @@
         A instituição acadêmica é um campo obrigatório.
       </small>
     </div>
-    <div class="ui-g-6">
-      <label class="form-label">Curso</label>
-      <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown>
-      <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
-          O curso é um campo é obrigatório.
-        </small>
-    </div>
   </div>
+  <div class="ui-g">
+      <div class="ui-g-6">
+          <label class="form-label">Curso</label>
+          <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown>
+          <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
+              O curso é um campo é obrigatório.
+            </small>
+        </div>
+    <div class="ui-g-6">
+        <label class="form-label">Nível</label>
+        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="nivel"></p-dropdown>
+        <small class="validation-error-message" [hidden]="formacaoForm.controls.nivel.pristine || formacaoForm.controls.nivel.valid">
+          Nível é um campo obrigatório.
+        </small>
+      </div>
+    </div>
   <div class="ui-g">
     <div class="ui-g-6">
       <label class="form-label">Data de Início</label>
@@ -36,20 +45,11 @@
         </small>
     </div>
   </div>
-  <div class="ui-g">
-  <div class="ui-g-4">
-        <label class="form-label">Nível</label>
-        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="nivel"></p-dropdown>
-        <small class="validation-error-message" [hidden]="formacaoForm.controls.nivel.pristine || formacaoForm.controls.nivel.valid">
-          Nível é um campo obrigatório.
-        </small>
-      </div>
-    </div>
     <input formControlName="servidore_id" type="text" hidden="true" pInputText>
     <!--<input formControlName="id" type="text" pInputText>-->
   <div class="ui-g">
     <div class="ui-g-12">
-      <button pButton type="submit" label="Salvar"></button>
+      <button pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid"></button>
     </div>
   </div>
 </form>

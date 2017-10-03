@@ -27,13 +27,31 @@ export class FormacaoAcademicaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.fetchFormacoesAcademicas();
+  }
+
+  fetchFormacoesAcademicas(): void{
     this.formacaAcademicaService.getAll(1).subscribe(result => { 
       this.formacoesAcademicas = result as FormacaoAcademica[];
       for(var i = 0; i < this.formacoesAcademicas.length; i++){
-        console.log(i + ': ' + this.formacoesAcademicas[i].dataFim);  
       }
     });
-  }  
+  }
+  
+  deletarFormacao(id: number): void {
+    console.log("deletando id: " + id);
+    this.formacaAcademicaService.delete(id).subscribe(success => {
+      /*this.messageService.sendSuccess({
+          summary: 'Sucesso',
+          detail: 'Perfil atualizado com sucesso.'
+        });*/
+        console.log("deletado!!");
+      });
+  }
+
+  editarFormacao(): void {
+    console.log("editando");
+  }
 
   showModalFormacao(): void {
     this.exibeModalFormacao = true;

@@ -80,22 +80,20 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   pesquisarInstituicoesAcademicas(event) {
     console.log('buscando instituições' , this.instituicaoAcademica.nome); //único registro criado para teste, id = 1
-    //this.resultadoInstituicoesAcademicas = ['1'];
-    /*this.resultadoInstituicoesAcademicas = [
-      { nome: 'Universidade Vila Velha', value: 1 }
-    ];*/
     this.formacaAcademicaService.searchInstituicao(event.query).subscribe(result => {
       this.resultadoInstituicoesAcademicas = result as InstituicaoAcademica[];});
   }
 
   onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
-    console.log(formacaoAcademica);
     isValid = true; //passou por todas as validações
     if (isValid) {
       formacaoAcademica.instituicoes_academica_id = formacaoAcademica.instituicoes_academica_id['id'];
-      this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
-        console.log('salvando', ok);
+      this.formacaAcademicaService.save(formacaoAcademica).subscribe(success => {
         this.closeModal();
+        /*this.messageService.sendSuccess({
+          summary: 'Sucesso',
+          detail: 'Perfil atualizado com sucesso.'
+        });*/
       });
     } else{
       markFormGroupDirty(this.formacaoForm);
