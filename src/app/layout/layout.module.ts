@@ -9,6 +9,7 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { LeftPanelProfileComponent } from './left-panel/left-panel-profile.component';
 import { RightPanelComponent } from './right-panel/right-panel.component';
 import { DashboardComponent } from './dashboard.component';
+import {NoticiaService} from "./right-panel/noticia.service";
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { DashboardComponent } from './dashboard.component';
     RightPanelComponent,
     DashboardComponent,
   ],
-  providers: [],
+  providers: [NoticiaService],
 })
 export class LayoutModule {
 
