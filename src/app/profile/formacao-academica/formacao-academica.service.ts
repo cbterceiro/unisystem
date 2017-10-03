@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClientService } from '../../core';
 
 import { FormacaoAcademica } from './formacao-academica.model';
+import { InstituicaoAcademica } from './instituicao-academica.model';
 
 @Injectable()
 export class FormacaoAcademicaService {
@@ -21,6 +22,11 @@ export class FormacaoAcademicaService {
 
   getById(id: number): Observable<FormacaoAcademica> {
     return this.httpClientService.get(`/formacaoacademica/${id}`)
+      .map((res: Response) => res.json() || {});
+  }
+
+  searchInstituicao(nome: string): Observable<InstituicaoAcademica[]> {
+    return this.httpClientService.get(`/instituicoes-academicas/nome/${nome}`)
       .map((res: Response) => res.json() || {});
   }
 
