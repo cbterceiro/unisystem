@@ -10,6 +10,7 @@ import {AutoCompleteModule} from 'primeng/primeng';
 
 import { FormacaoAcademica } from './formacao-academica.model';
 import { FormacaoAcademicaService } from './formacao-academica.service';
+import { InstituicaoAcademica } from './instituicao-academica.model';
 
 @Component({
   selector: 'uns-formacao-academica-modal',
@@ -27,8 +28,9 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   nivel: SelectItem[];
   curso: SelectItem[];
   instituicoesAcademicas: SelectItem[];       //
-  nomeInstituicaoAcademica: string;           //string para pesquisar as instituicoes academicas
-  resultadoInstituicoesAcademicas: string[];  //resultado da pesquisa de instituicoes academicas
+  //nomeInstituicaoAcademica: string;           //string para pesquisar as instituicoes academicas
+  instituicaoAcademica: InstituicaoAcademica;  //resultado da pesquisa de instituicoes academicas
+  resultadoInstituicoesAcademicas: InstituicaoAcademica[];  //resultado da pesquisa de instituicoes academicas
 
   routeParamsSubscription: Subscription;
 
@@ -77,11 +79,13 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   }
 
   pesquisarInstituicoesAcademicas(event) {
-    console.log('buscando instituições' , this.nomeInstituicaoAcademica); //único registro criado para teste, id = 1
-    this.resultadoInstituicoesAcademicas = ['1']; 
+    console.log('buscando instituições' , this.instituicaoAcademica.nome); //único registro criado para teste, id = 1
+    //this.resultadoInstituicoesAcademicas = ['1']; 
     /*this.resultadoInstituicoesAcademicas = [
       { nome: 'Universidade Vila Velha', value: 1 }
     ];*/
+    this.formacaAcademicaService.searchInstituicao(event.query).subscribe(result => { 
+      this.resultadoInstituicoesAcademicas = result as InstituicaoAcademica[];});
 }
 
   onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {

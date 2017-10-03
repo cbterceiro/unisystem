@@ -4,7 +4,7 @@
   <div class="ui-g">
     <div class="ui-g-6">
       <label class="form-label">Instituição Acadêmica</label>
-      <p-autoComplete [(ngModel)]="nomeInstituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" 
+      <p-autoComplete [(ngModel)]="instituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" field="nome"
       (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicoes_academica_id" [dropdown]="true" 
       [minLength]="3" (onDropdownClick)="pesquisarInstituicoesAcademicas($event)"></p-autoComplete>
       <!--<p-dropdown [options]="entidade" [autoWidth]="false" formControlName="entidade"></p-dropdown>-->
