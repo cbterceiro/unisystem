@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'https://unisystem-backend-supramati.c9users.io/',
+  backendServerPath: 'http://uni-back-slayper.c9users.io:8080/',
 };

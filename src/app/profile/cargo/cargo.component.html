@@ -8,15 +8,35 @@
       
   <!-- <button type="button" style="float: right;" (click)="addNewCargo()" class="btn btn-primary" >Add</button> -->
   </h1>
-  <uns-cargo-modal [visible]="exibeModalCargo" (visibleChange)="exibeModalCargo=$event"></uns-cargo-modal>
+  <uns-cargo-modal  [visible]="exibeModalCargo" [cargoEdit]="objToEdit" (visibleChange)="exibeModalCargo=$event; this.atualizaForm();"></uns-cargo-modal>
 
-
+<!--
 <p-dataList [value]="cargos">
-   <!-- <p-header>Cargos</p-header> -->
-   <!-- <p-footer>Choose from the list.</p-footer> -->
     <ng-template let-cargo pTemplate="item">
-        Car content
+
+      <p>Cargo: {{cargo.nome}}</p>
+      <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <hr style="width: 100%;">
     </ng-template>
-</p-dataList>
+</p-dataList> -->
+
+<div *ngFor="let cargo of cargos" class="cargo">
+      <hr class="hr">
+      <div class="edit-cargo-image-icon" (click)="editarcargo(cargo)">
+            <fa name="pencil"></fa>
+      </div>
+      
+      <h3>{{cargo.nome}}</h3>
+      
+            <div class="delete-cargo-image-icon" (click)="deletarcargo(cargo.id)">
+            <fa name="trash"></fa>
+      </div>
+      
+      <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
+      
+
+
+      <!--<p>Nível: {{cargo.nivel}}</p>-->
+</div>
 
 </div>

@@ -19,6 +19,7 @@ export class CargoComponent implements OnInit {
 
   modalCargo: CargoModalComponent;
   exibeModalCargo: boolean = false;
+  objToEdit: Cargo;
   
   constructor(private cService: CargoService) { }
   cargos : Cargo[];
@@ -31,15 +32,43 @@ export class CargoComponent implements OnInit {
 
   ngOnInit() {
     
-    this.cService.getAllCargos().subscribe(c => { this.cargos = c as Cargo[];});
+    this.atualizaForm();
     //this.cargos = 
     
+  }
+  
+  atualizaForm(): void
+  {
+    this.cService.getAllCargosFromId(1).subscribe(c => { 
+      this.cargos = c as Cargo[];
+      console.log("Cargos:");
+      console.log(this.cargos);
+    });
   }
 
   addNewCargo(): void {
     console.log('modal: ' + this.exibeModalCargo + '  interno: ');
-    // this.router.navigate(['/prifle/cargo', { show: true }], { skipLocationChange: true });
+  this.objToEdit = null;
     this.exibeModalCargo = true;
+
+  }
+  
+    editarcargo(cargo : Cargo): void {
+    console.log('editando cargo ');
+    this.objToEdit = cargo;
+    //this.modalCargo.setupForm();
+    //this.modalCargo.setupForm();
+    
+    this.exibeModalCargo = true;
+
+  }
+  
+    deletarcargo(id : number): void {
+    console.log('deletando cargo id ' + id);
+    this.cService.delete(id).subscribe(ok => { 
+      console.log("Sucesso ao deletar:" + ok);
+      this.atualizaForm();
+    });
 
   }
 

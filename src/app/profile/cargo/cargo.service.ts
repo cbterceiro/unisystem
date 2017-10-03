@@ -16,13 +16,14 @@ export class CargoService {
     private httpClientService: HttpClientService,
   ) { }
 
-  getAllCargos(): Observable<Cargo[]> {
-    return this.httpClientService.get('/cargo')
+
+  getAllCargosFromId(id: number): Observable<Cargo[]> {
+    return this.httpClientService.get(`/servidores/${id}/cargo`)
       .map((res: Response) => res.json() || []);
   }
   
     getAllFuncoes(): Observable<Funcao[]> {
-    return this.httpClientService.get('/funcao')
+    return this.httpClientService.get('/cargo')
       .map((res: Response) => res.json() || []);
   }
   
@@ -42,6 +43,26 @@ export class CargoService {
      // .map((res: Response) => res.json() || []);
      return new Observable<Setor[]>();
   }
+   
+  saveCargo(cargo: Cargo): Observable<any> {
+    return cargo.id ? this.updateCargo(cargo) : this.create(cargo);
+  }
+  
+    private updateCargo(cargo: Cargo): Observable<any> {
+    return this.httpClientService.put(`/cargo/${cargo.id}`, cargo)
+      .map((res: Response) => res.json());
+  }
+  
+    private create(cargo: Cargo): Observable<any> {
+    return this.httpClientService.post('/cargo', cargo)
+      .map((res: Response) => res.json());
+  }
+  
+  delete(id: number): Observable<any> {
+    return this.httpClientService.delete(`/cargo/${id}`)
+      .map((res: Response) => res.json() || {});
+  }
+  
 /*
   getById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}`)
@@ -53,9 +74,7 @@ export class CargoService {
       .map((res: Response) => res.json() || {});
   }
 
-  save(servidor: Servidor): Observable<any> {
-    return servidor.id ? this.update(servidor) : this.create(servidor);
-  }
+  
 
   private create(servidor: Servidor): Observable<any> {
     return this.httpClientService.post('/servidores', servidor)

@@ -4,7 +4,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Função</label>
-        <p-autoComplete [(ngModel)]="funcao" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarFuncao($event)" formControlName="funcao" [dropdown]="true"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="nomeFuncao" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarFuncao($event)" formControlName="funcao" [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.funcao.pristine || cargoForm.controls.funcao.valid">
           A função é obrigatória.
         </small>
@@ -20,14 +20,14 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Início</label>
-        <p-calendar br-locale formControlName="dataInicio" [showIcon]="true"></p-calendar>
+        <p-calendar br-locale formControlName="dataInicio" [(ngModel)]="dataInicio" [dateFormat]="yyyy-mm-dd" [showIcon]="true"></p-calendar>
         <small class="validation-error-message" [hidden]="cargoForm.controls.dataInicio.pristine || cargoForm.controls.dataInicio.valid">
           A data de nascimento é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar br-locale formControlName="dataFim" [showIcon]="true"></p-calendar>
+        <p-calendar br-locale formControlName="dataFim" [(ngModel)]="dataFim"  [showIcon]="true"></p-calendar>
         <small class="validation-error-message" [hidden]="cargoForm.controls.dataFim.pristine || cargoForm.controls.dataFim.valid">
             O setor obrigatório.
           </small>
