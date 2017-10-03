@@ -1,0 +1,52 @@
+<p-dialog header="Adicionar Capacitação" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
+(onHide)="closeModal()">
+<form [formGroup]="capacitacaoForm" class="ui-fluid" (submit)="onSubmit(capacitacaoForm.isValid, capacitacaoForm.value)">
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <label class="form-label">Entidade</label>
+      <p-autoComplete [(ngModel)]="text" [suggestions]="resultadoEntidades" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade" [dropdown]="true"></p-autoComplete>
+      <!--<p-dropdown [options]="entidade" [autoWidth]="false" formControlName="entidade"></p-dropdown>-->
+      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.entidade.pristine || capacitacaoForm.controls.entidade.valid">
+        A entidade é obrigatória.
+      </small>
+    </div>
+    <div class="ui-g-6">
+      <label class="form-label">Curso</label>
+      <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown>
+      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.curso.pristine || capacitacaoForm.controls.curso.valid">
+          A modalidade é obrigatória.
+        </small>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <label class="form-label">Data de Início</label>
+      <p-calendar br-locale formControlName="dataInicio" [showIcon]="true"></p-calendar>
+      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataInicio.pristine || capacitacaoForm.controls.dataInicio.valid">
+        A data de início é obrigatória.
+      </small>
+    </div>
+    <div class="ui-g-6">
+      <label class="form-label">Data de Término</label>
+      <p-calendar br-locale formControlName="dataFim" [showIcon]="true"></p-calendar>
+      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataFim.pristine || capacitacaoForm.controls.dataFim.valid">
+          A data de término é obrigatória.
+        </small>
+    </div>
+  </div>
+  <div class="ui-g">
+  <div class="ui-g-4">
+        <label class="form-label">Nível</label>
+        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="curso"></p-dropdown>
+        <small class="validation-error-message" [hidden]="capacitacaoForm.controls.nivel.pristine || capacitacaoForm.controls.nivel.valid">
+          Nível é obrigatório.
+        </small>
+      </div>
+    </div>
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Salvar"></button>
+    </div>
+  </div>
+</form>
+</p-dialog>

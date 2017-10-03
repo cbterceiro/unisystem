@@ -16,6 +16,9 @@ import { CargoModalComponent } from './cargo/cargo-modal.component';
 import { ServidorService } from './servidor.service';
 import { CargoService } from './cargo/cargo.service';
 
+import { CapacitacaoComponent } from './capacitacao/capacitacao.component';
+import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.component';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -28,6 +31,8 @@ import { CargoService } from './cargo/cargo.service';
     CargoModalComponent,
     FormacaoAcademicaComponent,
     FormacaoAcademicaModalComponent,
+    CapacitacaoComponent,
+    CapacitacaoModalComponent,
   ],
   providers: [
     ServidorService,
