@@ -11,9 +11,9 @@
       </small>
     </div>
     <div class="ui-g-6">
-      <label class="form-label">Curso</label>
-      <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown>
-      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.curso.pristine || capacitacaoForm.controls.curso.valid">
+      <label class="form-label">Modalidade</label>
+      <input formControlName="modalidade" type="text" pInputText>
+      <small class="validation-error-message" [hidden]="capacitacaoForm.controls.modalidade.pristine || capacitacaoForm.controls.modalidade.valid">
           A modalidade é obrigatória.
         </small>
     </div>
@@ -36,10 +36,10 @@
   </div>
   <div class="ui-g">
   <div class="ui-g-4">
-        <label class="form-label">Nível</label>
-        <p-dropdown [options]="nivel" [autoWidth]="false" formControlName="curso"></p-dropdown>
-        <small class="validation-error-message" [hidden]="capacitacaoForm.controls.nivel.pristine || capacitacaoForm.controls.nivel.valid">
-          Nível é obrigatório.
+        <label class="form-label">Carga Horaria</label> 
+        <input formControlName="cargaHoraria" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="capacitacaoForm.controls.cargaHoraria.pristine || capacitacaoForm.controls.cargaHoraria.valid">
+          Carga Horaria é obrigatório.
         </small>
       </div>
     </div>

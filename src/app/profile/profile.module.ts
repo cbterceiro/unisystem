@@ -18,6 +18,7 @@ import { CargoService } from './cargo/cargo.service';
 
 import { CapacitacaoComponent } from './capacitacao/capacitacao.component';
 import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.component';
+import { CapacitacaoService } from './capacitacao/capacitacao.service';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.compo
     CapacitacaoModalComponent,
   ],
   providers: [
+    CapacitacaoService,
     ServidorService,
     FormacaoAcademicaService,
     CargoService,

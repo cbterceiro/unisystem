@@ -8,6 +8,9 @@ import { SelectItem } from 'primeng/primeng';
 import {AutoCompleteModule} from 'primeng/primeng';
 
 import { Capacitacao } from './capacitacao.model';
+import { CapacitacaoService } from './capacitacao.service'
+
+import { markFormGroupDirty } from '../../shared/functions';
 
 @Component({
   selector: 'uns-capacitacao-modal',
@@ -22,14 +25,17 @@ export class CapacitacaoModalComponent implements OnInit {
 
   capacitacaoForm: FormGroup;
 
-  nivel: SelectItem[];
-  curso: SelectItem[];
+  
+  entidade: Capacitacao;
+  cargaHoraria: SelectItem[];
+  modalidade: SelectItem[];
   entidadePesquisa: string;     //string para pesquisar as entidades
   resultadoEntidades: string[]; //resultado da pesquisa de entidades
 
   routeParamsSubscription: Subscription;
 
   constructor(
+    private capacitacaoService: CapacitacaoService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -53,19 +59,17 @@ export class CapacitacaoModalComponent implements OnInit {
 
     this.capacitacaoForm = this.formBuilder.group({
       entidade: ['', Validators.required],
-      curso: ['', Validators.required],
+      modalidade: ['', Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
-      nivel: [null, Validators.required],
+      cargaHoraria: [null, Validators.required],
+      servidore_id: [1, Validators.required],
     });
   }
 
   setupDropdownOptions(): void {
-    this.nivel = [
-      { label: '  ---Nível do curso---  ', value: null },
-    ];
-    this.curso = [
-      { label: '  ---Escolha um curso---  ', value: null},
+    this.modalidade = [
+      { label: '  ---Escolha uma modalidade---  ', value: null},
     ];
   }
 
@@ -74,7 +78,7 @@ export class CapacitacaoModalComponent implements OnInit {
         this.resultadoEntidades = data;
     });*/
     console.log('buscando entidades');
-    this.resultadoEntidades = ['entidade 1', 'entidade 2'];
+    this.resultadoEntidades = ['UVV', 'MICROCAMP'];
 }
 
 handleDropdown(event) {
@@ -82,10 +86,19 @@ handleDropdown(event) {
 }
 
   onSubmit(isValid: boolean, capacitacao: Capacitacao): void {
-    console.log('isValid', isValid);
-    console.log('capacitacao:', capacitacao);
+    console.log(Capacitacao);
+    isValid = true; //passou por todas as validações
     if (isValid) {
-
+        this.capacitacaoService.save(capacitacao).subscribe(ok => {
+        console.log('salvando', ok);
+        this.closeModal();
+        /*this.messageService.sendSuccess({
+          summary: 'Sucesso',
+          detail: 'Perfil atualizado com sucesso.'
+        });*/
+      });
+    } else{
+      markFormGroupDirty(this.capacitacaoForm);
     }
   }
 
@@ -96,4 +109,14 @@ handleDropdown(event) {
     // Navega para a rota atual apenas alterando o parâmetro de exibição
     // this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute })
   }
+
+  // pesquisarInstituicoesAcademicas(event) {
+  //   console.log('buscando instituições' , this.instituicaoAcademica.nome); //único registro criado para teste, id = 1
+  //   //this.resultadoInstituicoesAcademicas = ['1'];
+  //   /*this.resultadoInstituicoesAcademicas = [
+  //     { nome: 'Universidade Vila Velha', value: 1 }
+  //   ];*/
+  //   this.CapacitacaoService.searchInstituicao(event.query).subscribe(result => {
+  //     this.resultadoInstituicoesAcademicas = result as InstituicaoAcademica[];});
+  // }
 }

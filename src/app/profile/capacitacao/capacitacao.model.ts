@@ -1,7 +1,9 @@
 export class Capacitacao {
+    id: number;
     entidade: string;
-    curso: string;
+    modalidade: string;
     dataInicio: Date;
     dataFim: Date;
-    nivel: string;
+    cargaHoraria: string;
+    servidore_id: number;
   }

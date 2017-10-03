@@ -8,14 +8,21 @@
 
   <h1>Capacitação</h1>
 
-  <p-dataTable [value]="capacitacao">
-      <p-column field="entidade" header="Entidade"></p-column>
-      <p-column field="curso" header="Curso"></p-column>
-      <p-column field="nivel" header="Nível"></p-column>
-      <p-column field="dataInicio" header="Data Início"></p-column>
-      <p-column field="dataFim" header="Data Término"></p-column>
-      <p-column field="edit" header=""></p-column>
-      <p-column field="delete" header=""></p-column>
-  </p-dataTable>
+      <div class="formacoes">
+    <div *ngFor="let capacitacao of capacitacaoList" class="formacao">
+      <hr class="formacaohr">
+      <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+            <fa name="pencil"></fa>
+      </div>
+      <h4>{{capacitacao.entidade}}</h4>
+      <div class="delete-formacao-image-icon" (click)="deletarCapacitacao(capacitacao.id)">
+            <fa name="trash"></fa>
+      </div>
+      <p>{{capacitacao.modalidade}}</p>
+      <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
+    </div>
+</div>
+
 </div>
 
