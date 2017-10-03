@@ -1,5 +1,57 @@
+<p-overlayPanel #op>
+  <div class="ui-g ui-fluid search-overlay">
+    <div class="ui-g-12">
+      <h1>Pesquisar talentos</h1>
+      <hr class="style1">
+    </div>
+
+    <div class="ui-g-6">
+      <label class="form-label">Nome Completo</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-6">
+      <label class="form-label">Instituição</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-6">
+      <label class="form-label">Cargo</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-6">
+      <label class="form-label">Setor</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-6">
+      <label class="form-label">Area de interesse</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-12">
+      <div class="ui-g-7"></div>
+
+      <span class="ui-g-2">
+        <button pButton type="button" class="ui-button-secondary" icon="fa-eraser"></button>
+      </span>
+
+      <span class="ui-g-3">
+        <button pButton type="button" label="Pesquisar"></button>
+      </span>
+    </div>
+  </div>
+</p-overlayPanel>
+
 <div class="topbar">
   <div class="topbar-content wrapper">
     <span>Topbar</span>
+    <div class="search-area">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText placeholder="encontrar" (focus)="op.show($event)">
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>
+      </div>
+    </div>
   </div>
 </div>

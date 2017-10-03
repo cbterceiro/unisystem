@@ -1,3 +1,11 @@
 <div class="card" *ngFor="let new of news">
-  {{ new.name }}
+  <a href="{{new.link}}" target="_blank">
+    <img src="{{new.imgSrc}}" alt="{{new.conteudo}}" title="{{new.conteudo}}" />
+    <p>{{ new.titulo}}</p>
+  </a>
+  <span class="date">{{new.data}}</span>
 </div>
+
+<a href="https://esesp.es.gov.br/Noticias?page=2" target="_blank">
+  <button class="readmore" pButton type="button" label="veja mais"></button>
+</a>

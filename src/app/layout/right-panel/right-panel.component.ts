@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Noticia } from './noticia.model';
+import { NoticiaService} from "./noticia.service";
 
 @Component({
   selector: 'uns-right-panel',
   templateUrl: 'right-panel.component.html',
   styleUrls: ['right-panel.component.css']
 })
+
 export class RightPanelComponent implements OnInit {
 
-  news: any[];
+  news: Noticia[];
 
-  constructor() { }
+  constructor(private noticiaService: NoticiaService) { }
 
   ngOnInit() {
-    this.news = [
-      { name: 'Notícia 1' },
-      { name: 'Notícia 2' },
-      { name: 'Notícia 3' },
-      { name: 'Notícia 4' },
-    ];
+    this.noticiaService.getNoticias().subscribe(result => {
+      this.news = result as Noticia[];
+    });
   }
 }
