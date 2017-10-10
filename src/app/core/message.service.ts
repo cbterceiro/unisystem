@@ -17,21 +17,25 @@ export class MessageService {
 
   sendSuccess(message: Message): void {
     message.severity = 'success';
+    message.summary = message.summary || 'Sucesso';
     this.send(message);
   }
 
   sendInfo(message: Message): void {
     message.severity = 'info';
+    message.summary = message.summary || 'Atenção';
     this.send(message);
   }
 
   sendWarn(message: Message): void {
     message.severity = 'warn';
+    message.summary = message.summary || 'Atenção';
     this.send(message);
   }
 
   sendError(message: Message): void {
     message.severity = 'error';
+    message.summary = message.summary || 'Erro';
     this.send(message);
   }
 

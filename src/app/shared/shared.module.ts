@@ -7,10 +7,15 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { PrimeNgModule } from './primeng/primeng.module';
 
 import { CalendarBRLocaleDirective } from './calendar-br-locale.directive';
+import { SpinnerComponent } from './spinner.component';
 
 @NgModule({
+  imports: [
+    CommonModule,
+  ],
   declarations: [
     CalendarBRLocaleDirective,
+    SpinnerComponent,
   ],
   exports: [
     CommonModule,
@@ -19,6 +24,7 @@ import { CalendarBRLocaleDirective } from './calendar-br-locale.directive';
     PrimeNgModule,
     Angular2FontawesomeModule,
     CalendarBRLocaleDirective,
+    SpinnerComponent,
   ]
   //providers: [ NÃO CRIE PROVIDERS AQUI ]
 

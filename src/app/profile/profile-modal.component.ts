@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -29,6 +29,10 @@ export class ProfileModalComponent implements OnInit {
   nationalities: SelectItem[];
   states: SelectItem[];
   calendarYearRange: string;
+  today: Date = new Date();
+
+  dialogElement: HTMLElement;
+  dialogElementHeight: number;
 
   routeParamsSubscription: Subscription;
 
@@ -39,6 +43,8 @@ export class ProfileModalComponent implements OnInit {
     private servidorService: ServidorService,
     private sessionService: SessionService,
     private messageService: MessageService,
+    private domHandler: DomHandler,
+    private el: ElementRef,
   ) { }
 
   ngOnInit() {
@@ -100,6 +106,10 @@ export class ProfileModalComponent implements OnInit {
     }
   }
 
+  changePicture(): void {
+
+  }
+
   onSubmit(isValid: boolean, servidor: Servidor): void {
     if (isValid) {
       this.servidorService.save(servidor).subscribe(success => {
@@ -123,6 +133,18 @@ export class ProfileModalComponent implements OnInit {
   setYearRange(): void {
     const currentYear: number = (new Date()).getFullYear();
     this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
+  }
+
+  getContentStyle(): { [cssProperty: string]: string } {
+    this.dialogElement = this.dialogElement || this.domHandler.findSingle(this.el.nativeElement, '.ui-dialog');
+    if (this.dialogElement) {
+      this.dialogElementHeight = this.dialogElementHeight || this.domHandler.getHiddenElementOuterHeight(this.dialogElement);
+      const fullHeight: number = this.domHandler.getViewport().height;
+      if (fullHeight <= this.dialogElementHeight) {
+        return { 'overflow-y': 'scroll' };
+      }
+    }
+    return { overflow: 'visible', height: 'auto' };
   }
 
   ngOnDestroy() {

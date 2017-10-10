@@ -1,12 +1,13 @@
 <uns-topbar></uns-topbar>
 
 <div class="wrapper main-wrapper">
+  <p-growl [(value)]="msgs" [sticky]="true"></p-growl>
+
   <div class="left-panel">
     <uns-left-panel></uns-left-panel>
   </div>
 
   <div class="content">
-    <p-growl [(value)]="msgs"></p-growl>
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>
