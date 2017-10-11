@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
-import {DataListModule, SharedModule} from 'primeng/primeng';
+import {DataListModule, SharedModule, ConfirmDialogModule,ConfirmationService, FieldsetModule} from 'primeng/primeng';
 
 import { FormacaoAcademicaModalComponent } from './formacao-academica-modal.component';
 import { FormacaoAcademica } from './formacao-academica.model';
@@ -24,6 +24,7 @@ export class FormacaoAcademicaComponent implements OnInit {
 
   constructor(
     private formacaAcademicaService: FormacaoAcademicaService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   ngOnInit() {
@@ -33,20 +34,27 @@ export class FormacaoAcademicaComponent implements OnInit {
   fetchFormacoesAcademicas(): void{
     this.formacaAcademicaService.getAll(1).subscribe(result => { 
       this.formacoesAcademicas = result as FormacaoAcademica[];
-      for(var i = 0; i < this.formacoesAcademicas.length; i++){
-      }
     });
   }
   
   deletarFormacao(id: number): void {
-    console.log("deletando id: " + id);
-    this.formacaAcademicaService.delete(id).subscribe(success => {
-      /*this.messageService.sendSuccess({
-          summary: 'Sucesso',
-          detail: 'Perfil atualizado com sucesso.'
-        });*/
-        console.log("deletado!!");
-      });
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      accept: () => {
+        this.formacaAcademicaService.delete(id).subscribe(success => {
+          /*this.messageService.sendSuccess({
+              summary: 'Sucesso',
+              detail: 'Perfil atualizado com sucesso.'
+            });*/
+            console.log("deletado!!");
+            this.fetchFormacoesAcademicas();
+          });
+      },
+      reject: () => {
+        console.log("não deletar");
+          // logic to cancel a confirmation
+      }
+    });
   }
 
   editarFormacao(): void {

@@ -3,37 +3,25 @@
         <fa name="plus"></fa>
         <span>Adicionar</span>
     </div>
-
-      <uns-formacao-academica-modal [visible]="exibeModalFormacao" (visibleChange)="exibeModalFormacao=$event"></uns-formacao-academica-modal>
-
+    <uns-formacao-academica-modal [visible]="exibeModalFormacao" (visibleChange)="exibeModalFormacao=$event"></uns-formacao-academica-modal>
   <h1>Formação Acadêmica</h1>
-  
-<!--
-  <p-dataList [value]="formacoesAcademicas">
-     <option ng-repeat="formacao in formacoesAcademicas" value="{{}}"></option>-->
-     <!--<ng-template let-formacao pTemplate="item">
-        Car content
-    </ng-template>
-    <div class="formacoesList">
-        <p>{{ formacao.dataInicio }} ( {{ formacao.dataFim }} )</p>
-        <p>{{ formacao.id }}</p>
-      </div>
- </p-dataList>-->
-
  <div class="formacoes">
     <div *ngFor="let formacao of formacoesAcademicas" class="formacao">
       <hr class="formacaohr">
       <div class="edit-formacao-image-icon" (click)="editarFormacao()">
             <fa name="pencil"></fa>
       </div>
-      <h4>{{formacao.InstituicoesAcademica.nome}}</h4>
+      <h4>{{formacao.instituicaoAcademica.nome}}</h4>
       <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
             <fa name="trash"></fa>
       </div>
       <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
       <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-      <!--<p>Nível: {{formacao.nivel}}</p>-->
     </div>
+    <!-- <p-fieldset legend="Header" [toggleable]="true">
+            Content
+        </p-fieldset> -->
+    <p-confirmDialog header="Confirmar exclusão?" icon="fa fa-exclamation-triangle" width="425" acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
 </div>
 
 

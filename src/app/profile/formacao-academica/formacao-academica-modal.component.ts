@@ -25,11 +25,12 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   formacaoForm: FormGroup;
 
+  dateErrorMessage: boolean = true;
+  today: Date = new Date();
   nivel: SelectItem[];
   curso: SelectItem[];
-  instituicoesAcademicas: SelectItem[];       //
-  //nomeInstituicaoAcademica: string;           //string para pesquisar as instituicoes academicas
-  instituicaoAcademica: InstituicaoAcademica;  //resultado da pesquisa de instituicoes academicas
+  calendarYearRange: string;
+  instituicaoAcademica: InstituicaoAcademica;  //pesquisa de instituicoes academicas
   resultadoInstituicoesAcademicas: InstituicaoAcademica[];  //resultado da pesquisa de instituicoes academicas
 
   routeParamsSubscription: Subscription;
@@ -43,13 +44,10 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   ngOnInit() {
     this.setupForm();
+    this.setYearRange();
   }
 
   subscribeToRouteParams(): void {
-    // this.routeParamsSubscription = this.activatedRoute.params.subscribe(params => {
-    //   console.log('params in CargoModalComponent', params);
-    //   this.visible = params['show'] || false;
-    // });
   }
 
   setupForm(): void {
@@ -61,8 +59,8 @@ export class FormacaoAcademicaModalComponent implements OnInit {
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
       nivel: [null, Validators.required],
-      servidore_id: [1, Validators.required], //todos os testes feitos com o servidor de id 1
-      instituicoes_academica_id: [null, Validators.required],
+      servidor_id: [1, Validators.required], //todos os testes feitos com o servidor de id 1
+      instituicao_academica_id: [null, Validators.required],
     });
   }
 
@@ -79,20 +77,18 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   }
 
   pesquisarInstituicoesAcademicas(event) {
-    console.log('buscando instituições' , this.instituicaoAcademica.nome); //único registro criado para teste, id = 1
-    //this.resultadoInstituicoesAcademicas = ['1'];
-    /*this.resultadoInstituicoesAcademicas = [
-      { nome: 'Universidade Vila Velha', value: 1 }
-    ];*/
     this.formacaAcademicaService.searchInstituicao(event.query).subscribe(result => {
       this.resultadoInstituicoesAcademicas = result as InstituicaoAcademica[];});
   }
 
-  onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
-    console.log(formacaoAcademica);
-    isValid = true; //passou por todas as validações
+  onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {    
+    if (formacaoAcademica.dataInicio > formacaoAcademica.dataFim){
+      this.dateErrorMessage = isValid = false;
+    } else {
+      this.dateErrorMessage = isValid = true;
+    }    
     if (isValid) {
-      formacaoAcademica.instituicoes_academica_id = formacaoAcademica.instituicoes_academica_id['id'];
+      formacaoAcademica.instituicao_academica_id = formacaoAcademica.instituicao_academica_id['id'];
       this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
         console.log('salvando', ok);
         this.closeModal();
@@ -104,6 +100,11 @@ export class FormacaoAcademicaModalComponent implements OnInit {
     } else{
       markFormGroupDirty(this.formacaoForm);
     }
+  }
+
+  setYearRange(): void {
+    const currentYear: number = (new Date()).getFullYear();
+    this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
   }
 
   closeModal(): void {
