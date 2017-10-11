@@ -4,6 +4,6 @@ export class FormacaoAcademica {
     dataInicio: Date;
     dataFim: Date;
     nivel: string;
-    servidore_id: number;
-    instituicoes_academica_id: number;
+    servidor_id: number;
+    instituicao_academica_id: number;
   }

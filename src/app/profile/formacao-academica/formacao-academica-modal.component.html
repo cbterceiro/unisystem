@@ -5,10 +5,10 @@
     <div class="ui-g-12">
       <label class="form-label">Instituição Acadêmica</label>
       <p-autoComplete [(ngModel)]="instituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" field="nome"
-      (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicoes_academica_id" [dropdown]="true" 
+      (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicao_academica_id" [dropdown]="true" 
       [minLength]="3" (onDropdownClick)="pesquisarInstituicoesAcademicas($event)"></p-autoComplete>
       <!--<p-dropdown [options]="entidade" [autoWidth]="false" formControlName="entidade"></p-dropdown>-->
-      <small class="validation-error-message" [hidden]="formacaoForm.controls.instituicoes_academica_id.pristine || formacaoForm.controls.instituicoes_academica_id.valid">
+      <small class="validation-error-message" [hidden]="formacaoForm.controls.instituicao_academica_id.pristine || formacaoForm.controls.instituicao_academica_id.valid">
         A instituição acadêmica é um campo obrigatório.
       </small>
     </div>
@@ -32,20 +32,24 @@
   <div class="ui-g">
     <div class="ui-g-6">
       <label class="form-label">Data de Início</label>
-      <p-calendar br-locale formControlName="dataInicio" [showIcon]="true"></p-calendar>
+      <p-calendar br-locale formControlName="dataInicio" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"
+      [maxDate]="today"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataInicio.pristine || formacaoForm.controls.dataInicio.valid">
         A data de início é um campo obrigatório.
       </small>
     </div>
     <div class="ui-g-6">
       <label class="form-label">Data de Término</label>
-      <p-calendar br-locale formControlName="dataFim" [showIcon]="true"></p-calendar>
+      <p-calendar br-locale formControlName="dataFim" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataFim.pristine || formacaoForm.controls.dataFim.valid">
           A data de término é um campo obrigatório.
         </small>
-    </div>
+      </div>
+    <div class="ui-g-12 dateErrorMessage">
+    <small class="validation-error-message" [hidden]="dateErrorMessage">A data de término não pode ser anterior à data de início.</small>
   </div>
-    <input formControlName="servidore_id" type="text" hidden="true" pInputText>
+  </div>
+    <input formControlName="servidor_id" type="text" hidden="true" pInputText>
     <!--<input formControlName="id" type="text" pInputText>-->
   <div class="ui-g">
     <div class="ui-g-12">
