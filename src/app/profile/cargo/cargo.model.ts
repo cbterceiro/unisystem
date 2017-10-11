@@ -5,6 +5,6 @@ export class Cargo {
     nome: string;
     dataInicio: Date;
     dataFim: Date;
-    servidore_id: number;
+    servidor_id: number;
   }
   

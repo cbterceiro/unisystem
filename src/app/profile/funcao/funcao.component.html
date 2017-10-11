@@ -1,0 +1,42 @@
+<div class="funcao card card-w-title">
+  <h1>Funções
+
+<div class="add-funcao-image-icon" (click)="addNewfuncao()">
+        <fa name="plus"></fa>
+        <span>Adicionar</span>
+      </div>
+      
+  <!-- <button type="button" style="float: right;" (click)="addNewfuncao()" class="btn btn-primary" >Add</button> -->
+  </h1>
+  <uns-funcao-modal  [visible]="exibeModalfuncao" [funcaoEdit]="objToEdit" (visibleChange)="exibeModalfuncao=$event; this.atualizaForm();"></uns-funcao-modal>
+
+<!--
+<p-dataList [value]="funcaos">
+    <ng-template let-funcao pTemplate="item">
+
+      <p>funcao: {{funcao.nome}}</p>
+      <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <hr style="width: 100%;">
+    </ng-template>
+</p-dataList> -->
+
+<div *ngFor="let funcao of funcoes" class="funcao">
+      <hr class="hr">
+      <div class="edit-funcao-image-icon" (click)="editarfuncao(funcao)">
+            <fa name="pencil"></fa>
+      </div>
+      
+      <h3>{{funcao.nome}}</h3>
+      
+      <div class="delete-funcao-image-icon" (click)="deletarfuncao(funcao.id)">
+            <fa name="trash"></fa>
+      </div>
+      <p>Descrição: {{funcao.descricao}}</p>
+      <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      
+
+
+      <!--<p>Nível: {{funcao.nivel}}</p>-->
+</div>
+
+</div>

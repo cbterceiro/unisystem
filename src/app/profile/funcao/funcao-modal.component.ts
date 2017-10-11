@@ -6,63 +6,66 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem } from 'primeng/primeng';
 
-import { Cargo } from './cargo.model';
-import {CargoService} from './cargo.service'
+import { Funcao } from './funcao.model';
+import {FuncaoService} from './funcao.service'
 
 @Component({
-  selector: 'uns-cargo-modal',
-  templateUrl: 'cargo-modal.component.html',
-  styleUrls: ['cargo-modal.component.css']
+  selector: 'uns-funcao-modal',
+  templateUrl: 'funcao-modal.component.html',
+  styleUrls: ['funcao-modal.component.css']
 })
-export class CargoModalComponent implements OnInit {
+export class FuncaoModalComponent implements OnInit {
 
   @Input() visible: boolean;
-  @Input() cargoEdit: Cargo;
+  @Input() funcaoEdit: Funcao;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-  cargoForm: FormGroup;
+  funcaoForm: FormGroup;
   dataInicio: Date;
   dataFim: Date;
-  nomeCargo: string;
-
+  nome: string;
+  descricao: string;
+  
   resultadoFuncoes: string[]; //resultado da pesquisa de funcoes
   resultadoSetores: string[]; //resultado da pesquisa de setores
+  
   idToEdit:number;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private cService: CargoService,
+    private cService: FuncaoService,
   ) { }
 
   ngOnInit() {
     // this.subscribeToRouteParams();
     this.setupForm();
     this.idToEdit = 0;
-    console.log("passou init modal cargo");
+    console.log("passou init modal funcao");
   }
   
   
   ngOnChanges(changes: SimpleChanges)
   {
-    if(this.cargoEdit && this.visible)
+    if(this.funcaoEdit && this.visible)
     {
-     console.log("cargo: " + this.cargoEdit.dataInicio);
-     console.log(this.cargoEdit.dataInicio);
+     console.log("funcao: " + this.funcaoEdit.dataInicio);
+     console.log(this.funcaoEdit.dataInicio);
 
      //descobrir forma de preencer a porcaria do calendar
 
      
-     this.cargoForm = this.formBuilder.group({
-      nome: [this.cargoEdit.nome, Validators.required],
+     this.funcaoForm = this.formBuilder.group({
+      nome: [this.funcaoEdit.nome, Validators.required],
       setor: [''],
+      descricao: [''], 
       dataInicio: ['', Validators.required],
       dataFim: ['', Validators.required],
     });
 
-      this.idToEdit = this.cargoEdit.id;
+      this.idToEdit = this.funcaoEdit.id;
     }
     else
     {
@@ -76,19 +79,19 @@ export class CargoModalComponent implements OnInit {
   setupForm(): void {
     //this.setupDropdownOptions();
 
-console.log("passou setupform modal cargo");
+console.log("passou setupform modal funcao");
 
-    this.cargoForm = this.formBuilder.group({
+    this.funcaoForm = this.formBuilder.group({
       nome: ['', Validators.required],
       setor: [''],
+      descricao: [''],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
     });
   }
   
-  pesquisarCargo(event) {
+  pesquisarFuncao(event) {
     //Verificar essa gamb
-    /*
      let arrayFuncoes;
      if(!this.resultadoFuncoes)
       this.resultadoFuncoes = [];
@@ -100,10 +103,10 @@ console.log("passou setupform modal cargo");
           this.resultadoFuncoes.push(val[i].nome);
       }
     });
-    */
+    
      
     console.log('Buscando funções');
-    //this.resultadoFuncoes = ['Cargo 1', 'Cargo 2'];
+    //this.resultadoFuncoes = ['Funcao 1', 'Funcao 2'];
 }
 
   pesquisarSetor(event) {
@@ -114,20 +117,21 @@ console.log("passou setupform modal cargo");
 
 
 
-  onSubmit(isValid: boolean, cargo: Cargo): void {
+  onSubmit(isValid: boolean, funcao: Funcao): void {
     isValid = true; //isso deveria já vir preenchido
+  
     if(this.idToEdit>0)
-     cargo.id = this.idToEdit;
+     funcao.id = this.idToEdit;
      else
-     cargo.id = null;
+     funcao.id = null;
      
-     console.log('id cargo: ' + cargo.id);
+     console.log('id funcao: ' + funcao.id);
      
     console.log('isValid', isValid);
-    console.log('cargo', cargo);
+    console.log('funcao', funcao);
     if (isValid) {
-      cargo.servidor_id = 1; //procurar da onde está o id do servidor
-this.cService.saveCargo(cargo).subscribe(ok =>{
+      funcao.servidor_id = 1; //procurar da onde está o id do servidor
+this.cService.saveFuncao(funcao).subscribe(ok =>{
   console.log('salvando', ok);
   this.closeModal();
 })
