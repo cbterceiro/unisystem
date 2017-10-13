@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
-import {DataListModule, SharedModule, ConfirmDialogModule,ConfirmationService, FieldsetModule} from 'primeng/primeng';
+import { AccordionModule, SharedModule, ConfirmDialogModule, ConfirmationService, FieldsetModule } from 'primeng/primeng';
 
 import { FormacaoAcademicaModalComponent } from './formacao-academica-modal.component';
 import { FormacaoAcademica } from './formacao-academica.model';
@@ -20,7 +20,14 @@ export class FormacaoAcademicaComponent implements OnInit {
   modalFormacao: FormacaoAcademicaModalComponent;
   exibeModalFormacao: boolean = false;
 
-  formacoesAcademicas: FormacaoAcademica[];
+  // formacoesAcademicasShow: FormacaoAcademica[];
+  // formacoesAcademicasHide: FormacaoAcademica[];
+   formacoesAcademicas: FormacaoAcademica[];
+
+  formacoesClass: string = "formacoes";
+  arrowExpand: string = "chevron-down";
+  labelExpand: string = "Ver mais";
+  //hideVerMais: boolean = true;
 
   constructor(
     private formacaAcademicaService: FormacaoAcademicaService,
@@ -31,12 +38,29 @@ export class FormacaoAcademicaComponent implements OnInit {
     this.fetchFormacoesAcademicas();
   }
 
-  fetchFormacoesAcademicas(): void{
-    this.formacaAcademicaService.getAll(1).subscribe(result => { 
+  fetchFormacoesAcademicas(): void {
+    this.formacaAcademicaService.getAll(1).subscribe(result => {
       this.formacoesAcademicas = result as FormacaoAcademica[];
+      //this.formacoesAcademicasShow = this.formacoesAcademicasHide.slice(0, 2);
     });
   }
-  
+
+  verMais(): void {
+    if (this.formacoesClass == "formacoesExpandido") {
+      this.formacoesClass = "formacoes";
+      this.arrowExpand = "chevron-down";
+      this.labelExpand = "Ver mais";
+    }
+    else {
+      this.formacoesClass = "formacoesExpandido";
+      this.arrowExpand = "chevron-up";
+      this.labelExpand = "Ver menos";
+    }
+    // var temp: FormacaoAcademica[] = this.formacoesAcademicasShow;
+    // this.formacoesAcademicasShow = this.formacoesAcademicasHide;
+    // this.formacoesAcademicasHide = temp;
+  }
+
   deletarFormacao(id: number): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir este registro?',
@@ -46,13 +70,13 @@ export class FormacaoAcademicaComponent implements OnInit {
               summary: 'Sucesso',
               detail: 'Perfil atualizado com sucesso.'
             });*/
-            console.log("deletado!!");
-            this.fetchFormacoesAcademicas();
-          });
+          console.log("deletado!!");
+          this.fetchFormacoesAcademicas();
+        });
       },
       reject: () => {
         console.log("não deletar");
-          // logic to cancel a confirmation
+        // logic to cancel a confirmation
       }
     });
   }

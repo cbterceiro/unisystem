@@ -27,6 +27,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   dateErrorMessage: boolean = true;
   today: Date = new Date();
+  mindate: Date;
   nivel: SelectItem[];
   curso: SelectItem[];
   calendarYearRange: string;
@@ -105,6 +106,15 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   setYearRange(): void {
     const currentYear: number = (new Date()).getFullYear();
     this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
+  }
+
+  validaData(): void{
+    //this.mindate = this.formacaoForm.get('dataInicio').value;
+    if (this.formacaoForm.get('dataInicio').value > this.formacaoForm.get('dataFim').value){
+      this.dateErrorMessage = false;
+    } else{
+      this.dateErrorMessage = true;
+    }
   }
 
   closeModal(): void {

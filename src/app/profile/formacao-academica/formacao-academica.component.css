@@ -1,3 +1,4 @@
+
 /*botão adicionar nova formação*/
 .formacao .add-formacao-image-icon {
     float: right;
@@ -97,4 +98,50 @@
   p{
     line-height: 1em;
     margin-left: 0.6em;
+  }
+
+  .formacoes{
+    /*animation*/
+    overflow-y: hidden;
+    max-height: 200px; /* approximate max height */
+  
+    transition: max-height 0.35s ease-out;
+    /* transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1); */
+  }
+
+  .formacoesExpandido{
+    /*animation*/
+    overflow-y: hidden;
+    max-height: 800px;
+
+    transition: max-height 0.35s ease-in;
+    /* transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1); */
+  }
+
+  .botaoVerMais{
+    text-align: center;
+    margin: 0em 0em -2em -1em;
+    min-height: 31px;
+    width: 106%;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #999999;
+    padding-top: 6px;
+    cursor: pointer;
+  }
+
+  .botaoVerMaisExpandido{
+    text-align: center;
+    margin: 0em 0em -2em -1em;
+    min-height: 31px;
+    width: 106%;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #999999;
+    padding-top: 6px;
+    cursor: pointer;
   }

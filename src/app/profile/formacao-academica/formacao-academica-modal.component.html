@@ -33,14 +33,15 @@
     <div class="ui-g-6">
       <label class="form-label">Data de Início</label>
       <p-calendar br-locale formControlName="dataInicio" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"
-      [maxDate]="today"></p-calendar>
+      (onSelect)="validaData()" [maxDate]="today"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataInicio.pristine || formacaoForm.controls.dataInicio.valid">
         A data de início é um campo obrigatório.
       </small>
     </div>
     <div class="ui-g-6">
       <label class="form-label">Data de Término</label>
-      <p-calendar br-locale formControlName="dataFim" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"></p-calendar>
+      <p-calendar br-locale formControlName="dataFim" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"
+      (onSelect)="validaData()" [minDate]="mindate"></p-calendar>
       <small class="validation-error-message" [hidden]="formacaoForm.controls.dataFim.pristine || formacaoForm.controls.dataFim.valid">
           A data de término é um campo obrigatório.
         </small>
@@ -53,7 +54,7 @@
     <!--<input formControlName="id" type="text" pInputText>-->
   <div class="ui-g">
     <div class="ui-g-12">
-      <button pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid"></button>
+      <button pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid || !dateErrorMessage"></button>
     </div>
   </div>
 </form>

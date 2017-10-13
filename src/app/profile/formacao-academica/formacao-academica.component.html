@@ -4,24 +4,69 @@
         <span>Adicionar</span>
     </div>
     <uns-formacao-academica-modal [visible]="exibeModalFormacao" (visibleChange)="exibeModalFormacao=$event"></uns-formacao-academica-modal>
-  <h1>Formação Acadêmica</h1>
- <div class="formacoes">
-    <div *ngFor="let formacao of formacoesAcademicas" class="formacao">
-      <hr class="formacaohr">
-      <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+
+    <!-- ##################### Sem "ver mais" -->
+    <!-- <h1>Formação Acadêmica</h1>
+    <div *ngFor="let formacao of formacoesAcademicasHide" class="formacao">
+        <hr class="formacaohr">
+        <div class="edit-formacao-image-icon" (click)="editarFormacao()">
             <fa name="pencil"></fa>
-      </div>
-      <h4>{{formacao.instituicaoAcademica.nome}}</h4>
-      <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
+        </div>
+        <h4>{{formacao.instituicaoAcademica.nome}}</h4>
+        <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
             <fa name="trash"></fa>
-      </div>
-      <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
-      <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+        <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
     </div>
-    <!-- <p-fieldset legend="Header" [toggleable]="true">
-            Content
-        </p-fieldset> -->
+</div> -->
+
+    <!-- ####################### primeng accordion -->
+    <!-- <p-accordion [multiple]="true">
+        <p-accordionTab [selected]="true">
+            <p-header>
+                <h1>Formação Acadêmica</h1>
+            <div class="formacoes">
+                <div *ngFor="let formacao of formacoesAcademicasHide" class="formacao">
+                    <hr class="formacaohr">
+                    <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+                        <fa name="pencil"></fa>
+                    </div>
+                    <h4>{{formacao.instituicaoAcademica.nome}}</h4>
+                    <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
+                        <fa name="trash"></fa>
+                    </div>
+                    <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+                    <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+        </p-accordionTab>
+        <p-accordionTab ng-hide="hideVerMais">
+            <p-header>
+                Ver mais
+            </p-header>
+            mais
+        </p-accordionTab>
+    </p-accordion> -->
+
+    <!-- ############################ botao ver mais manual -->
+    <h1>Formação Acadêmica</h1>
+    <div class="{{formacoesClass}}">
+        <div *ngFor="let formacao of formacoesAcademicas" class="formacao">
+            <hr class="formacaohr">
+            <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+                <fa name="pencil"></fa>
+            </div>
+            <h4>{{formacao.instituicaoAcademica.nome}}</h4>
+            <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
+                <fa name="trash"></fa>
+            </div>
+            <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+            <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+        </div>
+    </div>
+    <div (click)="verMais()" class="botaoVerMais">
+        <fa name={{arrowExpand}}></fa>{{labelExpand}}
+    </div>
+
     <p-confirmDialog header="Confirmar exclusão?" icon="fa fa-exclamation-triangle" width="425" acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
-</div>
-
-
