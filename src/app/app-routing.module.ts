@@ -9,6 +9,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, canActivateChild: [AuthenticationGuard], children: [
       { path: 'profile', loadChildren: 'app/profile/profile.module#ProfileModule' },
+      { path: 'servidores', loadChildren: 'app/servidores/servidores.module#ServidoresModule' },
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
     ]
   },

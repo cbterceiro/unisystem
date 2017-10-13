@@ -13,8 +13,12 @@ import { FormacaoAcademicaService } from './formacao-academica/formacao-academic
 import { CargoComponent } from './cargo/cargo.component';
 import { CargoModalComponent } from './cargo/cargo-modal.component';
 
+import { FuncaoComponent } from './funcao/funcao.component';
+import { FuncaoModalComponent } from './funcao/funcao-modal.component';
+
 import { ServidorService } from './servidor.service';
 import { CargoService } from './cargo/cargo.service';
+import { FuncaoService } from './funcao/funcao.service';
 
 import { CapacitacaoComponent } from './capacitacao/capacitacao.component';
 import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.component';
@@ -30,6 +34,8 @@ import { CapacitacaoService } from './capacitacao/capacitacao.service';
     ProfileModalComponent,
     CargoComponent,
     CargoModalComponent,
+    FuncaoComponent,
+    FuncaoModalComponent,
     FormacaoAcademicaComponent,
     FormacaoAcademicaModalComponent,
     CapacitacaoComponent,
@@ -40,6 +46,7 @@ import { CapacitacaoService } from './capacitacao/capacitacao.service';
     ServidorService,
     FormacaoAcademicaService,
     CargoService,
+    FuncaoService,
   ],
 })
 export class ProfileModule { }

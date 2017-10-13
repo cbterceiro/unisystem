@@ -5,52 +5,61 @@ import { Observable } from 'rxjs/Observable';
 
 import { HttpClientService } from '../../core';
 
-import { Cargo } from './cargo.model';
-import { Setor } from './setor.model';
+import { Funcao } from './funcao.model';
+/*import { Setor } from './setor.model';*/
 
 @Injectable()
-export class CargoService {
+export class FuncaoService {
 
   constructor(
     private httpClientService: HttpClientService,
   ) { }
 
 
-  getAllCargosFromId(id: number): Observable<Cargo[]> {
-    return this.httpClientService.get(`/servidores/${id}/cargo`)
+  getAllFuncoesFromId(id: number): Observable<Funcao[]> {
+    return this.httpClientService.get(`/servidores/${id}/funcao`)
       .map((res: Response) => res.json() || []);
   }
   
-
-    getAllSetores(): Observable<Setor[]> {
+    getAllFuncoes(): Observable<Funcao[]> {
+    return this.httpClientService.get('/funcao')
+      .map((res: Response) => res.json() || []);
+  }
+  
+  /*  getAllSetores(): Observable<Setor[]> {
     return this.httpClientService.get('/setor')
       .map((res: Response) => res.json() || []);
+  }*/
+  
+  getAllFuncoesContains(funcao: string): Observable<Funcao[]> {
+    //return this.httpClientService.get('/funcao')
+     // .map((res: Response) => res.json() || []);
+     return new Observable<Funcao[]>();
   }
   
-
-  
-    getAllSetoresContains(cargo: string): Observable<Setor[]> {
-    //return this.httpClientService.get('/cargo')
+  /*
+    getAllSetoresContains(funcao: string): Observable<Setor[]> {
+    //return this.httpClientService.get('/funcao')
      // .map((res: Response) => res.json() || []);
      return new Observable<Setor[]>();
-  }
+  }*/
    
-  saveCargo(cargo: Cargo): Observable<any> {
-    return cargo.id ? this.updateCargo(cargo) : this.create(cargo);
+  saveFuncao(funcao: Funcao): Observable<any> {
+    return funcao.id ? this.updatefuncao(funcao) : this.create(funcao);
   }
   
-    private updateCargo(cargo: Cargo): Observable<any> {
-    return this.httpClientService.put(`/cargo/${cargo.id}`, cargo)
+    private updatefuncao(funcao: Funcao): Observable<any> {
+    return this.httpClientService.put(`/funcao/${funcao.id}`, funcao)
       .map((res: Response) => res.json());
   }
   
-    private create(cargo: Cargo): Observable<any> {
-    return this.httpClientService.post('/cargo', cargo)
+    private create(funcao: Funcao): Observable<any> {
+    return this.httpClientService.post('/funcao', funcao)
       .map((res: Response) => res.json());
   }
   
   delete(id: number): Observable<any> {
-    return this.httpClientService.delete(`/cargo/${id}`)
+    return this.httpClientService.delete(`/funcao/${id}`)
       .map((res: Response) => res.json() || {});
   }
   
@@ -64,8 +73,6 @@ export class CargoService {
     return this.httpClientService.delete(`/servidores/${id}`)
       .map((res: Response) => res.json() || {});
   }
-
-  
 
   private create(servidor: Servidor): Observable<any> {
     return this.httpClientService.post('/servidores', servidor)
