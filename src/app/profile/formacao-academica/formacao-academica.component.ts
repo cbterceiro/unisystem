@@ -19,20 +19,21 @@ export class FormacaoAcademicaComponent implements OnInit {
 
   modalFormacao: FormacaoAcademicaModalComponent;
   exibeModalFormacao: boolean = false;
-
-  // formacoesAcademicasShow: FormacaoAcademica[];
-  // formacoesAcademicasHide: FormacaoAcademica[];
-   formacoesAcademicas: FormacaoAcademica[];
-
-  formacoesClass: string = "formacoes";
-  arrowExpand: string = "chevron-down";
-  labelExpand: string = "Ver mais";
-  //hideVerMais: boolean = true;
+  objToEdit: FormacaoAcademica;
 
   constructor(
     private formacaAcademicaService: FormacaoAcademicaService,
     private confirmationService: ConfirmationService,
   ) { }
+
+  // formacoesAcademicasShow: FormacaoAcademica[];
+  // formacoesAcademicasHide: FormacaoAcademica[];
+  formacoesAcademicas: FormacaoAcademica[];
+
+  formacoesClass: string = "formacoes";
+  arrowExpand: string = "chevron-down";
+  labelExpand: string = "Ver mais";
+  //hideVerMais: boolean = true;
 
   ngOnInit() {
     this.fetchFormacoesAcademicas();
@@ -81,11 +82,15 @@ export class FormacaoAcademicaComponent implements OnInit {
     });
   }
 
-  editarFormacao(): void {
+  editarFormacao(formacaoEdit: FormacaoAcademica): void {
+    this.objToEdit = formacaoEdit;
     console.log("editando");
+    this.exibeModalFormacao = true;
+    //this.showModalFormacao();
   }
 
-  showModalFormacao(): void {
+  adicionarFormacaoAcademica(): void {
+    this.objToEdit = null;
     this.exibeModalFormacao = true;
   }
 }

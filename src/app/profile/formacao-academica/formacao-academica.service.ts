@@ -30,6 +30,13 @@ export class FormacaoAcademicaService {
       .map((res: Response) => res.json() || {});
   }
 
+  //pesquisar cursos para exibir no autocomplete
+  //testar/confirmar path
+  // searchCurso(nome: string): Observable<any> {
+  //   return this.httpClientService.get(`/curso/pesquisa?fields=nome&limit=10&offset=0&filter=nome like %${nome}%&order=nome asc`)//confirmar
+  //     .map((res: Response) => res.json() || {});
+  // }
+
   delete(id: number): Observable<any> {
     return this.httpClientService.delete(`/formacaoacademica/${id}`)
       .map((res: Response) => res.json() || {});
