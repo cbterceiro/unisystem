@@ -11,4 +11,6 @@ export class Servidor {
   estado: string;
   cidade: string;
   nacionalidade: string;
+  email: string;
+  foto: string;
 }

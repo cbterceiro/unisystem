@@ -5,10 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ServidoresRoutingModule } from './servidores-routing.module';
 import { ServidoresComponent } from './servidores.component';
 
-
-import { ServidorService } from '../profile/servidor.service';
-
-
 @NgModule({
   imports: [
     SharedModule,
@@ -18,8 +14,6 @@ import { ServidorService } from '../profile/servidor.service';
     ServidoresComponent,
   ],
   providers: [
-    ServidorService,
   ],
 })
 export class ServidoresModule { }
-

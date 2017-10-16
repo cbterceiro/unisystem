@@ -1,21 +1,8 @@
 <p-dialog header="Editar Perfil" [modal]="true" [(visible)]="visible" [width]="800" (onHide)="closeModal()" [contentStyle]="getContentStyle()">
   <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.valid, profileForm.value)">
-    <div class="ui-g">
+    <div class="ui-g profile-image-g">
       <div class="profile-image" (click)="changePicture()">
-        <!--
-        <p-fileUpload name="foto" [url]="imageUploadUrl" accept="image/*" auto="auto">
-          <ng-template pTemplate="toolbar">
-            <div>Upload 3 Files</div>
-          </ng-template>
-          <ng-template let-file pTemplate="file">
-            <div>Custom UI to display a file</div>
-          </ng-template>
-          <ng-template pTemplate="content">
-            <div>Custom UI to manage uploaded files</div>
-          </ng-template>
-        </p-fileUpload>
-        -->
-        <img [attr.src]="profileImageSource" />
+        <p-fileUpload name="foto" [url]="imageUploadUrl" accept="image/*" mode="basic" auto="auto" (onBeforeUpload)="onBeforeUpload($event)" (onUpload)="onUpload($event)" (onError)="onUploadError($event)"></p-fileUpload>
         <div class="profile-image-overlay">
           <span>Alterar foto</span>
         </div>
@@ -33,7 +20,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today"></p-calendar>
+        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today" (onSelect)="select($event)"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.dataNascimento.pristine || profileForm.controls.dataNascimento.valid">
           A data de nascimento é obrigatória.
         </small>
@@ -91,7 +78,8 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" [disabled]="!profileForm.valid"></button>
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!profileForm.valid"></button>
       </div>
     </div>
   </form>

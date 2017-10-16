@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SessionService, SessionKeys } from '../../core';
+import { AuthenticationService } from '../../authentication';
 
 @Component({
   selector: 'uns-left-panel-profile',
@@ -15,11 +15,11 @@ export class LeftPanelProfileComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {
-    this.name = this.sessionService.getItem(SessionKeys.user).username;
+    this.name = this.authenticationService.getAuthenticatedUser().nome;
     this.profileImageSource = '/assets/img/default-user-icon.png';
   }
 

@@ -3,9 +3,11 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../core';
+import { HttpClientService } from './http-client.service';
 
 import { Servidor } from './servidor.model';
+
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ServidorService {
@@ -17,11 +19,6 @@ export class ServidorService {
   getAll(): Observable<Servidor[]> {
     return this.httpClientService.get('/servidores')
       .map((res: Response) => this.jsonToServidores(res.json() || []));
-  }
-
-  getByName(name: string): Observable<Servidor> {
-    return this.httpClientService.get(`/servidores/nome/${name}`)
-      .map((res: Response) => this.jsonToServidor(res.json() || {}));
   }
 
   getById(id: number): Observable<Servidor> {
@@ -36,6 +33,12 @@ export class ServidorService {
 
   save(servidor: Servidor): Observable<any> {
     return servidor.id ? this.update(servidor) : this.create(servidor);
+  }
+
+  getImageUrl(id: number): string {
+    const path = environment.backendServerPath;
+    const backendServerPath = path.endsWith('/') ? path.slice(0, -1) : path;
+    return `${backendServerPath}/servidores/${id}/foto`;
   }
 
   private create(servidor: Servidor): Observable<any> {

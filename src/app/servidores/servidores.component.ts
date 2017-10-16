@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import {ServidorService} from '../profile/servidor.service'
-import {Servidor} from '../profile/servidor.model'
+import { ServidorService } from '../core/servidor.service';
+import { Servidor } from '../core/servidor.model';
 
 @Component({
   selector: 'uns-servidores',
@@ -9,25 +9,24 @@ import {Servidor} from '../profile/servidor.model'
   //styleUrls: ['funcao.component.css']
 })
 export class ServidoresComponent implements OnInit {
-  
-  constructor(private cService: ServidorService) { }
-  servidores : Servidor[];
 
-  ngOnInit() { 
-    
+  constructor(private cService: ServidorService) { }
+  servidores: Servidor[];
+
+  ngOnInit() {
+
     this.atualizaForm();
-    
+
   }
-  
-  atualizaForm(): void
-  {
-    this.cService.getAll().subscribe(c => { 
+
+  atualizaForm(): void {
+    /*this.cService.getAll().subscribe(c => {
       this.servidores = c as Servidor[];
       console.log("servidores:");
        console.log(this.servidores);
-    });
+    });*/
   }
-  
-  
-  
+
+
+
 }

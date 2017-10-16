@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -10,8 +10,11 @@ import { markFormGroupDirty } from '../shared/functions';
 
 import { SessionService, SessionKeys, MessageService } from '../core';
 
-import { ServidorService } from './servidor.service';
-import { Servidor } from './servidor.model';
+import { ServidorService, Servidor } from '../core/';
+
+import { AuthenticationService } from '../authentication/';
+
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'uns-profile-modal',
@@ -21,9 +24,11 @@ import { Servidor } from './servidor.model';
 export class ProfileModalComponent implements OnInit {
 
   visible: boolean;
+  isSubmitting: boolean;
+
+  imageUploadUrl: string;
 
   profileForm: FormGroup;
-  profileImageSource: string;
 
   maritalStatuses: SelectItem[];
   nationalities: SelectItem[];
@@ -45,6 +50,8 @@ export class ProfileModalComponent implements OnInit {
     private messageService: MessageService,
     private domHandler: DomHandler,
     private el: ElementRef,
+    private renderer: Renderer2,
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit() {
@@ -52,6 +59,10 @@ export class ProfileModalComponent implements OnInit {
     this.setupForm();
     this.setYearRange();
     this.loadServidor();
+  }
+
+  ngAfterViewInit() {
+    this.updateBackgroundImage();
   }
 
   subscribeToRouteParams(): void {
@@ -62,9 +73,6 @@ export class ProfileModalComponent implements OnInit {
 
   setupForm(): void {
     this.setupDropdownOptions();
-
-    this.profileImageSource = '/assets/img/default-user-icon.png';
-
     this.profileForm = this.formBuilder.group({
       id: [null],
       nome: [null, Validators.required],
@@ -98,21 +106,20 @@ export class ProfileModalComponent implements OnInit {
   }
 
   loadServidor(): void {
-    const name: string = this.sessionService.getItem(SessionKeys.user).username;
-    if (name) {
-      this.servidorService.getByName(name).subscribe(servidor => {
-        this.profileForm.patchValue(servidor);
-      });
-    }
+    const servidor: Servidor = this.authenticationService.getAuthenticatedUser();
+    this.imageUploadUrl = this.servidorService.getImageUrl(servidor.id);
+    this.profileForm.patchValue(servidor);
   }
 
-  changePicture(): void {
-
+  select(event): void {
+    console.log('select date', event)
   }
 
   onSubmit(isValid: boolean, servidor: Servidor): void {
     if (isValid) {
+      this.isSubmitting = true;
       this.servidorService.save(servidor).subscribe(success => {
+        this.isSubmitting = false;
         this.closeModal();
         this.messageService.sendSuccess({
           summary: 'Sucesso',
@@ -145,6 +152,29 @@ export class ProfileModalComponent implements OnInit {
       }
     }
     return { overflow: 'visible', height: 'auto' };
+  }
+
+  updateBackgroundImage() {
+    const servidor: Servidor = this.authenticationService.getAuthenticatedUser();
+    const element = this.el.nativeElement.querySelector('p-fileupload .ui-fileupload-choose');
+    if (servidor.foto && element) {
+      this.renderer.setStyle(element, 'background-image', `url('${servidor.foto}')`);
+    }
+  }
+
+  onBeforeUpload(event) {
+    console.log('onBeforeUpload', event);
+    this.messageService.sendInfo({ detail: 'Iniciando o envio' });
+  }
+
+  onUpload(event) {
+    console.log('onUpload', event);
+    this.messageService.sendSuccess({ detail: 'Envio concluído' });
+  }
+
+  onUploadError(event) {
+    console.log('onUploadError', event);
+    this.messageService.sendError({ detail: 'Envio com erro' });
   }
 
   ngOnDestroy() {

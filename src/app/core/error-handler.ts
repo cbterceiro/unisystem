@@ -19,7 +19,7 @@ export class ErrorHandler implements AngularErrorHandler {
       this.messageService.sendError({ detail: error.json().msg });
     }
     console.error(error);
-    this.applicationRef.tick();
+    //this.applicationRef.tick();
   }
 
   isBackendError(error: any): boolean {

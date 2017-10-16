@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core';
 import { AuthenticationModule } from './authentication';
 import { LayoutModule } from './layout';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
 
@@ -28,6 +29,7 @@ import { AppComponent } from './app.component';
     CoreModule,
     AuthenticationModule,
     LayoutModule,
+    SharedModule,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

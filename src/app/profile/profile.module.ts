@@ -16,7 +16,6 @@ import { CargoModalComponent } from './cargo/cargo-modal.component';
 import { FuncaoComponent } from './funcao/funcao.component';
 import { FuncaoModalComponent } from './funcao/funcao-modal.component';
 
-import { ServidorService } from './servidor.service';
 import { CargoService } from './cargo/cargo.service';
 import { FuncaoService } from './funcao/funcao.service';
 
@@ -43,7 +42,6 @@ import { CapacitacaoService } from './capacitacao/capacitacao.service';
   ],
   providers: [
     CapacitacaoService,
-    ServidorService,
     FormacaoAcademicaService,
     CargoService,
     FuncaoService,

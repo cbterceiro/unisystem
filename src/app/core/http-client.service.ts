@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
 
+import { SearchModel } from './search.model';
+
 @Injectable()
 export class HttpClientService {
 
@@ -19,6 +21,13 @@ export class HttpClientService {
 
   get(path: string): Observable<Response> {
     return this.http.get(this.backendServerPath + path, {
+      //headers:
+    });
+  }
+
+  search(path: string, searchModel: SearchModel): Observable<Response> {
+    console.log('url:', this.backendServerPath + path + searchModel.toString());
+    return this.http.get(this.backendServerPath + path + searchModel.toString(), {
       //headers:
     });
   }

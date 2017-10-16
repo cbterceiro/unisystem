@@ -8,9 +8,9 @@
         {{ loginErrorMessage }}
       </div>
       <div class="ui-g-12">
-        <input autofocus type="text" placeholder="Usuário" formControlName="username" (focus)="loginErrorMessage = null" pInputText>
-        <small class="validation-error-message" *ngIf="loginForm.controls.username.dirty && loginForm.controls.username.invalid">
-          O nome de usuário é obrigatório.
+        <input autofocus type="text" placeholder="Email" formControlName="email" (focus)="loginErrorMessage = null" pInputText>
+        <small class="validation-error-message" *ngIf="loginForm.controls.email.dirty && loginForm.controls.email.invalid">
+          <span *ngIf="loginForm.controls.email.hasError('email')">Endereço de email inválido.</span>
         </small>
       </div>
       <div class="ui-g-12">

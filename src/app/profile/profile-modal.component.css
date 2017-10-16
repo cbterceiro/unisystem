@@ -1,22 +1,36 @@
+.profile-image-g {
+  height: 180px;
+}
 .profile-image {
   width: 180px;
   height: 180px;
   margin: 0 auto;
   position: relative;
   display: flex;
-  box-sizing: border-box;
   border-radius: 5px;
   cursor: pointer;
-}
-.profile-image img {
-  width: 160px;
-  display: block;
-  margin: auto;
+  box-sizing: content-box;
 }
 .profile-image:hover {
   border: 1px solid #4d4d4d;
   transition: border 300ms ease-in-out;
 }
+.profile-image /deep/ .ui-fileupload-choose {
+  width: 180px;
+  height: 100%;
+  background-image: url('/assets/img/default-user-icon.png');
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 180px;
+}
+.profile-image /deep/ .ui-fileupload-choose:hover {
+  background-color: #fff;
+}
+.profile-image /deep/ .ui-button-icon-left,
+.profile-image /deep/ .ui-button-text {
+  display: none;
+}
+
 .profile-image-overlay {
   opacity: 0;
   background-color: #4d4d4d;

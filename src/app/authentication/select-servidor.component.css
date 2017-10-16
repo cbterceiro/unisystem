@@ -1,0 +1,18 @@
+.login-panel {
+  width: 300px;
+  padding: 30px 20px;
+  margin: 100px auto 0 auto;
+}
+.login-panel .ui-g .ui-g-12 .ui-button {
+  margin-bottom: 20px;
+}
+.login-error-message {
+  text-align: center;
+  color: #f44336;
+}
+.logo-container {
+  text-align: center;
+}
+.logo-container .logo {
+  width: 120px;
+}

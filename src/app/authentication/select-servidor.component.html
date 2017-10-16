@@ -1,0 +1,19 @@
+<div class="card login-panel ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12 logo-container">
+      <img class="logo" src="assets/img/logo.png" />
+    </div>
+    <div class="ui-g-12">
+      <uns-spinner [isLoading]="loading"></uns-spinner>
+    </div>
+    <div class="ui-g-12 login-error-message fadeOutUp" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <div class="ui-g-12">
+      <p-dropdown [options]="servidores" [(ngModel)]="servidorSelecionado" [autoWidth]="false"></p-dropdown>
+    </div>
+    <div class="ui-g-12">
+      <button pButton class="bg-primary-color" label="Entrar" icon="ui-icon-person" (click)="login()"></button>
+    </div>
+  </div>
+</div>

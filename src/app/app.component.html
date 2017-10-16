@@ -1,1 +1,8 @@
 <router-outlet></router-outlet>
+<!-- Diálogo de confirmação do sistema -->
+<p-confirmDialog header="Confirmar" icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label="Não" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label="Sim" (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
