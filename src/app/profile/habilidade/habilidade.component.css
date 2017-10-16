@@ -1,0 +1,103 @@
+.habilidade .add-habilidade-image-icon {
+    float: right;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    padding-left: 3px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .habilidade .add-habilidade-image-icon span,
+  .habilidade .add-habilidade-image-icon fa {
+    float: right;
+  }
+  .habilidade .add-habilidade-image-icon span {
+    font-size: 11px;
+    margin-right: 5px;
+  }
+  .habilidade .add-habilidade-image-icon fa {
+    margin-right: 2px;
+  }
+  .habilidade:hover .add-habilidade-image-icon {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+  .habilidade .add-habilidade-image-icon:hover {
+    background-color: #e5e5e5;
+    width: 75px;
+    transition: all 150ms ease-in-out;
+  }
+  
+.habilidade  .ui-widget-content {
+border: none;
+}
+
+  .hr{
+    width: 100%;
+  }
+
+  h3{
+    line-height: 1em;
+    margin-left: 0.6em;
+  }
+
+  p{
+    line-height: 1em;
+    margin-left: 0.6em;
+  }
+  
+  .habilidade .edit-habilidade-image-icon {
+    position: relative;
+    float: right;
+    top: 10px;
+    right: 0px;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    padding-left: 3px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 1;
+    overflow: hidden;
+  }
+  .habilidade .edit-habilidade-image-icon span,
+  .habilidade .edit-habilidade-image-icon fa {
+    float: right;
+  }
+  .habilidade .edit-habilidade-image-icon span {
+    font-size: 11px;
+    margin-right: 5px;
+  }
+  .habilidade .edit-habilidade-image-icon fa {
+    margin-right: 2px;
+  }
+/*botão deletar formação*/
+  .habilidade .delete-habilidade-image-icon {
+    /*position: relative;*/
+    float: right;
+    /*bottom: 25px;*/
+    right: 0px;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    padding-left: 3px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 1;
+    overflow: hidden;
+  }
+  .habilidade .delete-habilidade-image-icon span,
+  .habilidade .delete-habilidade-image-icon fa {
+    float: right;
+  }
+  .habilidade .delete-habilidade-image-icon span {
+    font-size: 11px;
+    margin-right: 5px;
+  }
+  .habilidade .delete-habilidade-image-icon fa {
+    margin-right: 2px;
+  }
