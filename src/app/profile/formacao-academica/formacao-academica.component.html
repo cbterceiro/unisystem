@@ -1,9 +1,9 @@
 <div class="formacao card card-w-title">
-    <div class="add-formacao-image-icon" (click)="showModalFormacao()">
+    <div class="add-formacao-image-icon" (click)="adicionarFormacaoAcademica()">
         <fa name="plus"></fa>
         <span>Adicionar</span>
     </div>
-    <uns-formacao-academica-modal [visible]="exibeModalFormacao" (visibleChange)="exibeModalFormacao=$event"></uns-formacao-academica-modal>
+    <uns-formacao-academica-modal [visible]="exibeModalFormacao" [formacaoEdit]="objToEdit" (visibleChange)="exibeModalFormacao=$event; this.fetchFormacoesAcademicas();"></uns-formacao-academica-modal>
 
     <!-- ##################### Sem "ver mais" -->
     <!-- <h1>Formação Acadêmica</h1>
@@ -16,7 +16,7 @@
         <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
             <fa name="trash"></fa>
         </div>
-        <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+        <p>{{formacao.curso}}</p>
         <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
     </div>
 </div> -->
@@ -36,7 +36,7 @@
                     <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
                         <fa name="trash"></fa>
                     </div>
-                    <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+                    <p>{{formacao.curso}}</p>
                     <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
                 </div>
             </div>
@@ -54,14 +54,14 @@
     <div class="{{formacoesClass}}">
         <div *ngFor="let formacao of formacoesAcademicas" class="formacao">
             <hr class="formacaohr">
-            <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+            <div class="edit-formacao-image-icon" (click)="editarFormacao(formacao)">
                 <fa name="pencil"></fa>
             </div>
             <h4>{{formacao.instituicaoAcademica.nome}}</h4>
             <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
                 <fa name="trash"></fa>
             </div>
-            <p>{{formacao.curso == 1 ? 'Ciência da Computação' : 'Sistemas de Informação'}}</p>
+            <p>{{formacao.curso}}</p>
             <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
         </div>
     </div>
