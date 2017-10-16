@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { FuncaoModalComponent } from './funcao-modal.component';
 
-import {DataListModule, SharedModule} from 'primeng/primeng';
+import {DataListModule, SharedModule, ConfirmationService} from 'primeng/primeng';
 import {Funcao} from './funcao.model'
 
 import {FuncaoService} from './funcao.service'
@@ -21,7 +21,8 @@ export class FuncaoComponent implements OnInit {
   exibeModalfuncao: boolean = false;
   objToEdit: Funcao;
   
-  constructor(private cService: FuncaoService) { }
+  constructor(private cService: FuncaoService,
+              private confirmationService: ConfirmationService) { }
   funcoes : Funcao[];
  
  /* 
@@ -64,12 +65,18 @@ export class FuncaoComponent implements OnInit {
   }
   
     deletarfuncao(id : number): void {
-    console.log('deletando funcao id ' + id);
-    this.cService.delete(id).subscribe(ok => { 
+                this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      accept: () => {
+            this.cService.delete(id).subscribe(ok => { 
       console.log("Sucesso ao deletar:" + ok);
       this.atualizaForm();
     });
 
+      },
+      reject: () => {
+      }
+    });
   }
 
 }

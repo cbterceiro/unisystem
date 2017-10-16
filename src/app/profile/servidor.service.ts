@@ -23,6 +23,11 @@ export class ServidorService {
     return this.httpClientService.get(`/servidores/nome/${name}`)
       .map((res: Response) => this.jsonToServidor(res.json() || {}));
   }
+  
+    getByPesquisa(nome: string, instituicao: string, cargo :string, setor :string, interesse :string, limite:number, offset:number): Observable<Servidor[]> {
+    return this.httpClientService.get(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`)
+      .map((res: Response) => this.jsonToServidores(res.json() || {}));
+  }
 
   getById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}`)
