@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+<<<<<<< HEAD
     "start": "ng serve --port 8080 --host 0.0.0.0 --disable-host-check",
+=======
+    "start": "ng server --port 8080 --host 0.0.0.0 --disable-host-check",
+>>>>>>> 82dfcf6d8ee4e908e3a5ad75097fb679176b36ba
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
