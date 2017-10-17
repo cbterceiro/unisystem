@@ -23,6 +23,10 @@ import { CapacitacaoComponent } from './capacitacao/capacitacao.component';
 import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.component';
 import { CapacitacaoService } from './capacitacao/capacitacao.service';
 
+import { HabilidadeComponent } from './habilidade/habilidade.component';
+import { HabilidadeModalComponent } from './habilidade/habilidade-modal.component';
+import { HabilidadeService } from './habilidade/habilidade.service';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -39,12 +43,15 @@ import { CapacitacaoService } from './capacitacao/capacitacao.service';
     FormacaoAcademicaModalComponent,
     CapacitacaoComponent,
     CapacitacaoModalComponent,
+    HabilidadeComponent,
+    HabilidadeModalComponent,
   ],
   providers: [
     CapacitacaoService,
     FormacaoAcademicaService,
     CargoService,
     FuncaoService,
+    HabilidadeService,
   ],
 })
 export class ProfileModule { }

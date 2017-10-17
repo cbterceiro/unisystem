@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { CargoModalComponent } from './cargo-modal.component';
 
-import {DataListModule, SharedModule} from 'primeng/primeng';
+import {DataListModule, SharedModule, ConfirmationService} from 'primeng/primeng';
 import {Cargo} from './cargo.model'
 
 import {CargoService} from './cargo.service'
@@ -21,7 +21,8 @@ export class CargoComponent implements OnInit {
   exibeModalCargo: boolean = false;
   objToEdit: Cargo;
   
-  constructor(private cService: CargoService) { }
+  constructor(private cService: CargoService,
+              private confirmationService: ConfirmationService) { }
   cargos : Cargo[];
  
  /* 
@@ -64,12 +65,20 @@ export class CargoComponent implements OnInit {
   }
   
     deletarcargo(id : number): void {
-    console.log('deletando cargo id ' + id);
-    this.cService.delete(id).subscribe(ok => { 
+      
+          this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      accept: () => {
+            this.cService.delete(id).subscribe(ok => { 
       console.log("Sucesso ao deletar:" + ok);
       this.atualizaForm();
     });
 
+      },
+      reject: () => {
+      }
+    });
+    
   }
 
 }
