@@ -26,7 +26,8 @@ body .form-label {
 body .ui-inputtext.ng-dirty.ng-invalid,
 body .ng-dirty.ng-invalid > .ui-inputtext,
 body .ng-dirty.ng-invalid > .ui-calendar .ui-inputtext,
-body .ng-dirty.ng-invalid > .ui-dropdown {
+body .ng-dirty.ng-invalid > .ui-dropdown,
+body .ng-dirty.ng-invalid > .ui-autocomplete .ui-inputtext {
   border-color: #f44336;
 }
 body .validation-error-message {

@@ -6,7 +6,8 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 
 import { PrimeNgModule } from './primeng/primeng.module';
 
-import { CalendarBRLocaleDirective } from './calendar-br-locale.directive';
+import { CalendarDefaultConfigDirective } from './calendar-default-config.directive';
+
 import { SpinnerComponent } from './spinner.component';
 import { ActionIconComponent } from './action-icon.component';
 
@@ -16,7 +17,7 @@ import { ActionIconComponent } from './action-icon.component';
     Angular2FontawesomeModule,
   ],
   declarations: [
-    CalendarBRLocaleDirective,
+    CalendarDefaultConfigDirective,
     SpinnerComponent,
     ActionIconComponent,
   ],
@@ -26,7 +27,8 @@ import { ActionIconComponent } from './action-icon.component';
     ReactiveFormsModule,
     PrimeNgModule,
     Angular2FontawesomeModule,
-    CalendarBRLocaleDirective,
+
+    CalendarDefaultConfigDirective,
     SpinnerComponent,
     ActionIconComponent,
   ]

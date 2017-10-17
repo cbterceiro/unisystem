@@ -20,7 +20,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today"></p-calendar>
+        <p-calendar default-config formControlName="dataNascimento" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.dataNascimento.pristine || profileForm.controls.dataNascimento.valid">
           A data de nascimento é obrigatória.
         </small>

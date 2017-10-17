@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../../core';
+import { HttpClientService, SearchModel } from '../../core';
 
 import { Cargo } from './cargo.model';
 import { Setor } from './setor.model';
@@ -15,9 +15,16 @@ export class CargoService {
     private httpClientService: HttpClientService,
   ) { }
 
-  getAllCargosFromId(id: number): Observable<Cargo[]> {
+  getCargosByServidorId(id: number): Observable<Cargo[]> {
     return this.httpClientService.get(`/servidores/${id}/cargo`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => this.jsonToCargos(res.json() || []));
+  }
+
+  searchCargos(name: string): Observable<string[]> {
+    return this.httpClientService.search(`/cargos/pesquisa`, new SearchModel({
+      fields: ['nome'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(c => c.nome));
   }
 
   getAllSetores(): Observable<Setor[]> {
@@ -31,11 +38,11 @@ export class CargoService {
     return new Observable<Setor[]>();
   }
 
-  saveCargo(cargo: Cargo): Observable<any> {
-    return cargo.id ? this.updateCargo(cargo) : this.create(cargo);
+  save(cargo: Cargo): Observable<any> {
+    return cargo.id ? this.update(cargo) : this.create(cargo);
   }
 
-  private updateCargo(cargo: Cargo): Observable<any> {
+  private update(cargo: Cargo): Observable<any> {
     return this.httpClientService.put(`/cargo/${cargo.id}`, cargo)
       .map((res: Response) => res.json());
   }
@@ -48,5 +55,22 @@ export class CargoService {
   delete(id: number): Observable<any> {
     return this.httpClientService.delete(`/cargo/${id}`)
       .map((res: Response) => res.json() || {});
+  }
+
+  private jsonToCargo(json: any): Cargo {
+    const cargo: Cargo = Object.assign(new Cargo(), json);
+    if (json.dataInicio) {
+      cargo.dataInicio = new Date(json.dataInicio);
+    }
+    if (json.dataFim) {
+      cargo.dataFim = new Date(json.dataFim);
+    }
+    delete cargo['created_at'];
+    delete cargo['updated_at'];
+    return cargo;
+  }
+
+  private jsonToCargos(json: any[]): Cargo[] {
+    return json.map(obj => this.jsonToCargo(obj));
   }
 }

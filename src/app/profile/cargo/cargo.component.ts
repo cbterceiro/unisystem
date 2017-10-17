@@ -19,6 +19,7 @@ export class CargoComponent implements OnInit {
   objToEdit: Cargo;
   cargos: Cargo[];
 
+  hideAddIcon = true;
   isLoading: boolean;
 
   constructor(
@@ -28,16 +29,14 @@ export class CargoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.atualizaForm();
+    this.getCargos();
   }
 
-  atualizaForm(): void {
+  getCargos(): void {
     this.isLoading = true;
     const servidor = this.authenticatedUserService.getServidor();
-    this.cService.getAllCargosFromId(servidor.id).subscribe(c => {
-      this.cargos = c;
-      console.log('Cargos:');
-      console.log(this.cargos);
+    this.cService.getCargosByServidorId(servidor.id).subscribe(cargos => {
+      this.cargos = cargos;
       this.isLoading = false;
     });
   }
@@ -59,7 +58,7 @@ export class CargoComponent implements OnInit {
       message: 'Tem certeza que deseja excluir este registro?',
       accept: () => {
         this.cService.delete(id).subscribe(ok => {
-          this.atualizaForm();
+          this.getCargos();
         });
       },
       reject: () => { }

@@ -1,29 +1,24 @@
-<div class="cargo card card-w-title">
+<div class="cargo card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = false">
   <h1>Cargos</h1>
 
-  <div class="add-cargo-image-icon" (click)="addNewCargo()">
-    <fa name="plus"></fa>
-    <span>Adicionar</span>
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCargo()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+
+  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+
+  <div *ngIf="cargos && !cargos.length" class="text-center">
+    Você não possui cargos cadastrados
   </div>
-
-
-
-  <div *ngFor="let cargo of cargos" class="cargo">
+  <div *ngFor="let cargo of cargos" class="cargo" style="position: relative">
     <hr>
-    <div class="edit-cargo-image-icon" (click)="editarCargo(cargo)">
-      <fa name="pencil"></fa>
-    </div>
+
+    <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)"></uns-action-icon>
+    <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="34px"></uns-action-icon>
 
     <h3>{{cargo.nome}}</h3>
-
-    <div class="delete-cargo-image-icon" (click)="deletarCargo(cargo.id)">
-      <fa name="trash"></fa>
-    </div>
-
     <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
 
     <!--<p>Nível: {{cargo.nivel}}</p>-->
   </div>
 </div>
 
-<uns-cargo-modal [visible]="exibeModalCargo" [cargoEdit]="objToEdit" (visibleChange)="exibeModalCargo=$event; this.atualizaForm();"></uns-cargo-modal>
+<uns-cargo-modal [(visible)]="exibeModalCargo" (visibleChange)="getCargos()" [cargoEdit]="objToEdit"></uns-cargo-modal>

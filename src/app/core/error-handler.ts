@@ -12,7 +12,11 @@ export class ErrorHandler implements AngularErrorHandler {
 
   handleError(error: any) {
     if (this.isBackendError(error)) {
-      this.messageService.sendError({ detail: error.json().msg });
+      let msg = error.json().msg;
+      if (msg === 'ResourceRequest timed out') {
+        msg = 'Problemas na conexão com o servidor.';
+      }
+      this.messageService.sendError({ detail: msg });
     }
     console.error(error);
   }

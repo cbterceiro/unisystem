@@ -1,60 +1,40 @@
-<p-dialog header="Adicionar Informações de Cargo" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
-  (onHide)="closeModal()">
-  <form [formGroup]="cargoForm" class="ui-fluid" (submit)="onSubmit(cargoForm.isValid, cargoForm.value)">
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="cargoForm" class="ui-fluid" (submit)="onSubmit(cargoForm.valid, cargoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
-        <label class="form-label">Cargo</label>
-        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoCargo" (completeMethod)="pesquisarCargo($event)" formControlName="nome" [dropdown]="true"></p-autoComplete>
+        <label class="form-label">Nome</label>
+        <p-autoComplete [suggestions]="sugestoesCargo" (completeMethod)="pesquisarCargo($event)" formControlName="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.nome.pristine || cargoForm.controls.nome.valid">
-          A função é obrigatória.
+          O nome do cargo é obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Setor -- Pendente Susi</label>
-        <p-autoComplete [(ngModel)]="setor" [suggestions]="resultadoSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor" [dropdown]="true"></p-autoComplete>
+        <p-autoComplete [suggestions]="sugestoesSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
-            O setor obrigatório.
-          </small>
+          O setor é obrigatório.
+        </small>
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Início</label>
-        <p-calendar br-locale formControlName="dataInicio" [(ngModel)]="dataInicio" [dateFormat]="yyyy-mm-dd" [showIcon]="true"></p-calendar>
+        <p-calendar default-config formControlName="dataInicio" [maxDate]="cargoForm.controls.dataFim.value"></p-calendar>
         <small class="validation-error-message" [hidden]="cargoForm.controls.dataInicio.pristine || cargoForm.controls.dataInicio.valid">
-          A data de nascimento é obrigatória.
+          A data de início de vigência do cargo é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar br-locale formControlName="dataFim" [(ngModel)]="dataFim"  [showIcon]="true"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [minDate]="cargoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="cargoForm.controls.dataFim.pristine || cargoForm.controls.dataFim.valid">
-            O setor obrigatório.
-          </small>
+          A data de fim de vigência do cargo é obrigatória.
+        </small>
       </div>
     </div>
-    <!-- <div class="ui-g">
-      <div class="ui-g-6">
-        <label class="form-label">Nacionalidade</label>
-        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nationality"></p-dropdown>
-      </div>
-      <div class="ui-g-6">
-        <div class="ui-g-4 no-vertical-padding">
-          <label class="form-label">Estado</label>
-          <p-dropdown [options]="states" [autoWidth]="false" formControlName="state"></p-dropdown>
-        </div>
-        <div class="ui-g-8 no-vertical-padding">
-          <label class="form-label">Cidade</label>
-          <input formControlName="city" type="text" pInputText>
-          <small class="validation-error-message" [hidden]="cargoForm.controls.city.pristine || cargoForm.controls.city.valid">
-            A cidade é obrigatória.
-          </small>
-        </div>
-      </div>
-    </div> -->
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="!cargoForm.valid"></button>
       </div>
     </div>
   </form>

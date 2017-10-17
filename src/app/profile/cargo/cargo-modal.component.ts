@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Input, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -6,140 +6,96 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem } from 'primeng/primeng';
 
+import { AuthenticatedUserService } from '../../authentication';
+
+import { MessageService } from '../../core';
+
+import { markFormGroupDirty } from '../../shared/functions';
+
 import { Cargo } from './cargo.model';
-import {CargoService} from './cargo.service'
+import { CargoService } from './cargo.service';
 
 @Component({
   selector: 'uns-cargo-modal',
   templateUrl: 'cargo-modal.component.html',
   styleUrls: ['cargo-modal.component.css']
 })
-export class CargoModalComponent implements OnInit {
+export class CargoModalComponent implements OnChanges {
 
   @Input() visible: boolean;
   @Input() cargoEdit: Cargo;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  title: string;
 
   cargoForm: FormGroup;
-  dataInicio: Date;
-  dataFim: Date;
-  nomeCargo: string;
 
-  resultadoFuncoes: string[]; //resultado da pesquisa de funcoes
-  resultadoSetores: string[]; //resultado da pesquisa de setores
-  idToEdit:number;
+  sugestoesCargo: string[];
+  sugestoesSetores: string[];
+  idToEdit: number;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private cService: CargoService,
+    private cargoService: CargoService,
+    private authenticatedUserService: AuthenticatedUserService,
+    private messageService: MessageService,
   ) { }
 
-  ngOnInit() {
-    // this.subscribeToRouteParams();
-    this.setupForm();
-    this.idToEdit = 0;
-    console.log("passou init modal cargo");
-  }
-  
-  
-  ngOnChanges(changes: SimpleChanges)
-  {
-    if(this.cargoEdit && this.visible)
-    {
-     console.log("cargo: " + this.cargoEdit.dataInicio);
-     console.log(this.cargoEdit.dataInicio);
-
-     //descobrir forma de preencer a porcaria do calendar
-
-     
-     this.cargoForm = this.formBuilder.group({
-      nome: [this.cargoEdit.nome, Validators.required],
-      setor: [''],
-      dataInicio: ['', Validators.required],
-      dataFim: ['', Validators.required],
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.cargoEdit && this.visible) {
+      this.cargoForm = this.formBuilder.group({
+        nome: [this.cargoEdit.nome, Validators.required],
+        setor: [this.cargoEdit.setor],
+        dataInicio: [this.cargoEdit.dataInicio, Validators.required],
+        dataFim: [this.cargoEdit.dataFim, Validators.required],
+      });
 
       this.idToEdit = this.cargoEdit.id;
-    }
-    else
-    {
-    this.setupForm();
-    this.idToEdit = 0;
+      this.title = 'Editar informações de cargo';
+    } else {
+      this.cargoForm = this.formBuilder.group({
+        nome: ['', Validators.required],
+        setor: [''],
+        dataInicio: [null, Validators.required],
+        dataFim: [null, Validators.required],
+      });
+
+      this.idToEdit = null;
+      this.title = 'Adicionar informações de cargo';
     }
   }
 
-
-
-  setupForm(): void {
-    //this.setupDropdownOptions();
-
-console.log("passou setupform modal cargo");
-
-    this.cargoForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      setor: [''],
-      dataInicio: [null, Validators.required],
-      dataFim: [null, Validators.required],
-    });
-  }
-  
   pesquisarCargo(event) {
-    //Verificar essa gamb
-    /*
-     let arrayFuncoes;
-     if(!this.resultadoFuncoes)
-      this.resultadoFuncoes = [];
-    this.cService.getAllFuncoes().subscribe(val=> {
-      console.log(val);
-      for (let i = 0; i < val.length; i++)
-      { 
-        if(this.resultadoFuncoes.indexOf(val[i].nome) == -1)
-          this.resultadoFuncoes.push(val[i].nome);
-      }
+    const nomeCargo = event.query;
+    this.cargoService.searchCargos(nomeCargo).subscribe(cargos => {
+      this.sugestoesCargo = cargos;
     });
-    */
-     
-    console.log('Buscando funções');
-    //this.resultadoFuncoes = ['Cargo 1', 'Cargo 2'];
-}
+  }
 
   pesquisarSetor(event) {
-    //this.resultadoSetores = this.cService.getAllSetoresContains(setor);
-    console.log('buscando setores');
-    this.resultadoSetores = ['Setor 1', 'Setor 2'];
-}
-
-
+    const nomeSetor = event.setor;
+    // buscar no backend os setores
+    this.sugestoesSetores = ['Setor 1', 'Setor 2'];
+  }
 
   onSubmit(isValid: boolean, cargo: Cargo): void {
-    isValid = true; //isso deveria já vir preenchido
-    if(this.idToEdit>0)
-     cargo.id = this.idToEdit;
-     else
-     cargo.id = null;
-     
-     console.log('id cargo: ' + cargo.id);
-     
-    console.log('isValid', isValid);
-    console.log('cargo', cargo);
     if (isValid) {
-      cargo.servidor_id = 1; //procurar da onde está o id do servidor
-this.cService.saveCargo(cargo).subscribe(ok =>{
-  console.log('salvando', ok);
-  this.closeModal();
-})
+      const servidor = this.authenticatedUserService.getServidor();
+      cargo.id = this.idToEdit;
+      cargo.servidor_id = servidor.id;
+      this.cargoService.save(cargo).subscribe(success => {
+        this.messageService.sendSuccess({ detail: 'Cargo atualizado com sucesso.' });
+        this.closeModal();
+      });
+    } else {
+      markFormGroupDirty(this.cargoForm);
     }
   }
 
   closeModal(): void {
     this.visible = false;
     this.visibleChange.emit(this.visible);
-    console.log('passou pelo hide');
-    
-    // Navega para a rota atual apenas alterando o parâmetro de exibição
-    // this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute })
   }
 }

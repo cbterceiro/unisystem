@@ -1,5 +1,4 @@
-<p-dialog header="Adicionar Informações de Função" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
-  (onHide)="closeModal()">
+<p-dialog header="Adicionar Informações de Função" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
   <form [formGroup]="funcaoForm" class="ui-fluid" (submit)="onSubmit(funcaoForm.isValid, funcaoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
@@ -13,32 +12,32 @@
         <label class="form-label">Setor --pendente susi</label>
         <p-autoComplete [(ngModel)]="setor" [suggestions]="resultadoSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor" [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.setor.pristine || funcaoForm.controls.setor.valid">
-            O setor obrigatório.
-          </small>
+          O setor obrigatório.
+        </small>
       </div>
     </div>
-    
+
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Descrição</label>
         <textarea [(ngModel)]="descricao" formControlName="descricao" style='width:750px; height:150px;'></textarea>
       </div>
     </div>
-    
+
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Início</label>
-        <p-calendar br-locale formControlName="dataInicio" [(ngModel)]="dataInicio" [dateFormat]="yyyy-mm-dd" [showIcon]="true"></p-calendar>
+        <p-calendar default-config formControlName="dataInicio" [(ngModel)]="dataInicio" [dateFormat]="yyyy-mm-dd"></p-calendar>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.dataInicio.pristine || funcaoForm.controls.dataInicio.valid">
           A data de nascimento é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar br-locale formControlName="dataFim" [(ngModel)]="dataFim"  [showIcon]="true"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [(ngModel)]="dataFim"></p-calendar>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.dataFim.pristine || funcaoForm.controls.dataFim.valid">
-            O setor obrigatório.
-          </small>
+          O setor obrigatório.
+        </small>
       </div>
     </div>
     <!-- <div class="ui-g">
