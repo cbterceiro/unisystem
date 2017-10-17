@@ -3,15 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { /*LoginComponent,*/ AuthenticationGuard } from './authentication';
 import { SelectServidorComponent } from './authentication/select-servidor.component';
-import { MainComponent, DashboardComponent } from './layout';
-
+import { MainComponent } from './layout';
 
 
 const routes: Routes = [
-  //{ path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
   { path: 'login', component: SelectServidorComponent },
   {
-    // Fixa as rotas possiveis do app.
     path: '', component: MainComponent, canActivateChild: [AuthenticationGuard], children: [
       { path: 'profile', loadChildren: 'app/profile/profile.module#ProfileModule' },
       { path: 'servidores', loadChildren: 'app/servidores/servidores.module#ServidoresModule' },
@@ -20,7 +18,7 @@ const routes: Routes = [
     ]
   },
   // Página 404
-  //{ path: '**', pathMatch: 'full', component: PathNotFoundComponent }
+  // { path: '**', pathMatch: 'full', component: PathNotFoundComponent }
 ];
 
 @NgModule({

@@ -1,6 +1,5 @@
 import { FormGroup } from '@angular/forms';
 
-
 export function markFormGroupDirty(formGroup: FormGroup): void {
   (<any>Object).values(formGroup.controls).forEach(control => {
     control.markAsDirty();

@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem, DomHandler } from 'primeng/primeng';
 
-import { markFormGroupDirty } from '../shared/functions';
+import { markFormGroupDirty, delay } from '../shared/functions';
 
 import { SessionService, SessionKeys, MessageService } from '../core';
 
@@ -122,7 +122,7 @@ export class ProfileModalComponent implements OnInit {
 
     // Hack para consertar o bug do PrimeNG de exibição de data no formato inválido na primeira vez em que o componente
     // Calendar é exibido na tela
-    setTimeout(_ => this.profileForm.get('dataNascimento').setValue(servidor.dataNascimento), 0);
+    delay(_ => this.profileForm.get('dataNascimento').setValue(servidor.dataNascimento));
   }
 
   onSubmit(isValid: boolean, servidor: Servidor): void {

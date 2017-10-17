@@ -21,32 +21,32 @@ export class HttpClientService {
 
   get(path: string): Observable<Response> {
     return this.http.get(this.backendServerPath + path, {
-      //headers:
+      // headers:
     });
   }
 
   search(path: string, searchModel: SearchModel): Observable<Response> {
     console.log('url:', this.backendServerPath + path + searchModel.toString());
     return this.http.get(this.backendServerPath + path + searchModel.toString(), {
-      //headers:
+      // headers:
     });
   }
 
   put(path: string, body: any): Observable<Response> {
     return this.http.put(this.backendServerPath + path, body, {
-      //headers:
+      // headers:
     });
   }
 
   post(path: string, body: any): Observable<Response> {
     return this.http.post(this.backendServerPath + path, body, {
-      //headers:
+      // headers:
     });
   }
 
   delete(path: string): Observable<Response> {
     return this.http.delete(this.backendServerPath + path, {
-      //headers:
+      // headers:
     });
   }
 }

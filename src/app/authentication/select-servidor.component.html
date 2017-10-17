@@ -13,7 +13,7 @@
       <p-dropdown [options]="servidores" [(ngModel)]="servidorSelecionado" [autoWidth]="false"></p-dropdown>
     </div>
     <div class="ui-g-12">
-      <button pButton class="bg-primary-color" label="Entrar" icon="ui-icon-person" (click)="login()"></button>
+      <button pButton class="bg-primary-color" label="Entrar" icon="ui-icon-person" (click)="login()" [disabled]="loading"></button>
     </div>
   </div>
 </div>

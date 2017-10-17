@@ -6,32 +6,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit() {
-    
-    this.limparCampos();
-  }
-  
   instituicao: string;
   nomeCompleto: string;
   cargo: string;
   setor: string;
   areaInteresse: string;
-  
-    pesquisarServidor(): void {
+
+  constructor() { }
+
+  ngOnInit() {
+    this.limparCampos();
+  }
+
+  pesquisarServidor(): void {
     console.log('pesquisa servidor');
     console.log(this.nomeCompleto);
-
   }
-  
-      limparCampos(): void {
+
+  limparCampos(): void {
     console.log('limpar campos pesquisa');
     this.instituicao = '';
-    this.nomeCompleto ='';
+    this.nomeCompleto = '';
     this.cargo = '';
     this.setor = '';
     this.areaInteresse = '';
   }
-  
 }

@@ -1,8 +1,5 @@
-<div class="profile">
-  <div class="edit-profile-image-icon" (click)="showProfileModal()">
-    <fa name="edit"></fa>
-    <span>Editar</span>
-  </div>
+<div class="profile" (mouseover)="hideEditIcon = false" (mouseout)="hideEditIcon = true">
+  <uns-action-icon [hidden]="hideEditIcon" icon="edit" label="Editar" (click)="showProfileModal()"></uns-action-icon>
   <div class="profile-image"></div>
   <div class="profile-info">
     <span class="name">{{ name }}</span>

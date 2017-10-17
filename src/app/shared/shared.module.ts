@@ -8,14 +8,17 @@ import { PrimeNgModule } from './primeng/primeng.module';
 
 import { CalendarBRLocaleDirective } from './calendar-br-locale.directive';
 import { SpinnerComponent } from './spinner.component';
+import { ActionIconComponent } from './action-icon.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    Angular2FontawesomeModule,
   ],
   declarations: [
     CalendarBRLocaleDirective,
     SpinnerComponent,
+    ActionIconComponent,
   ],
   exports: [
     CommonModule,
@@ -25,8 +28,9 @@ import { SpinnerComponent } from './spinner.component';
     Angular2FontawesomeModule,
     CalendarBRLocaleDirective,
     SpinnerComponent,
+    ActionIconComponent,
   ]
-  //providers: [ NÃO CRIE PROVIDERS AQUI ]
+  // providers: [ NÃO CRIE PROVIDERS AQUI ]
 
   // O módulo com recursos compartilhados não deve prover nenhum serviço para injeção. Este módulo tem como propósito
   // agrupar os pipes, diretivas e afins de todo o sistema, além de re-exportar módulos comumente usados como

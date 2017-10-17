@@ -15,10 +15,6 @@ export class AuthenticationService {
   ) { }
 
   login(email: string, password: string): Observable<boolean> {
-    /*return this.httpClientService.search('/servidores/pesquisa', new SearchModel({
-      fields: ['id'],
-      filters: [`email like ${email}`],
-    })).map(res => res.json().shift() || null);*/
     return Observable.of(true);
   }
 

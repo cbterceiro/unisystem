@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SpinnerComponent {
   @Input('isLoading') visible: boolean;
-  @Input() size: number = 40;
+  @Input() size = 40;
 }

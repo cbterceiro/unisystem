@@ -14,7 +14,7 @@ export class SearchModel {
   }
 
   toString(): string {
-    let s: string[] = [];
+    const s: string[] = [];
     if (this.fields && this.fields.length) {
       s.push(`fields=${this.fields.join(',')}`);
     }

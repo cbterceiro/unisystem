@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { Message } from 'primeng/primeng';
 
@@ -11,9 +13,10 @@ import { MessageService } from '../core';
   templateUrl: 'main.component.html',
   styleUrls: ['main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 
   msgs: Message[] = [];
+  msgSubscription: Subscription;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -21,8 +24,14 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.messageService.listen().subscribe(message => {
+    this.msgSubscription = this.messageService.listen().subscribe(message => {
       this.msgs.push(message);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.msgSubscription) {
+      this.msgSubscription.unsubscribe();
+    }
   }
 }

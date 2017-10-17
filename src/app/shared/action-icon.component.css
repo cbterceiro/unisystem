@@ -1,0 +1,26 @@
+.action-icon {
+  cursor: pointer;
+  max-width: 20px;
+  height: 22px;
+  padding-left: 3px;
+  text-align: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.action-icon span,
+.action-icon fa {
+  float: right;
+}
+.action-icon span {
+  font-size: 11px;
+  margin-right: 5px;
+  margin-left: 3px;
+}
+.action-icon fa {
+  margin-right: 2px;
+}
+.action-icon:hover {
+  background-color: #e5e5e5;
+  max-width: 100px;
+  transition: max-width 200ms ease-in-out;
+}

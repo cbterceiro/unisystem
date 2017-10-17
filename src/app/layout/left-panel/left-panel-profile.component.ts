@@ -13,7 +13,7 @@ import { AuthenticatedUserService } from '../../authentication';
 export class LeftPanelProfileComponent implements OnInit, OnDestroy {
 
   name: string;
-  profileImageSource: string;
+  hideEditIcon = true;
 
   imageListenerSubscription: Subscription;
 

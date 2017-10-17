@@ -8,8 +8,8 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { LeftPanelProfileComponent } from './left-panel/left-panel-profile.component';
 import { RightPanelComponent } from './right-panel/right-panel.component';
-import { DashboardComponent } from './dashboard.component';
-import {NoticiaService} from "./right-panel/noticia.service";
+
+import { NoticiaService } from './right-panel/noticia.service';
 
 @NgModule({
   imports: [
@@ -23,7 +23,6 @@ import {NoticiaService} from "./right-panel/noticia.service";
     LeftPanelComponent,
     LeftPanelProfileComponent,
     RightPanelComponent,
-    DashboardComponent,
   ],
   providers: [NoticiaService],
 })
