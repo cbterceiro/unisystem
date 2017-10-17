@@ -3,7 +3,7 @@
         <fa name="plus"></fa>
         <span>Adicionar</span>
     </div>
-    <uns-formacao-academica-modal [visible]="exibeModalFormacao" [formacaoEdit]="objToEdit" (visibleChange)="exibeModalFormacao=$event; this.fetchFormacoesAcademicas();"></uns-formacao-academica-modal>
+    <uns-formacao-academica-modal [visible]="exibeModalFormacao" [formacaoEdit]="objToEdit" (visibleChange)="exibeModalFormacao=$event; this.atualizarListaFormacoes();"></uns-formacao-academica-modal>
 
     <!-- ##################### Sem "ver mais" -->
     <!-- <h1>Formação Acadêmica</h1>
@@ -52,20 +52,20 @@
     <!-- ############################ botao ver mais manual -->
     <h1>Formação Acadêmica</h1>
     <div class="{{formacoesClass}}">
-        <div *ngFor="let formacao of formacoesAcademicas" class="formacao">
-            <hr class="formacaohr">
+        <div *ngFor="let formacao of formacoesAcademicas; let ultimo = last;" class="formacao">
             <div class="edit-formacao-image-icon" (click)="editarFormacao(formacao)">
                 <fa name="pencil"></fa>
             </div>
-            <h4>{{formacao.instituicaoAcademica.nome}}</h4>
+            <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
+            <p>{{formacao.curso}}</p>
             <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
                 <fa name="trash"></fa>
             </div>
-            <p>{{formacao.curso}}</p>
             <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+            <hr *ngIf="!ultimo" class="formacaohr">
         </div>
     </div>
-    <div (click)="verMais()" class="botaoVerMais">
+    <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
         <fa name={{arrowExpand}}></fa>{{labelExpand}}
     </div>
 

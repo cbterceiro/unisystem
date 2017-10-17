@@ -15,11 +15,10 @@
   <div class="ui-g">
       <div class="ui-g-6">
           <label class="form-label">Curso</label>
-          <p-autoComplete [(ngModel)]="text" [suggestions]="resultadoCursos"
-          (completeMethod)="pesquisarCursos($event)" formControlName="curso" [dropdown]="false" 
+          <p-autoComplete [(ngModel)]="curso" [suggestions]="resultadoCursos" field="nome"
+          (completeMethod)="pesquisarCursos($event)" formControlName="cursoNome" [dropdown]="false" 
           [minLength]="3" (onDropdownClick)="pesquisarCursos($event)"></p-autoComplete>
-          <!-- <p-dropdown [options]="curso" [autoWidth]="false" formControlName="curso"></p-dropdown> -->
-          <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
+          <small class="validation-error-message" [hidden]="formacaoForm.controls.cursoNome.pristine || formacaoForm.controls.cursoNome.valid">
               O curso é um campo é obrigatório.
             </small>
         </div>
@@ -53,7 +52,6 @@
   </div>
   </div>
     <input formControlName="servidor_id" type="text" hidden="true" pInputText>
-    <!--<input formControlName="id" type="text" pInputText>-->
   <div class="ui-g">
     <div class="ui-g-12">
       <button pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid || !dateErrorMessage"></button>

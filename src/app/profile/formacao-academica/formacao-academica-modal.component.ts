@@ -5,12 +5,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { markFormGroupDirty } from '../../shared/functions';
 
-import { SelectItem } from 'primeng/primeng';
-import { AutoCompleteModule } from 'primeng/primeng';
+import { SelectItem, AutoCompleteModule } from 'primeng/primeng';
 
 import { FormacaoAcademica } from './formacao-academica.model';
 import { FormacaoAcademicaService } from './formacao-academica.service';
 import { InstituicaoAcademica } from './instituicao-academica.model';
+import { Curso } from './curso.model';
 
 @Component({
   selector: 'uns-formacao-academica-modal',
@@ -30,10 +30,10 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   today: Date = new Date();
   //mindate: Date;
   nivel: SelectItem[];
-  curso: SelectItem[];
+  curso: Curso;
   calendarYearRange: string;
   resultadoInstituicoesAcademicas: InstituicaoAcademica[];  //resultado da pesquisa de instituicoes academicas
-  resultadoCursos: string[];        //resultado da pesquisa de cursos
+  resultadoCursos: Curso[];        //resultado da pesquisa de cursos
   idToEdit: number;
 
   routeParamsSubscription: Subscription;
@@ -50,11 +50,10 @@ export class FormacaoAcademicaModalComponent implements OnInit {
     this.setYearRange();
   }
 
-  subscribeToRouteParams(): void {
-  }
+  // subscribeToRouteParams(): void {
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log('onchanges', this.formacaoEdit);
     if (this.formacaoEdit && this.visible) {
       this.idToEdit = this.formacaoEdit.id;
       this.formacaoForm = this.formBuilder.group({// preencher campos com os valores do objeto
@@ -78,7 +77,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
     this.formacaoForm = this.formBuilder.group({
       id: [null],
-      curso: [null, Validators.required],
+      cursoNome: [null, Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
       nivel: [null, Validators.required],
@@ -90,14 +89,9 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   setupDropdownOptions(): void {
     this.nivel = [
       { label: '  ---Nível do curso---  ', value: null },
-      { label: 'Fundamental', value: 'Fundamental'},
-      { label: 'Médio', value: 'Médio'},
-      { label: 'Superior', value: 'Superior'},
-    ];
-    this.curso = [
-      { label: '  ---Escolha um curso---  ', value: null },
-      { label: 'Ciência da Computação', value: 1 },
-      { label: 'Sistemas de Informação', value: 2 },
+      { label: 'Fundamental', value: 'Fundamental' },
+      { label: 'Médio', value: 'Médio' },
+      { label: 'Superior', value: 'Superior' },
     ];
   }
 
@@ -108,9 +102,9 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   }
 
   pesquisarCursos(event): void {
-    // this.formacaAcademicaService.searchCurso(event.query).subscribe(result => {
-    //   this.resultadoCursos = result;
-    // });
+    this.formacaAcademicaService.searchCurso(event.query).subscribe(result => {
+      this.resultadoCursos = result as Curso[];
+    });
   }
 
   onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
@@ -119,7 +113,6 @@ export class FormacaoAcademicaModalComponent implements OnInit {
     } else {
       this.dateErrorMessage = isValid = true;
     }
-    //console.log('valid:', isValid);
     if (isValid) {
       if (this.idToEdit > 0)
         formacaoAcademica.id = this.idToEdit;
@@ -129,10 +122,10 @@ export class FormacaoAcademicaModalComponent implements OnInit {
       this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
         console.log('salvando', ok);
         this.closeModal();
-        /*this.messageService.sendSuccess({
-          summary: 'Sucesso',
-          detail: 'Perfil atualizado com sucesso.'
-        });*/
+        // this.messageService.sendSuccess({
+        //   summary: 'Sucesso',
+        //   detail: 'Perfil atualizado com sucesso.'
+        // });
       });
     } else {
       markFormGroupDirty(this.formacaoForm);
@@ -141,7 +134,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
 
   setYearRange(): void {
     const currentYear: number = (new Date()).getFullYear();
-    this.calendarYearRange = `${currentYear - 100}:${currentYear}`;
+    this.calendarYearRange = `${currentYear - 100}:${currentYear + 10}`;
   }
 
   validaData(): void {

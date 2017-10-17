@@ -103,7 +103,7 @@
   .formacoes{
     /*animation*/
     overflow-y: hidden;
-    max-height: 200px; /* approximate max height */
+    max-height: 247px; /* exibe 2 formações acadêmicas */
   
     transition: max-height 0.35s ease-out;
     /* transition-property: all;
@@ -114,7 +114,7 @@
   .formacoesExpandido{
     /*animation*/
     overflow-y: hidden;
-    max-height: 800px;
+    max-height: 1231px; /*exibe até 10 formações acadêmicas */
 
     transition: max-height 0.35s ease-in;
     /* transition-property: all;

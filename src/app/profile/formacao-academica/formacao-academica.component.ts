@@ -33,16 +33,19 @@ export class FormacaoAcademicaComponent implements OnInit {
   formacoesClass: string = "formacoes";
   arrowExpand: string = "chevron-down";
   labelExpand: string = "Ver mais";
-  //hideVerMais: boolean = true;
+  hideVerMais: boolean = false;     //flag para mostrar/esconder o botão de Ver Mais
 
   ngOnInit() {
-    this.fetchFormacoesAcademicas();
+    this.atualizarListaFormacoes();
   }
 
-  fetchFormacoesAcademicas(): void {
+  atualizarListaFormacoes(): void {
+    // console.log("atualizando lista...");
     this.formacaAcademicaService.getAll(1).subscribe(result => {
       this.formacoesAcademicas = result as FormacaoAcademica[];
       //this.formacoesAcademicasShow = this.formacoesAcademicasHide.slice(0, 2);
+      if (this.formacoesAcademicas.length < 3)
+        this.hideVerMais = true;
     });
   }
 
@@ -72,21 +75,18 @@ export class FormacaoAcademicaComponent implements OnInit {
               detail: 'Perfil atualizado com sucesso.'
             });*/
           console.log("deletado!!");
-          this.fetchFormacoesAcademicas();
+          this.atualizarListaFormacoes();
         });
       },
       reject: () => {
         console.log("não deletar");
-        // logic to cancel a confirmation
       }
     });
   }
 
   editarFormacao(formacaoEdit: FormacaoAcademica): void {
     this.objToEdit = formacaoEdit;
-    console.log("editando");
     this.exibeModalFormacao = true;
-    //this.showModalFormacao();
   }
 
   adicionarFormacaoAcademica(): void {
