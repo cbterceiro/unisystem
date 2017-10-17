@@ -26,7 +26,7 @@ export class SearchModel {
     }
     if (this.filters && this.filters.length) {
       
-      this.filters = this.filters.filter(function(n){ return (n != undefined && n != '') });
+      this.filters = this.filters.filter(function(n){ return (n != undefined && n != '' && n.indexOf('%%') == -1) });
       //s = this.filters.clean('');
       console.log('filters:');
       console.log(this.filters);

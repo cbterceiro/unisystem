@@ -25,7 +25,7 @@ export class ServidorService {
   }
 
   getByPesquisa(nome: string, instituicao: string, cargo: string, funcao: string, interesse: string, limite: number, offset: number): Observable<Servidor[]> {
-    
+
     return this.httpClientService.search('/servidores', new SearchModel({
       fields: ['numeroFuncional','funcao.nome', 'funcao.dataInicio', 'cargo.nome', 'cargo.dataInicio', 'nome', 'id', 'sexo', 'estadoCivil', 'estado', 'cidade', 'email', 'foto'],
       limit:limite,
