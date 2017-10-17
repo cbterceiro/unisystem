@@ -27,17 +27,6 @@ export class CargoService {
     })).map((res: Response) => (res.json() || []).map(c => c.nome));
   }
 
-  getAllSetores(): Observable<Setor[]> {
-    return this.httpClientService.get('/setor')
-      .map((res: Response) => res.json() || []);
-  }
-
-  getAllSetoresContains(cargo: string): Observable<Setor[]> {
-    // return this.httpClientService.get('/cargo')
-    // .map((res: Response) => res.json() || []);
-    return new Observable<Setor[]>();
-  }
-
   save(cargo: Cargo): Observable<any> {
     return cargo.id ? this.update(cargo) : this.create(cargo);
   }

@@ -34,7 +34,8 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" [disabled]="!cargoForm.valid"></button>
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!cargoForm.valid"></button>
       </div>
     </div>
   </form>

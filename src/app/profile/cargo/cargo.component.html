@@ -1,14 +1,15 @@
-<div class="cargo card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = false">
+<div class="cargo card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
   <h1>Cargos</h1>
 
   <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCargo()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
   <uns-spinner [isLoading]="isLoading"></uns-spinner>
 
-  <div *ngIf="cargos && !cargos.length" class="text-center">
+  <div *ngIf="!isLoading && cargos && !cargos.length" class="text-center">
     Você não possui cargos cadastrados
   </div>
-  <div *ngFor="let cargo of cargos" class="cargo" style="position: relative">
+
+  <div *ngFor="let cargo of cargos" class="cargo">
     <hr>
 
     <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)"></uns-action-icon>
@@ -21,4 +22,4 @@
   </div>
 </div>
 
-<uns-cargo-modal [(visible)]="exibeModalCargo" (visibleChange)="getCargos()" [cargoEdit]="objToEdit"></uns-cargo-modal>
+<uns-cargo-modal [(visible)]="exibeModalCargo" (onSave)="getCargos()" [cargoEdit]="objToEdit"></uns-cargo-modal>

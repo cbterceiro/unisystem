@@ -1,83 +1,68 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FuncaoModalComponent } from './funcao-modal.component';
+import { ConfirmationService } from 'primeng/primeng';
 
-import {DataListModule, SharedModule, ConfirmationService} from 'primeng/primeng';
-import {Funcao} from './funcao.model'
+import { AuthenticatedUserService } from '../../authentication';
 
-import {FuncaoService} from './funcao.service'
+import { Funcao } from './funcao.model';
+import { FuncaoService } from './funcao.service';
 
 @Component({
   selector: 'uns-funcao',
   templateUrl: 'funcao.component.html',
   styleUrls: ['funcao.component.css']
 })
-
 export class FuncaoComponent implements OnInit {
-  //constructor() { }
 
-  modalfuncao: FuncaoModalComponent;
-  exibeModalfuncao: boolean = false;
+  exibeModalfuncao = false;
   objToEdit: Funcao;
-  
-  constructor(private cService: FuncaoService,
-              private confirmationService: ConfirmationService) { }
-  funcoes : Funcao[];
- 
- /* 
-  this.CountryService.GetCountries()
-    .subscribe(countries => {
-        this.myGridOptions.rowData = countries as CountryData[]
-    })*/
+
+  funcoes: Funcao[];
+
+  hideAddIcon = false;
+  isLoading: boolean;
+
+  constructor(
+    private funcaoService: FuncaoService,
+    private confirmationService: ConfirmationService,
+    private authenticatedUserService: AuthenticatedUserService,
+  ) { }
 
   ngOnInit() {
-    
-    this.atualizaForm();
-    //this.funcoes = 
-    
+    this.getFuncoes();
   }
-  
-  atualizaForm(): void
-  {
-    this.cService.getAllFuncoesFromId(1).subscribe(c => { 
-      this.funcoes = c as Funcao[];
-      console.log("funcoes:");
-       console.log(this.funcoes);
+
+  getFuncoes(): void {
+    const servidor = this.authenticatedUserService.getServidor();
+    this.isLoading = true;
+    this.funcoes = [];
+    this.funcaoService.getFuncoesByServidorId(servidor.id).subscribe(funcoes => {
+      this.funcoes = funcoes;
+      this.isLoading = false;
     });
   }
 
-  addNewfuncao(): void {
-    console.log('modal: ' + this.exibeModalfuncao + '  interno: ');
-  this.objToEdit = null;
+  addNewFuncao(): void {
+    this.objToEdit = null;
     this.exibeModalfuncao = true;
-
   }
-  
-    editarfuncao(funcao : Funcao): void {
-    console.log('editando funcao ');
+
+  editarFuncao(funcao: Funcao): void {
     this.objToEdit = funcao;
-    //this.modalfuncao.setupForm();
-    //this.modalfuncao.setupForm();
-    
     this.exibeModalfuncao = true;
-
   }
-  
-    deletarfuncao(id : number): void {
-                this.confirmationService.confirm({
+
+  deletarFuncao(id: number): void {
+    this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir este registro?',
       accept: () => {
-            this.cService.delete(id).subscribe(ok => { 
-      console.log("Sucesso ao deletar:" + ok);
-      this.atualizaForm();
-    });
-
+        this.funcaoService.delete(id).subscribe(ok => {
+          this.getFuncoes();
+        });
       },
-      reject: () => {
-      }
+      reject: () => { }
     });
   }
-
 }
 

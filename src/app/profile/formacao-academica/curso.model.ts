@@ -1,4 +1,4 @@
 export class Curso {
-    id: number;
-    nome: string;
-  }
+  id: number;
+  nome: string;
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Input, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -6,144 +6,105 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem } from 'primeng/primeng';
 
+import { AuthenticatedUserService } from '../../authentication';
+
+import { MessageService } from '../../core';
+
+import { markFormGroupDirty } from '../../shared/functions';
+
 import { Funcao } from './funcao.model';
-import {FuncaoService} from './funcao.service'
+import { FuncaoService } from './funcao.service';
 
 @Component({
   selector: 'uns-funcao-modal',
   templateUrl: 'funcao-modal.component.html',
   styleUrls: ['funcao-modal.component.css']
 })
-export class FuncaoModalComponent implements OnInit {
+export class FuncaoModalComponent implements OnChanges {
 
   @Input() visible: boolean;
   @Input() funcaoEdit: Funcao;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onSave: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  title: string;
 
   funcaoForm: FormGroup;
-  dataInicio: Date;
-  dataFim: Date;
-  nome: string;
-  descricao: string;
-  
-  resultadoFuncoes: string[]; //resultado da pesquisa de funcoes
-  resultadoSetores: string[]; //resultado da pesquisa de setores
-  
-  idToEdit:number;
+
+  sugestoesFuncao: string[];
+  sugestoesSetor: string[];
+
+  idToEdit: number;
+
+  isSubmitting: boolean;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private cService: FuncaoService,
+    private funcaoService: FuncaoService,
+    private authenticatedUserService: AuthenticatedUserService,
+    private messageService: MessageService,
   ) { }
 
-  ngOnInit() {
-    // this.subscribeToRouteParams();
-    this.setupForm();
-    this.idToEdit = 0;
-    console.log("passou init modal funcao");
-  }
-  
-  
-  ngOnChanges(changes: SimpleChanges)
-  {
-    if(this.funcaoEdit && this.visible)
-    {
-     console.log("funcao: " + this.funcaoEdit.dataInicio);
-     console.log(this.funcaoEdit.dataInicio);
-
-     //descobrir forma de preencer a porcaria do calendar
-
-     
-     this.funcaoForm = this.formBuilder.group({
-      nome: [this.funcaoEdit.nome, Validators.required],
-      setor: [''],
-      descricao: [''], 
-      dataInicio: ['', Validators.required],
-      dataFim: ['', Validators.required],
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.funcaoEdit && this.visible) {
+      this.funcaoForm = this.formBuilder.group({
+        nome: [this.funcaoEdit.nome, Validators.required],
+        setor: [null], // terá setor aqui?
+        descricao: [this.funcaoEdit.descricao],
+        dataInicio: [this.funcaoEdit.dataInicio, Validators.required],
+        dataFim: [this.funcaoEdit.dataFim, Validators.required],
+      });
 
       this.idToEdit = this.funcaoEdit.id;
-    }
-    else
-    {
-    this.setupForm();
-    this.idToEdit = 0;
+      this.title = 'Editar informações de função';
+    } else {
+      this.funcaoForm = this.formBuilder.group({
+        nome: ['', Validators.required],
+        setor: [''],
+        descricao: [''],
+        dataInicio: [null, Validators.required],
+        dataFim: [null, Validators.required],
+      });
+
+      this.idToEdit = null;
+      this.title = 'Adicionar informações de função';
     }
   }
 
-
-
-  setupForm(): void {
-    //this.setupDropdownOptions();
-
-console.log("passou setupform modal funcao");
-
-    this.funcaoForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      setor: [''],
-      descricao: [''],
-      dataInicio: [null, Validators.required],
-      dataFim: [null, Validators.required],
-    });
-  }
-  
   pesquisarFuncao(event) {
-    //Verificar essa gamb
-     let arrayFuncoes;
-     if(!this.resultadoFuncoes)
-      this.resultadoFuncoes = [];
-    this.cService.getAllFuncoes().subscribe(val=> {
-      console.log(val);
-      for (let i = 0; i < val.length; i++)
-      { 
-        if(this.resultadoFuncoes.indexOf(val[i].nome) == -1)
-          this.resultadoFuncoes.push(val[i].nome);
-      }
+    const nomeFuncao = event.query;
+    this.funcaoService.searchFuncoes(nomeFuncao).subscribe(funcoes => {
+      this.sugestoesFuncao = funcoes;
     });
-    
-     
-    console.log('Buscando funções');
-    //this.resultadoFuncoes = ['Funcao 1', 'Funcao 2'];
-}
+  }
 
   pesquisarSetor(event) {
-    //this.resultadoSetores = this.cService.getAllSetoresContains(setor);
-    console.log('buscando setores');
-    this.resultadoSetores = ['Setor 1', 'Setor 2'];
-}
-
-
+    const nomeSetor = event.query;
+    // buscar no backend os setores
+    this.sugestoesSetor = ['Setor 1', 'Setor 2'];
+  }
 
   onSubmit(isValid: boolean, funcao: Funcao): void {
-    isValid = true; //isso deveria já vir preenchido
-  
-    if(this.idToEdit>0)
-     funcao.id = this.idToEdit;
-     else
-     funcao.id = null;
-     
-     console.log('id funcao: ' + funcao.id);
-     
-    console.log('isValid', isValid);
-    console.log('funcao', funcao);
     if (isValid) {
-      funcao.servidor_id = 1; //procurar da onde está o id do servidor
-this.cService.saveFuncao(funcao).subscribe(ok =>{
-  console.log('salvando', ok);
-  this.closeModal();
-})
+      const servidor = this.authenticatedUserService.getServidor();
+      funcao.id = this.idToEdit;
+      funcao.servidor_id = servidor.id;
+      this.isSubmitting = true;
+      this.funcaoService.save(funcao).subscribe(success => {
+        this.isSubmitting = false;
+        this.messageService.sendSuccess({ detail: 'Função atualizada com sucesso.' });
+        this.onSave.emit(true);
+        this.closeModal();
+      });
+    } else {
+      markFormGroupDirty(this.funcaoForm);
     }
   }
 
   closeModal(): void {
     this.visible = false;
     this.visibleChange.emit(this.visible);
-    console.log('passou pelo hide');
-    
-    // Navega para a rota atual apenas alterando o parâmetro de exibição
-    // this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute })
   }
 }

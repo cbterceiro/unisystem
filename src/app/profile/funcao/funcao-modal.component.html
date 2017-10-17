@@ -1,67 +1,47 @@
-<p-dialog header="Adicionar Informações de Função" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
-  <form [formGroup]="funcaoForm" class="ui-fluid" (submit)="onSubmit(funcaoForm.isValid, funcaoForm.value)">
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="funcaoForm" class="ui-fluid" (submit)="onSubmit(funcaoForm.valid, funcaoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
-        <label class="form-label">Função</label>
-        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarFuncao($event)" formControlName="nome" [dropdown]="true"></p-autoComplete>
+        <label class="form-label">Nome</label>
+        <p-autoComplete [suggestions]="sugestoesFuncao" (completeMethod)="pesquisarFuncao($event)" formControlName="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.nome.pristine || funcaoForm.controls.nome.valid">
-          O nome da função é obrigatória.
+          O nome da função é obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
-        <label class="form-label">Setor --pendente susi</label>
-        <p-autoComplete [(ngModel)]="setor" [suggestions]="resultadoSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor" [dropdown]="true"></p-autoComplete>
+        <label class="form-label">Setor -- Pendente susi</label>
+        <p-autoComplete [suggestions]="sugestoesSetor" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.setor.pristine || funcaoForm.controls.setor.valid">
-          O setor obrigatório.
+          O setor é obrigatório.
         </small>
       </div>
     </div>
-
     <div class="ui-g">
-      <div class="ui-g-6">
+      <div class="ui-g-12">
         <label class="form-label">Descrição</label>
-        <textarea [(ngModel)]="descricao" formControlName="descricao" style='width:750px; height:150px;'></textarea>
+        <textarea pInputTextarea formControlName="descricao" autoResize="autoResize" [rows]="5"></textarea>
       </div>
     </div>
-
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Início</label>
-        <p-calendar default-config formControlName="dataInicio" [(ngModel)]="dataInicio" [dateFormat]="yyyy-mm-dd"></p-calendar>
+        <p-calendar default-config formControlName="dataInicio" [maxDate]="funcaoForm.controls.dataFim.value"></p-calendar>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.dataInicio.pristine || funcaoForm.controls.dataInicio.valid">
-          A data de nascimento é obrigatória.
+          A data de início de vigência da função é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar default-config formControlName="dataFim" [(ngModel)]="dataFim"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [minDate]="funcaoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.dataFim.pristine || funcaoForm.controls.dataFim.valid">
-          O setor obrigatório.
+          A data de fim de vigência da função é obrigatória.
         </small>
       </div>
     </div>
-    <!-- <div class="ui-g">
-      <div class="ui-g-6">
-        <label class="form-label">Nacionalidade</label>
-        <p-dropdown [options]="nationalities" [autoWidth]="false" formControlName="nationality"></p-dropdown>
-      </div>
-      <div class="ui-g-6">
-        <div class="ui-g-4 no-vertical-padding">
-          <label class="form-label">Estado</label>
-          <p-dropdown [options]="states" [autoWidth]="false" formControlName="state"></p-dropdown>
-        </div>
-        <div class="ui-g-8 no-vertical-padding">
-          <label class="form-label">Cidade</label>
-          <input formControlName="city" type="text" pInputText>
-          <small class="validation-error-message" [hidden]="funcaoForm.controls.city.pristine || funcaoForm.controls.city.valid">
-            A cidade é obrigatória.
-          </small>
-        </div>
-      </div>
-    </div> -->
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!funcaoForm.valid"></button>
       </div>
     </div>
   </form>

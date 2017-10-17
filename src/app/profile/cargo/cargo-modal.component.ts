@@ -25,14 +25,18 @@ export class CargoModalComponent implements OnChanges {
   @Input() visible: boolean;
   @Input() cargoEdit: Cargo;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onSave: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   title: string;
 
   cargoForm: FormGroup;
 
   sugestoesCargo: string[];
-  sugestoesSetores: string[];
+  sugestoesSetor: string[];
+
   idToEdit: number;
+
+  isSubmitting: boolean;
 
   constructor(
     private router: Router,
@@ -75,9 +79,9 @@ export class CargoModalComponent implements OnChanges {
   }
 
   pesquisarSetor(event) {
-    const nomeSetor = event.setor;
+    const nomeSetor = event.query;
     // buscar no backend os setores
-    this.sugestoesSetores = ['Setor 1', 'Setor 2'];
+    this.sugestoesSetor = ['Setor 1', 'Setor 2'];
   }
 
   onSubmit(isValid: boolean, cargo: Cargo): void {
@@ -85,8 +89,11 @@ export class CargoModalComponent implements OnChanges {
       const servidor = this.authenticatedUserService.getServidor();
       cargo.id = this.idToEdit;
       cargo.servidor_id = servidor.id;
+      this.isSubmitting = true;
       this.cargoService.save(cargo).subscribe(success => {
+        this.isSubmitting = false;
         this.messageService.sendSuccess({ detail: 'Cargo atualizado com sucesso.' });
+        this.onSave.emit(true);
         this.closeModal();
       });
     } else {

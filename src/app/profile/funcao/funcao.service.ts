@@ -3,10 +3,9 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../../core';
+import { HttpClientService, SearchModel } from '../../core';
 
 import { Funcao } from './funcao.model';
-/*import { Setor } from './setor.model';*/
 
 @Injectable()
 export class FuncaoService {
@@ -15,73 +14,56 @@ export class FuncaoService {
     private httpClientService: HttpClientService,
   ) { }
 
-
-  getAllFuncoesFromId(id: number): Observable<Funcao[]> {
+  getFuncoesByServidorId(id: number): Observable<Funcao[]> {
     return this.httpClientService.get(`/servidores/${id}/funcao`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => this.jsonToFuncoes(res.json() || []));
   }
-  
-    getAllFuncoes(): Observable<Funcao[]> {
+
+  searchFuncoes(name: string): Observable<string[]> {
+    return this.httpClientService.search(`/funcoes/pesquisa`, new SearchModel({
+      fields: ['nome'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(f => f.nome));
+  }
+
+  getAllFuncoes(): Observable<Funcao[]> {
     return this.httpClientService.get('/funcao')
       .map((res: Response) => res.json() || []);
   }
-  
-  /*  getAllSetores(): Observable<Setor[]> {
-    return this.httpClientService.get('/setor')
-      .map((res: Response) => res.json() || []);
-  }*/
-  
-  getAllFuncoesContains(funcao: string): Observable<Funcao[]> {
-    //return this.httpClientService.get('/funcao')
-     // .map((res: Response) => res.json() || []);
-     return new Observable<Funcao[]>();
+
+  save(funcao: Funcao): Observable<any> {
+    return funcao.id ? this.update(funcao) : this.create(funcao);
   }
-  
-  /*
-    getAllSetoresContains(funcao: string): Observable<Setor[]> {
-    //return this.httpClientService.get('/funcao')
-     // .map((res: Response) => res.json() || []);
-     return new Observable<Setor[]>();
-  }*/
-   
-  saveFuncao(funcao: Funcao): Observable<any> {
-    return funcao.id ? this.updatefuncao(funcao) : this.create(funcao);
-  }
-  
-    private updatefuncao(funcao: Funcao): Observable<any> {
+
+  private update(funcao: Funcao): Observable<any> {
     return this.httpClientService.put(`/funcao/${funcao.id}`, funcao)
       .map((res: Response) => res.json());
   }
-  
-    private create(funcao: Funcao): Observable<any> {
+
+  private create(funcao: Funcao): Observable<any> {
     return this.httpClientService.post('/funcao', funcao)
       .map((res: Response) => res.json());
   }
-  
+
   delete(id: number): Observable<any> {
     return this.httpClientService.delete(`/funcao/${id}`)
       .map((res: Response) => res.json() || {});
   }
-  
-/*
-  getById(id: number): Observable<Servidor> {
-    return this.httpClientService.get(`/servidores/${id}`)
-      .map((res: Response) => res.json() || {});
+
+  private jsonToFuncao(json: any): Funcao {
+    const funcao: Funcao = Object.assign(new Funcao(), json);
+    if (json.dataInicio) {
+      funcao.dataInicio = new Date(json.dataInicio);
+    }
+    if (json.dataFim) {
+      funcao.dataFim = new Date(json.dataFim);
+    }
+    delete funcao['created_at'];
+    delete funcao['updated_at'];
+    return funcao;
   }
 
-  delete(id: number): Observable<any> {
-    return this.httpClientService.delete(`/servidores/${id}`)
-      .map((res: Response) => res.json() || {});
+  private jsonToFuncoes(json: any[]): Funcao[] {
+    return json.map(obj => this.jsonToFuncao(obj));
   }
-
-  private create(servidor: Servidor): Observable<any> {
-    return this.httpClientService.post('/servidores', servidor)
-      .map((res: Response) => res.json());
-  }
-
-  private update(servidor: Servidor): Observable<any> {
-    return this.httpClientService.put(`/servidores/${servidor.id}`, servidor)
-      .map((res: Response) => res.json());
-  }
-  */
 }

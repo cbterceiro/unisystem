@@ -23,7 +23,7 @@ export class CargoComponent implements OnInit {
   isLoading: boolean;
 
   constructor(
-    private cService: CargoService,
+    private cargoService: CargoService,
     private confirmationService: ConfirmationService,
     private authenticatedUserService: AuthenticatedUserService,
   ) { }
@@ -33,9 +33,10 @@ export class CargoComponent implements OnInit {
   }
 
   getCargos(): void {
-    this.isLoading = true;
     const servidor = this.authenticatedUserService.getServidor();
-    this.cService.getCargosByServidorId(servidor.id).subscribe(cargos => {
+    this.isLoading = true;
+    this.cargos = [];
+    this.cargoService.getCargosByServidorId(servidor.id).subscribe(cargos => {
       this.cargos = cargos;
       this.isLoading = false;
     });
@@ -47,9 +48,7 @@ export class CargoComponent implements OnInit {
   }
 
   editarCargo(cargo: Cargo): void {
-    console.log('editando cargo ');
     this.objToEdit = cargo;
-
     this.exibeModalCargo = true;
   }
 
@@ -57,7 +56,7 @@ export class CargoComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir este registro?',
       accept: () => {
-        this.cService.delete(id).subscribe(ok => {
+        this.cargoService.delete(id).subscribe(ok => {
           this.getCargos();
         });
       },
