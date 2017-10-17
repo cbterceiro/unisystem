@@ -65,11 +65,11 @@ export class FormacaoAcademicaComponent implements OnInit {
     // this.formacoesAcademicasHide = temp;
   }
 
-  deletarFormacao(id: number): void {
+  deletarFormacao(formacao: FormacaoAcademica): void {
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir este registro?',
+      message: 'Tem certeza que deseja excluir este registro? \n' + formacao.curso,
       accept: () => {
-        this.formacaAcademicaService.delete(id).subscribe(success => {
+        this.formacaAcademicaService.delete(formacao.id).subscribe(success => {
           /*this.messageService.sendSuccess({
               summary: 'Sucesso',
               detail: 'Perfil atualizado com sucesso.'
