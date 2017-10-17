@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ServidorService } from '../core/servidor.service';
@@ -24,6 +24,8 @@ export class ServidoresComponent implements OnInit {
   constructor(
     private cService: ServidorService,
     private route: ActivatedRoute,
+    private el: ElementRef,
+    private renderer: Renderer2,
   ) { }
 
   ngOnInit() {
@@ -48,6 +50,13 @@ export class ServidoresComponent implements OnInit {
       });
 
 
+  }
+  
+    updateBackgroundImage(base64Img: string) {
+    const element = this.el.nativeElement.querySelector('.profile-image');
+    if (base64Img && element) {
+      this.renderer.setStyle(element, 'background-image', `url('${base64Img}')`);
+    }
   }
 
   atualizaForm(): void {
