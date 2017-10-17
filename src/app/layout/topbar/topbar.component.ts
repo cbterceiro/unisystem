@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class TopbarComponent implements OnInit {
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+    this.limparCampos();
+  }
   
   instituicao: string;
   nomeCompleto: string;

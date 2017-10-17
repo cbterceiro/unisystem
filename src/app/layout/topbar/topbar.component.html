@@ -50,8 +50,9 @@
     <span>Topbar</span>
     <div class="search-area">
       <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="encontrar" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor()"></button>
+        <input type="text" pInputText placeholder="encontrar" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" 
+        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], setor: [(setor)], interesse: [(areaInteresse)]}"></button>
       </div>
     </div>
   </div>

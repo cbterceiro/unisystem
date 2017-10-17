@@ -40,6 +40,9 @@ export class ServidoresComponent implements OnInit {
         this.areaInteresse = params.interesse;
         //this.order = params.order;
         //console.log(this.order); // popular
+        this.limite = 10;
+        this.offset = 0;
+        console.log('nome: ' + this.nomeCompleto);
         this.atualizaForm();
       });
     
