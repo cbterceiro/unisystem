@@ -58,7 +58,7 @@
             </div>
             <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
             <p>{{formacao.curso}}</p>
-            <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
+            <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao)">
                 <fa name="trash"></fa>
             </div>
             <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
@@ -68,3 +68,4 @@
     <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
         <fa name={{arrowExpand}}></fa>{{labelExpand}}
     </div>
+</div>

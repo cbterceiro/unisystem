@@ -58,7 +58,7 @@ export class FormacaoAcademicaModalComponent implements OnInit {
       this.idToEdit = this.formacaoEdit.id;
       this.formacaoForm = this.formBuilder.group({// preencher campos com os valores do objeto
         id: [this.idToEdit],
-        curso: [this.formacaoEdit.curso, Validators.required],
+        cursoNome: [this.formacaoEdit.curso, Validators.required],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
         nivel: [this.formacaoEdit.nivel, Validators.required],
