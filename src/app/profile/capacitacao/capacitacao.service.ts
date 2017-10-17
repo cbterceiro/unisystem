@@ -3,10 +3,9 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../../core';
+import { HttpClientService, SearchModel } from '../../core';
 
 import { Capacitacao } from './capacitacao.model';
-
 
 @Injectable()
 export class CapacitacaoService {
@@ -42,5 +41,22 @@ export class CapacitacaoService {
   private update(Capacitacao: Capacitacao): Observable<any> {
     return this.httpClientService.put(`/atividades-complementares/${Capacitacao.id}`, Capacitacao)
       .map((res: Response) => res.json());
+  }
+
+  private jsonToCapacitacao(json: any): Capacitacao {
+    const capacitacao: Capacitacao = Object.assign(new Capacitacao(), json);
+    if (json.dataInicio) {
+      capacitacao.dataInicio = new Date(json.dataInicio);
+    }
+    if (json.dataFim) {
+      capacitacao.dataFim = new Date(json.dataFim);
+    }
+    delete capacitacao['created_at'];
+    delete capacitacao['updated_at'];
+    return capacitacao;
+  }
+
+  private jsonToCapacitacoes(json: any[]): Capacitacao[] {
+    return json.map(obj => this.jsonToCapacitacao(obj));
   }
 }

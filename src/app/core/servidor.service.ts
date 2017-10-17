@@ -4,6 +4,7 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { HttpClientService } from './http-client.service';
+import { SearchModel } from './search.model';
 
 import { Servidor } from './servidor.model';
 
@@ -17,8 +18,10 @@ export class ServidorService {
   ) { }
 
   getAll(): Observable<Servidor[]> {
-    return this.httpClientService.get('/servidores')
-      .map((res: Response) => this.jsonToServidores(res.json() || []));
+    return this.httpClientService.search('/servidores', new SearchModel({
+      fields: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade', 'email', 'foto'],
+      orderBy: ['nome asc'],
+    })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
   getByPesquisa(nome: string, instituicao: string, cargo: string, setor: string, interesse: string, limite: number, offset: number): Observable<Servidor[]> {
