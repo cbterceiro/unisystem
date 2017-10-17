@@ -24,10 +24,19 @@ export class ServidorService {
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
-  getByPesquisa(nome: string, instituicao: string, cargo: string, setor: string, interesse: string, limite: number, offset: number): Observable<Servidor[]> {
-    console.log(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`);
-    return this.httpClientService.get(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`)
-      .map((res: Response) => this.jsonToServidores(res.json() || {}));
+  getByPesquisa(nome: string, instituicao: string, cargo: string, funcao: string, interesse: string, limite: number, offset: number): Observable<Servidor[]> {
+    
+    return this.httpClientService.search('/servidores', new SearchModel({
+      fields: ['numeroFuncional','funcao.nome', 'funcao.dataInicio', 'cargo.nome', 'cargo.dataInicio', 'nome', 'id', 'sexo', 'estadoCivil', 'estado', 'cidade', 'email', 'foto'],
+      limit:limite,
+      offset:offset,
+      filters:['nome like %'+nome+'%', 'cargo.nome like %'+cargo+'%', 'funcao.nome like %'+funcao+'%'],
+      orderBy: ['nome asc, cargo.dataInicio desc, funcao.dataInicio desc'],
+    })).map((res: Response) => this.jsonToServidores(res.json() || []));
+    
+   // console.log(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`);
+  //  return this.httpClientService.get(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`)
+    //  .map((res: Response) => this.jsonToServidores(res.json() || {}));
   }
 
   getById(id: number): Observable<Servidor> {
