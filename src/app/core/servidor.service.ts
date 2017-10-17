@@ -30,7 +30,7 @@ export class ServidorService {
       fields: ['numeroFuncional','funcao.nome', 'funcao.dataInicio', 'cargo.nome', 'cargo.dataInicio', 'nome', 'id', 'sexo', 'estadoCivil', 'estado', 'cidade', 'email', 'foto'],
       limit:limite,
       offset:offset,
-      filters:['nome like %'+nome+'%', 'cargo.nome like %'+cargo+'%', 'funcao.nome like %'+funcao+'%'],
+      filters:['nome like %'+nome+'%', (cargo.length > 0 ? 'cargo.nome like %'+cargo+'%' : ''), (funcao.length > 0 ? 'funcao.nome like %'+funcao+'%' : '')],
       orderBy: ['nome asc, cargo.dataInicio desc, funcao.dataInicio desc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
     
