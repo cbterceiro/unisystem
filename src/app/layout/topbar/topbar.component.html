@@ -7,38 +7,39 @@
 
     <div class="ui-g-6">
       <label class="form-label">Nome Completo</label>
-      <input type="text" pInputText>
+      <input type="text" [(ngModel)]="nomeCompleto" pInputText>
     </div>
 
     <div class="ui-g-6">
       <label class="form-label">Instituição</label>
-      <input type="text" pInputText>
+      <input type="text" [(ngModel)]="instituicao" pInputText>
     </div>
 
     <div class="ui-g-6">
       <label class="form-label">Cargo</label>
-      <input type="text" pInputText>
+      <input type="text" [(ngModel)]="cargo" pInputText>
     </div>
 
     <div class="ui-g-6">
       <label class="form-label">Setor</label>
-      <input type="text" pInputText>
+      <input type="text" [(ngModel)]="setor" pInputText>
     </div>
 
     <div class="ui-g-6">
       <label class="form-label">Area de interesse</label>
-      <input type="text" pInputText>
+      <input type="text" [(ngModel)]="areaInteresse" pInputText>
     </div>
 
     <div class="ui-g-12">
       <div class="ui-g-7"></div>
 
       <span class="ui-g-2">
-        <button pButton type="button" class="ui-button-secondary" icon="fa-eraser"></button>
+        <button pButton type="button" class="ui-button-secondary" icon="fa-eraser" (click)="limparCampos()"></button>
       </span>
 
       <span class="ui-g-3">
-        <button pButton type="button" label="Pesquisar"></button>
+        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" 
+        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], setor: [(setor)], interesse: [(areaInteresse)]}"></button>
       </span>
     </div>
   </div>
@@ -49,8 +50,9 @@
     <span>Topbar</span>
     <div class="search-area">
       <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="encontrar" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>
+        <input type="text" pInputText placeholder="encontrar" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" 
+        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], setor: [(setor)], interesse: [(areaInteresse)]}"></button>
       </div>
     </div>
   </div>

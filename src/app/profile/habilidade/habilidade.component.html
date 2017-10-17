@@ -1,0 +1,27 @@
+<div class="habilidade card card-w-title">
+  <h1>Habilidades
+
+<div class="add-habilidade-image-icon" (click)="addNewhabilidade()">
+        <fa name="plus"></fa>
+        <span>Adicionar</span>
+      </div>
+      
+  </h1>
+  <uns-habilidade-modal  [visible]="exibeModalhabilidade" [habilidadeEdit]="objToEdit" (visibleChange)="exibeModalhabilidade=$event; this.atualizaForm();"></uns-habilidade-modal>
+
+<div *ngFor="let habilidade of habilidades" class="habilidade">
+      <hr class="hr">
+      <div class="edit-habilidade-image-icon" (click)="editarhabilidade(habilidade)">
+            <fa name="pencil"></fa>
+      </div>
+      
+      <h3>{{habilidade.nome}}</h3>
+      
+      <div class="delete-habilidade-image-icon" (click)="deletarhabilidade(habilidade.id)">
+            <fa name="trash"></fa>
+      </div>
+      <p>Nº Recomendações: {{habilidade.numRecomendacoes}}</p>
+      
+</div>
+
+</div>
