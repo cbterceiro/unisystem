@@ -25,7 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.msgSubscription = this.messageService.listen().subscribe(message => {
-      this.msgs.push(message);
+      this.msgs = [message];
     });
   }
 

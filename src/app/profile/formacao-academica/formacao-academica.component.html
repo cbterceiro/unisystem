@@ -1,71 +1,28 @@
-<div class="formacao card card-w-title">
-    <div class="add-formacao-image-icon" (click)="adicionarFormacaoAcademica()">
-        <fa name="plus"></fa>
-        <span>Adicionar</span>
-    </div>
-    <uns-formacao-academica-modal [visible]="exibeModalFormacao" [formacaoEdit]="objToEdit" (visibleChange)="exibeModalFormacao=$event; this.atualizarListaFormacoes();"></uns-formacao-academica-modal>
+<div class="formacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
+  <h1>Formação Acadêmica</h1>
 
-    <!-- ##################### Sem "ver mais" -->
-    <!-- <h1>Formação Acadêmica</h1>
-    <div *ngFor="let formacao of formacoesAcademicasHide" class="formacao">
-        <hr class="formacaohr">
-        <div class="edit-formacao-image-icon" (click)="editarFormacao()">
-            <fa name="pencil"></fa>
-        </div>
-        <h4>{{formacao.instituicaoAcademica.nome}}</h4>
-        <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
-            <fa name="trash"></fa>
-        </div>
-        <p>{{formacao.curso}}</p>
-        <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-    </div>
-</div> -->
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="adicionarFormacaoAcademica()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
-    <!-- ####################### primeng accordion -->
-    <!-- <p-accordion [multiple]="true">
-        <p-accordionTab [selected]="true">
-            <p-header>
-                <h1>Formação Acadêmica</h1>
-            <div class="formacoes">
-                <div *ngFor="let formacao of formacoesAcademicasHide" class="formacao">
-                    <hr class="formacaohr">
-                    <div class="edit-formacao-image-icon" (click)="editarFormacao()">
-                        <fa name="pencil"></fa>
-                    </div>
-                    <h4>{{formacao.instituicaoAcademica.nome}}</h4>
-                    <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao.id)">
-                        <fa name="trash"></fa>
-                    </div>
-                    <p>{{formacao.curso}}</p>
-                    <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-                </div>
-            </div>
-        </p-accordionTab>
-        <p-accordionTab ng-hide="hideVerMais">
-            <p-header>
-                Ver mais
-            </p-header>
-            mais
-        </p-accordionTab>
-    </p-accordion> -->
+  <uns-spinner [isLoading]="isLoading"></uns-spinner>
 
-    <!-- ############################ botao ver mais manual -->
-    <h1>Formação Acadêmica</h1>
-    <div class="{{formacoesClass}}">
-        <div *ngFor="let formacao of formacoesAcademicas; let ultimo = last;" class="formacao">
-            <div class="edit-formacao-image-icon" (click)="editarFormacao(formacao)">
-                <fa name="pencil"></fa>
-            </div>
-            <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
-            <p>{{formacao.curso}}</p>
-            <div class="delete-formacao-image-icon" (click)="deletarFormacao(formacao)">
-                <fa name="trash"></fa>
-            </div>
-            <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-            <hr *ngIf="!ultimo" class="formacaohr">
-        </div>
+  <div *ngIf="!isLoading && formacoesAcademicas && !formacoesAcademicas.length" class="text-center">
+    Você ainda não cadastrou sua formação acadêmica
+  </div>
+
+  <div class="{{ formacoesClass }}">
+    <div *ngFor="let formacao of formacoesAcademicas; let ultimo = last;" class="formacao">
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarFormacao(formacao)" topPosition="0px"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarFormacao(formacao)" topPosition="22px"></uns-action-icon>
+
+      <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
+      <p>{{formacao.curso}}</p>
+      <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <hr *ngIf="!ultimo">
     </div>
-    <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
-        <fa name={{arrowExpand}}></fa>{{labelExpand}}
-    </div>
+  </div>
+  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+    <fa name={{arrowExpand}}></fa>{{labelExpand}}
+  </div>
 </div>
+
+<uns-formacao-academica-modal [(visible)]="exibeModalFormacao" (onSave)="atualizarListaFormacoes()" [formacaoEdit]="objToEdit"></uns-formacao-academica-modal>

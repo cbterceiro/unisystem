@@ -3,9 +3,12 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AccordionModule, SharedModule, ConfirmDialogModule, ConfirmationService, FieldsetModule } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/primeng';
 
-import { FormacaoAcademicaModalComponent } from './formacao-academica-modal.component';
+import { AuthenticatedUserService } from '../../authentication';
+
+import { MessageService } from '../../core';
+
 import { FormacaoAcademica } from './formacao-academica.model';
 import { FormacaoAcademicaService } from './formacao-academica.service';
 
@@ -17,71 +20,61 @@ import { FormacaoAcademicaService } from './formacao-academica.service';
 
 export class FormacaoAcademicaComponent implements OnInit {
 
-  modalFormacao: FormacaoAcademicaModalComponent;
-  exibeModalFormacao: boolean = false;
+  exibeModalFormacao = false;
   objToEdit: FormacaoAcademica;
 
-  constructor(
-    private formacaAcademicaService: FormacaoAcademicaService,
-    private confirmationService: ConfirmationService,
-  ) { }
-
-  // formacoesAcademicasShow: FormacaoAcademica[];
-  // formacoesAcademicasHide: FormacaoAcademica[];
   formacoesAcademicas: FormacaoAcademica[];
 
-  formacoesClass: string = "formacoes";
-  arrowExpand: string = "chevron-down";
-  labelExpand: string = "Ver mais";
-  hideVerMais: boolean = false;     //flag para mostrar/esconder o botão de Ver Mais
+  formacoesClass = 'formacoes';
+  arrowExpand = 'chevron-down';
+  labelExpand = 'Ver mais';
+  hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
+
+  hideAddIcon = true;
+
+  isLoading: boolean;
+
+  constructor(
+    private formacaoAcademicaService: FormacaoAcademicaService,
+    private confirmationService: ConfirmationService,
+    private authenticatedUserService: AuthenticatedUserService,
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit() {
     this.atualizarListaFormacoes();
   }
 
   atualizarListaFormacoes(): void {
-    // console.log("atualizando lista...");
-    this.formacaAcademicaService.getAll(1).subscribe(result => {
-      this.formacoesAcademicas = result as FormacaoAcademica[];
-      //this.formacoesAcademicasShow = this.formacoesAcademicasHide.slice(0, 2);
-      if (this.formacoesAcademicas.length < 3)
+    const servidor = this.authenticatedUserService.getServidor();
+    this.isLoading = true;
+    this.formacoesAcademicas = [];
+    this.formacaoAcademicaService.getAll(servidor.id).subscribe(formacoesAcademicas => {
+      this.isLoading = false;
+      this.formacoesAcademicas = formacoesAcademicas;
+      if (this.formacoesAcademicas.length < 3) {
         this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
     });
   }
 
   verMais(): void {
-    if (this.formacoesClass == "formacoesExpandido") {
-      this.formacoesClass = "formacoes";
-      this.arrowExpand = "chevron-down";
-      this.labelExpand = "Ver mais";
+    if (this.formacoesClass === 'formacoesExpandido') {
+      this.formacoesClass = 'formacoes';
+      this.arrowExpand = 'chevron-down';
+      this.labelExpand = 'Ver mais';
+    } else {
+      this.formacoesClass = 'formacoesExpandido';
+      this.arrowExpand = 'chevron-up';
+      this.labelExpand = 'Ver menos';
     }
-    else {
-      this.formacoesClass = "formacoesExpandido";
-      this.arrowExpand = "chevron-up";
-      this.labelExpand = "Ver menos";
-    }
-    // var temp: FormacaoAcademica[] = this.formacoesAcademicasShow;
-    // this.formacoesAcademicasShow = this.formacoesAcademicasHide;
-    // this.formacoesAcademicasHide = temp;
   }
 
-  deletarFormacao(formacao: FormacaoAcademica): void {
-    this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir este registro? \n' + formacao.curso,
-      accept: () => {
-        this.formacaAcademicaService.delete(formacao.id).subscribe(success => {
-          /*this.messageService.sendSuccess({
-              summary: 'Sucesso',
-              detail: 'Perfil atualizado com sucesso.'
-            });*/
-          console.log("deletado!!");
-          this.atualizarListaFormacoes();
-        });
-      },
-      reject: () => {
-        console.log("não deletar");
-      }
-    });
+  adicionarFormacaoAcademica(): void {
+    this.objToEdit = null;
+    this.exibeModalFormacao = true;
   }
 
   editarFormacao(formacaoEdit: FormacaoAcademica): void {
@@ -89,8 +82,15 @@ export class FormacaoAcademicaComponent implements OnInit {
     this.exibeModalFormacao = true;
   }
 
-  adicionarFormacaoAcademica(): void {
-    this.objToEdit = null;
-    this.exibeModalFormacao = true;
+  deletarFormacao(formacao: FormacaoAcademica): void {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro? \n' + formacao.curso,
+      accept: () => {
+        this.formacaoAcademicaService.delete(formacao.id).subscribe(success => {
+          this.atualizarListaFormacoes();
+        });
+      },
+      reject: () => { }
+    });
   }
 }

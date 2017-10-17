@@ -20,7 +20,7 @@ export class FuncaoComponent implements OnInit {
 
   funcoes: Funcao[];
 
-  hideAddIcon = false;
+  hideAddIcon = true;
   isLoading: boolean;
 
   constructor(

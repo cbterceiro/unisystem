@@ -5,14 +5,7 @@
   border: none;
 }
 
-hr {
-  width: 100%;
-}
-h3 {
-  line-height: 1em;
-  margin-left: 0.6em;
-}
-p {
+h4, p {
   line-height: 1em;
   margin-left: 0.6em;
 }

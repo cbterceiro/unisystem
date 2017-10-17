@@ -1,9 +1,9 @@
-<p-dialog header="Adicionar Formação Acadêmica" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
-  <form [formGroup]="formacaoForm" class="ui-fluid" (submit)="onSubmit(formacaoForm.isValid, formacaoForm.value)">
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="formacaoForm" class="ui-fluid" (submit)="onSubmit(formacaoForm.valid, formacaoForm.value)">
     <div class="ui-g">
       <div class="ui-g-12">
         <label class="form-label">Instituição Acadêmica</label>
-        <p-autoComplete [(ngModel)]="instituicaoAcademica" [suggestions]="resultadoInstituicoesAcademicas" field="nome" (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicao_academica_id" [dropdown]="true" [minLength]="3" (onDropdownClick)="pesquisarInstituicoesAcademicas($event)"></p-autoComplete>
+        <p-autoComplete [suggestions]="resultadoInstituicoesAcademicas" field="nome" (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicao_academica_id" [minLength]="3"></p-autoComplete>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.instituicao_academica_id.pristine || formacaoForm.controls.instituicao_academica_id.valid">
           A instituição acadêmica é um campo obrigatório.
         </small>
@@ -12,8 +12,8 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Curso</label>
-        <p-autoComplete [(ngModel)]="curso" [suggestions]="resultadoCursos" field="nome" (completeMethod)="pesquisarCursos($event)" formControlName="cursoNome" [dropdown]="false" [minLength]="3" (onDropdownClick)="pesquisarCursos($event)"></p-autoComplete>
-        <small class="validation-error-message" [hidden]="formacaoForm.controls.cursoNome.pristine || formacaoForm.controls.cursoNome.valid">
+        <p-autoComplete [suggestions]="resultadoCursos" (completeMethod)="pesquisarCursos($event)" formControlName="curso" [minLength]="3"></p-autoComplete>
+        <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
           O curso é um campo é obrigatório.
         </small>
       </div>
@@ -28,26 +28,23 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Início</label>
-        <p-calendar default-config formControlName="dataInicio" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" (onSelect)="validaData()" [maxDate]="today"></p-calendar>
+        <p-calendar default-config formControlName="dataInicio" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="formacaoForm.controls.dataFim.value"></p-calendar>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.dataInicio.pristine || formacaoForm.controls.dataInicio.valid">
           A data de início é um campo obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Data de Término</label>
-        <p-calendar default-config formControlName="dataFim" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" (onSelect)="validaData()" [minDate]="mindate"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [minDate]="formacaoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.dataFim.pristine || formacaoForm.controls.dataFim.valid">
           A data de término é um campo obrigatório.
         </small>
       </div>
-      <div class="ui-g-12 dateErrorMessage">
-        <small class="validation-error-message" [hidden]="dateErrorMessage">A data de término não pode ser anterior à data de início.</small>
-      </div>
     </div>
-    <input formControlName="servidor_id" type="text" hidden="true" pInputText>
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid || !dateErrorMessage"></button>
+        <uns-spinner [isLoading]="isLoading"></uns-spinner>
+        <button *ngIf="!isLoading" pButton type="submit" label="Salvar" [disabled]="!formacaoForm.valid"></button>
       </div>
     </div>
   </form>

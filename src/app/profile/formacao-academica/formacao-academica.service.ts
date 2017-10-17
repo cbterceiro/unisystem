@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../../core';
+import { HttpClientService, SearchModel } from '../../core';
 
 import { FormacaoAcademica } from './formacao-academica.model';
 import { InstituicaoAcademica } from './instituicao-academica.model';
@@ -17,7 +17,7 @@ export class FormacaoAcademicaService {
 
   getAll(id: number): Observable<FormacaoAcademica[]> {
     return this.httpClientService.get(`/servidores/${id}/formacaoacademica`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => this.jsonToFormacoesAcademicas(res.json() || []));
   }
 
   getById(id: number): Observable<FormacaoAcademica> {
@@ -32,8 +32,8 @@ export class FormacaoAcademicaService {
 
   // pesquisar cursos para exibir no autocomplete
   searchCurso(nome: string): Observable<any> {
-    return this.httpClientService.get(`/cursos?fields=nome&limit=10&offset=0&filter=nome like %${nome}%&order=nome asc`)//confirmar
-      .map((res: Response) => res.json() || {});
+    return this.httpClientService.get(`/cursos?fields=nome&limit=10&offset=0&filter=nome like %${nome}%&order=nome asc`)// confirmar
+      .map((res: Response) => (res.json() || {}).map(c => c.nome));
   }
 
   delete(id: number): Observable<any> {
@@ -53,5 +53,22 @@ export class FormacaoAcademicaService {
   private update(formacaoacademica: FormacaoAcademica): Observable<any> {
     return this.httpClientService.put(`/formacaoacademica/${formacaoacademica.id}`, formacaoacademica)
       .map((res: Response) => res.json());
+  }
+
+  private jsonToFormacaoAcademica(json: any): FormacaoAcademica {
+    const formacaoAcademica: FormacaoAcademica = Object.assign(new FormacaoAcademica(), json);
+    if (json.dataInicio) {
+      formacaoAcademica.dataInicio = new Date(json.dataInicio);
+    }
+    if (json.dataFim) {
+      formacaoAcademica.dataFim = new Date(json.dataFim);
+    }
+    delete formacaoAcademica['created_at'];
+    delete formacaoAcademica['updated_at'];
+    return formacaoAcademica;
+  }
+
+  private jsonToFormacoesAcademicas(json: any[]): FormacaoAcademica[] {
+    return json.map(fa => this.jsonToFormacaoAcademica(fa));
   }
 }

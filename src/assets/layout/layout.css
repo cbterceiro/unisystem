@@ -121,7 +121,6 @@ body a {
 }
 
 .ui-growl {
-  position: absolute;
   top: initial;
   right: initial;
   width: 100%;

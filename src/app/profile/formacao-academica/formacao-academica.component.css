@@ -1,147 +1,34 @@
+.formacao {
+  position: relative;
+}
 
-/*botão adicionar nova formação*/
-.formacao .add-formacao-image-icon {
-    float: right;
-    top: 12px;
-    right: 12px;
-    cursor: pointer;
-    width: 20px;
-    height: 22px;
-    padding-left: 3px;
-    text-align: center;
-    border-radius: 5px;
-    opacity: 0;
-    overflow: hidden;
-  }
-  .formacao .add-formacao-image-icon span,
-  .formacao .add-formacao-image-icon fa {
-    float: right;
-  }
-  .formacao .add-formacao-image-icon span {
-    font-size: 11px;
-    margin-right: 5px;
-  }
-  .formacao .add-formacao-image-icon fa {
-    margin-right: 2px;
-  }
-  .formacao:hover .add-formacao-image-icon {
-    opacity: 1;
-    transition: opacity 300ms ease-in-out;
-  }
-  .formacao .add-formacao-image-icon:hover {
-    background-color: #e5e5e5;
-    width: 75px;
-    transition: all 150ms ease-in-out;
-  }
-/*botão editar formação*/
-  .formacao .edit-formacao-image-icon {
-    position: relative;
-    float: right;
-    top: 12px;
-    right: 0px;
-    cursor: pointer;
-    width: 20px;
-    height: 22px;
-    padding-left: 3px;
-    text-align: center;
-    border-radius: 5px;
-    opacity: 1;
-    overflow: hidden;
-  }
-  .formacao .edit-formacao-image-icon span,
-  .formacao .edit-formacao-image-icon fa {
-    float: right;
-  }
-  .formacao .edit-formacao-image-icon span {
-    font-size: 11px;
-    margin-right: 5px;
-  }
-  .formacao .edit-formacao-image-icon fa {
-    margin-right: 2px;
-  }
-/*botão deletar formação*/
-  .formacao .delete-formacao-image-icon {
-    /*position: relative;*/
-    float: right;
-    /*bottom: 25px;*/
-    right: 0px;
-    cursor: pointer;
-    width: 20px;
-    height: 22px;
-    padding-left: 3px;
-    text-align: center;
-    border-radius: 5px;
-    opacity: 1;
-    overflow: hidden;
-  }
-  .formacao .delete-formacao-image-icon span,
-  .formacao .delete-formacao-image-icon fa {
-    float: right;
-  }
-  .formacao .delete-formacao-image-icon span {
-    font-size: 11px;
-    margin-right: 5px;
-  }
-  .formacao .delete-formacao-image-icon fa {
-    margin-right: 2px;
-  }
-  /**/
-  .formacaohr{
-    width: 100%;
-  }
+h4, p {
+  line-height: 1em;
+  margin-left: 0.6em;
+}
 
-  h4{
-    line-height: 1em;
-    margin-left: 0.6em;
-  }
+.formacoes {
+  overflow-y: hidden;
+  max-height: 247px; /* exibe 2 formações acadêmicas */
 
-  p{
-    line-height: 1em;
-    margin-left: 0.6em;
-  }
+  transition: max-height 0.35s ease-out;
+}
 
-  .formacoes{
-    /*animation*/
-    overflow-y: hidden;
-    max-height: 247px; /* exibe 2 formações acadêmicas */
-  
-    transition: max-height 0.35s ease-out;
-    /* transition-property: all;
-    transition-duration: .5s;
-    transition-timing-function: cubic-bezier(0, 1, 0.5, 1); */
-  }
+.formacoesExpandido {
+  overflow-y: hidden;
+  max-height: 1231px; /*exibe até 10 formações acadêmicas */
 
-  .formacoesExpandido{
-    /*animation*/
-    overflow-y: hidden;
-    max-height: 1231px; /*exibe até 10 formações acadêmicas */
+  transition: max-height 0.35s ease-in;
+}
 
-    transition: max-height 0.35s ease-in;
-    /* transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: cubic-bezier(0, 1, 0.5, 1); */
-  }
-
-  .botaoVerMais{
-    text-align: center;
-    margin: 0em 0em -2em -1em;
-    min-height: 31px;
-    width: 106%;
-    border-top-style: solid;
-    border-width: 1px;
-    border-color: #999999;
-    padding-top: 6px;
-    cursor: pointer;
-  }
-
-  .botaoVerMaisExpandido{
-    text-align: center;
-    margin: 0em 0em -2em -1em;
-    min-height: 31px;
-    width: 106%;
-    border-top-style: solid;
-    border-width: 1px;
-    border-color: #999999;
-    padding-top: 6px;
-    cursor: pointer;
-  }
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 106%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+}

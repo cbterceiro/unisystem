@@ -1,14 +1,20 @@
-import { Component, EventEmitter, OnInit, Input, Output, SimpleChanges } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnInit, OnChanges, Input, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
+
+import { SelectItem } from 'primeng/primeng';
+
 import { markFormGroupDirty } from '../../shared/functions';
 
-import { SelectItem, AutoCompleteModule } from 'primeng/primeng';
+import { AuthenticatedUserService } from '../../authentication';
+
+import { MessageService } from '../../core';
+
+import { FormacaoAcademicaService } from './formacao-academica.service';
 
 import { FormacaoAcademica } from './formacao-academica.model';
-import { FormacaoAcademicaService } from './formacao-academica.service';
 import { InstituicaoAcademica } from './instituicao-academica.model';
 import { Curso } from './curso.model';
 
@@ -17,78 +23,76 @@ import { Curso } from './curso.model';
   templateUrl: 'formacao-academica-modal.component.html',
   styleUrls: ['formacao-academica-modal.component.css']
 })
-export class FormacaoAcademicaModalComponent implements OnInit {
+export class FormacaoAcademicaModalComponent implements OnInit, OnChanges {
 
   @Input() visible: boolean;
   @Input() formacaoEdit: FormacaoAcademica;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onSave: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   formacaoForm: FormGroup;
 
-  dateErrorMessage: boolean = true;
-  today: Date = new Date();
-  //mindate: Date;
+  dateErrorMessage = true;
   nivel: SelectItem[];
-  curso: Curso;
   calendarYearRange: string;
-  resultadoInstituicoesAcademicas: InstituicaoAcademica[];  //resultado da pesquisa de instituicoes academicas
-  resultadoCursos: Curso[];        //resultado da pesquisa de cursos
+
+  resultadoInstituicoesAcademicas: InstituicaoAcademica[]; // resultado da pesquisa de instituicoes academicas
+  resultadoCursos: Curso[]; // resultado da pesquisa de cursos
+
   idToEdit: number;
 
-  routeParamsSubscription: Subscription;
+  title: string;
+
+  isSubmitting: boolean;
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private formacaAcademicaService: FormacaoAcademicaService,
+    private formacaoAcademicaService: FormacaoAcademicaService,
+    private authenticatedUserService: AuthenticatedUserService,
+    private messageService: MessageService,
   ) { }
-
-  ngOnInit() {
-    this.setupForm();
-    this.setYearRange();
-  }
-
-  // subscribeToRouteParams(): void {
-  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.formacaoEdit && this.visible) {
       this.idToEdit = this.formacaoEdit.id;
+      this.title = 'Editar formação acadêmica';
       this.formacaoForm = this.formBuilder.group({// preencher campos com os valores do objeto
         id: [this.idToEdit],
-        cursoNome: [this.formacaoEdit.curso, Validators.required],
-        dataInicio: [null, Validators.required],
-        dataFim: [null, Validators.required],
+        curso: [this.formacaoEdit.curso, Validators.required],
+        dataInicio: [this.formacaoEdit.dataInicio, Validators.required],
+        dataFim: [this.formacaoEdit.dataFim, Validators.required],
         nivel: [this.formacaoEdit.nivel, Validators.required],
-        servidor_id: [this.formacaoEdit.servidor_id, Validators.required],
-        instituicao_academica_id: [null, Validators.required],
+        instituicao_academica_id: [this.formacaoEdit['instituicaoAcademica'], Validators.required],
       });
     } else {
       this.setupForm();
-      this.idToEdit = 0;
+      this.idToEdit = null;
+      this.title = 'Adicionar formação acadêmica';
     }
   }
 
+  ngOnInit() {
+    this.setYearRange();
+  }
+
   setupForm(): void {
-    //console.log('setupform', this.formacaoEdit);
     this.setupDropdownOptions();
 
     this.formacaoForm = this.formBuilder.group({
       id: [null],
-      cursoNome: [null, Validators.required],
+      curso: [null, Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
       nivel: [null, Validators.required],
-      servidor_id: [1, Validators.required], //todos os testes feitos com o servidor de id 1
       instituicao_academica_id: [null, Validators.required],
     });
   }
 
   setupDropdownOptions(): void {
     this.nivel = [
-      { label: '  ---Nível do curso---  ', value: null },
+      { label: 'Nível do curso', value: null },
       { label: 'Fundamental', value: 'Fundamental' },
       { label: 'Médio', value: 'Médio' },
       { label: 'Superior', value: 'Superior' },
@@ -96,36 +100,29 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   }
 
   pesquisarInstituicoesAcademicas(event): void {
-    this.formacaAcademicaService.searchInstituicao(event.query).subscribe(result => {
-      this.resultadoInstituicoesAcademicas = result as InstituicaoAcademica[];
+    this.formacaoAcademicaService.searchInstituicao(event.query).subscribe(instituicoesAcademicas => {
+      this.resultadoInstituicoesAcademicas = instituicoesAcademicas;
     });
   }
 
   pesquisarCursos(event): void {
-    this.formacaAcademicaService.searchCurso(event.query).subscribe(result => {
-      this.resultadoCursos = result as Curso[];
+    this.formacaoAcademicaService.searchCurso(event.query).subscribe(cursos => {
+      this.resultadoCursos = cursos;
     });
   }
 
   onSubmit(isValid: boolean, formacaoAcademica: FormacaoAcademica): void {
-    if (formacaoAcademica.dataInicio > formacaoAcademica.dataFim) {
-      this.dateErrorMessage = isValid = false;
-    } else {
-      this.dateErrorMessage = isValid = true;
-    }
     if (isValid) {
-      if (this.idToEdit > 0)
-        formacaoAcademica.id = this.idToEdit;
-      else
-        formacaoAcademica.id = null;
+      const servidor = this.authenticatedUserService.getServidor();
+      formacaoAcademica.id = this.idToEdit;
       formacaoAcademica.instituicao_academica_id = formacaoAcademica.instituicao_academica_id['id'];
-      this.formacaAcademicaService.save(formacaoAcademica).subscribe(ok => {
-        console.log('salvando', ok);
+      formacaoAcademica.servidor_id = servidor.id;
+      this.isSubmitting = true;
+      this.formacaoAcademicaService.save(formacaoAcademica).subscribe(ok => {
+        this.isSubmitting = false;
+        this.messageService.sendSuccess({ detail: 'Formação acadêmica atualizada com sucesso.' });
+        this.onSave.emit(true);
         this.closeModal();
-        // this.messageService.sendSuccess({
-        //   summary: 'Sucesso',
-        //   detail: 'Perfil atualizado com sucesso.'
-        // });
       });
     } else {
       markFormGroupDirty(this.formacaoForm);
@@ -135,15 +132,6 @@ export class FormacaoAcademicaModalComponent implements OnInit {
   setYearRange(): void {
     const currentYear: number = (new Date()).getFullYear();
     this.calendarYearRange = `${currentYear - 100}:${currentYear + 10}`;
-  }
-
-  validaData(): void {
-    //this.mindate = this.formacaoForm.get('dataInicio').value;
-    if ((this.formacaoForm.get('dataFim').value != null) && (this.formacaoForm.get('dataInicio').value > this.formacaoForm.get('dataFim').value)) {
-      this.dateErrorMessage = false;
-    } else {
-      this.dateErrorMessage = true;
-    }
   }
 
   closeModal(): void {
