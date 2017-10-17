@@ -5,7 +5,7 @@ import { SelectItem } from 'primeng/primeng';
 
 import { ServidorService, Servidor } from '../core';
 
-import { AuthenticationService } from './authentication.service';
+import { AuthenticatedUserService } from './authenticated-user.service';
 
 @Component({
   selector: 'uns-select-servidor',
@@ -22,7 +22,7 @@ export class SelectServidorComponent implements OnInit {
   errorMessage: string;
 
   constructor(
-    private authenticationService: AuthenticationService,
+    private authenticatedUserService: AuthenticatedUserService,
     private servidorService: ServidorService,
     private router: Router,
   ) { }
@@ -44,7 +44,7 @@ export class SelectServidorComponent implements OnInit {
 
   login() {
     if (this.servidorSelecionado) {
-      this.authenticationService.setAuthenticatedUser(this.servidorSelecionado);
+      this.authenticatedUserService.setServidor(this.servidorSelecionado);
       this.router.navigate(['']);
     } else {
       this.errorMessage = 'Selecione um servidor';

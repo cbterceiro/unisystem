@@ -27,18 +27,6 @@ export class AuthenticationService {
     this.router.navigate(['login']);
   }
 
-  getAuthenticatedUser(): Servidor {
-    const servidor: Servidor = this.sessionService.getItem(SessionKeys.user);
-    if (servidor) {
-      servidor.dataNascimento = new Date(servidor.dataNascimento);
-    }
-    return servidor;
-  }
-
-  setAuthenticatedUser(user: Servidor) {
-    this.sessionService.setItem(SessionKeys.user, user);
-  }
-
   get isAuthenticated() {
     return this.sessionService.hasItem(SessionKeys.user);
   }

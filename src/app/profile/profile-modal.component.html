@@ -20,16 +20,16 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Data de Nascimento</label>
-        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today" (onSelect)="select($event)"></p-calendar>
+        <p-calendar br-locale formControlName="dataNascimento" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [maxDate]="today"></p-calendar>
         <small class="validation-error-message" [hidden]="profileForm.controls.dataNascimento.pristine || profileForm.controls.dataNascimento.valid">
           A data de nascimento é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Sexo</label>
-        <p-radioButton class="ui-g-4" name="sexo" value="M" label="Masculino" formControlName="sexo"></p-radioButton>
-        <p-radioButton class="ui-g-4" name="sexo" value="F" label="Feminino" formControlName="sexo"></p-radioButton>
-        <p-radioButton class="ui-g-4" name="sexo" value="O" label="Outro" formControlName="sexo"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="Masculino" label="Masculino" formControlName="sexo"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="Feminino" label="Feminino" formControlName="sexo"></p-radioButton>
+        <p-radioButton class="ui-g-4" name="sexo" value="Outro" label="Outro" formControlName="sexo"></p-radioButton>
         <small class="validation-error-message" [hidden]="profileForm.controls.sexo.pristine || profileForm.controls.sexo.valid">
           O sexo é obrigatório.
         </small>

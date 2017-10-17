@@ -12,7 +12,7 @@ import { SessionService, SessionKeys, MessageService } from '../core';
 
 import { ServidorService, Servidor } from '../core/';
 
-import { AuthenticationService } from '../authentication/';
+import { AuthenticatedUserService } from '../authentication/';
 
 import { environment } from '../../environments/environment';
 
@@ -40,6 +40,7 @@ export class ProfileModalComponent implements OnInit {
   dialogElementHeight: number;
 
   routeParamsSubscription: Subscription;
+  imageListenerSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -51,7 +52,7 @@ export class ProfileModalComponent implements OnInit {
     private domHandler: DomHandler,
     private el: ElementRef,
     private renderer: Renderer2,
-    private authenticationService: AuthenticationService,
+    private authenticatedUserService: AuthenticatedUserService,
   ) { }
 
   ngOnInit() {
@@ -59,10 +60,12 @@ export class ProfileModalComponent implements OnInit {
     this.setupForm();
     this.setYearRange();
     this.loadServidor();
+    this.setupImageListener();
   }
 
   ngAfterViewInit() {
-    this.updateBackgroundImage();
+    const servidor: Servidor = this.authenticatedUserService.getServidor();
+    this.updateBackgroundImage(servidor.foto);
   }
 
   subscribeToRouteParams(): void {
@@ -83,6 +86,7 @@ export class ProfileModalComponent implements OnInit {
       nacionalidade: ['br', Validators.required],
       estado: ['ES', Validators.required],
       cidade: [null, Validators.required],
+      foto: [null],
     });
   }
 
@@ -105,14 +109,20 @@ export class ProfileModalComponent implements OnInit {
     ];
   }
 
-  loadServidor(): void {
-    const servidor: Servidor = this.authenticationService.getAuthenticatedUser();
-    this.imageUploadUrl = this.servidorService.getImageUrl(servidor.id);
-    this.profileForm.patchValue(servidor);
+  setupImageListener(): void {
+    this.imageListenerSubscription = this.authenticatedUserService.listen().subscribe(servidor => {
+      this.updateBackgroundImage(servidor.foto);
+    });
   }
 
-  select(event): void {
-    console.log('select date', event)
+  loadServidor(): void {
+    const servidor: Servidor = this.authenticatedUserService.getServidor();
+    this.imageUploadUrl = this.servidorService.getImageUrl(servidor.id);
+    this.profileForm.patchValue(servidor);
+
+    // Hack para consertar o bug do PrimeNG de exibição de data no formato inválido na primeira vez em que o componente
+    // Calendar é exibido na tela
+    setTimeout(_ => this.profileForm.get('dataNascimento').setValue(servidor.dataNascimento), 0);
   }
 
   onSubmit(isValid: boolean, servidor: Servidor): void {
@@ -125,6 +135,7 @@ export class ProfileModalComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Perfil atualizado com sucesso.'
         });
+        this.authenticatedUserService.updateServidor(servidor);
       });
     } else {
       markFormGroupDirty(this.profileForm);
@@ -154,30 +165,27 @@ export class ProfileModalComponent implements OnInit {
     return { overflow: 'visible', height: 'auto' };
   }
 
-  updateBackgroundImage() {
-    const servidor: Servidor = this.authenticationService.getAuthenticatedUser();
+  updateBackgroundImage(base64Img: string) {
     const element = this.el.nativeElement.querySelector('p-fileupload .ui-fileupload-choose');
-    if (servidor.foto && element) {
-      this.renderer.setStyle(element, 'background-image', `url('${servidor.foto}')`);
+    if (base64Img && element) {
+      this.renderer.setStyle(element, 'background-image', `url('${base64Img}')`);
     }
   }
 
-  onBeforeUpload(event) {
-    console.log('onBeforeUpload', event);
-    this.messageService.sendInfo({ detail: 'Iniciando o envio' });
-  }
-
   onUpload(event) {
-    console.log('onUpload', event);
-    this.messageService.sendSuccess({ detail: 'Envio concluído' });
+    this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
+    this.closeModal();
+    this.profileForm.patchValue(JSON.parse(event.xhr.response));
+    this.authenticatedUserService.updateServidor(this.profileForm.value);
   }
 
   onUploadError(event) {
-    console.log('onUploadError', event);
-    this.messageService.sendError({ detail: 'Envio com erro' });
+    this.messageService.sendError({ detail: 'Erro no envio da foto.' });
+    this.closeModal();
   }
 
   ngOnDestroy() {
-    this.routeParamsSubscription.unsubscribe();
+    if (this.routeParamsSubscription) this.routeParamsSubscription.unsubscribe();
+    if (this.imageListenerSubscription) this.imageListenerSubscription.unsubscribe();
   }
 }
