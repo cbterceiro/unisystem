@@ -21,8 +21,8 @@
     </div>
 
     <div class="ui-g-6">
-      <label class="form-label">Setor</label>
-      <input type="text" [(ngModel)]="setor" pInputText>
+      <label class="form-label">Função</label>
+      <input type="text" [(ngModel)]="funcao" pInputText>
     </div>
 
     <div class="ui-g-6">
@@ -39,7 +39,7 @@
 
       <span class="ui-g-3">
         <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" 
-        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], setor: [(setor)], interesse: [(areaInteresse)]}"></button>
+        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
       </span>
     </div>
   </div>
@@ -52,7 +52,7 @@
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="encontrar" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
         <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" 
-        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], setor: [(setor)], interesse: [(areaInteresse)]}"></button>
+        [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
       </div>
     </div>
   </div>

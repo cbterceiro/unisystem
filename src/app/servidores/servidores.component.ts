@@ -16,7 +16,7 @@ export class ServidoresComponent implements OnInit {
   instituicao: string;
   nomeCompleto: string;
   cargo: string;
-  setor: string;
+  funcao: string;
   areaInteresse: string;
   limite: number;
   offset: number;
@@ -37,7 +37,7 @@ export class ServidoresComponent implements OnInit {
         this.nomeCompleto = params.nome;
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
-        this.setor = params.setor;
+        this.funcao = params.funcao;
         this.areaInteresse = params.interesse;
         //this.order = params.order;
         //console.log(this.order); // popular
@@ -51,7 +51,7 @@ export class ServidoresComponent implements OnInit {
   }
 
   atualizaForm(): void {
-    this.cService.getByPesquisa(this.nomeCompleto, this.instituicao, this.cargo, this.setor, this.areaInteresse, this.limite, this.offset).subscribe(c => {
+    this.cService.getByPesquisa(this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.areaInteresse, this.limite, this.offset).subscribe(c => {
       this.servidores = c as Servidor[];
       console.log("servidores:");
       console.log(this.servidores);

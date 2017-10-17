@@ -6,14 +6,14 @@
       <hr class="hr">
 
       <h3>{{servidor.nome}}</h3>
-      <img src="public/img/{{servidor.foto}}" />
-      <p>Email: {{servidor.email}} </p>  
-      <p>Sexo: {{servidor.sexo}}</p>   
-      <p>Estado Civil: {{servidor.estadoCivil}} </p>  
-      <p>Localidade:  {{servidor.cidade}} - {{servidor.estado}}</p>  
-      
-      <p>Cargo: </p>   {{servidor.cargo[0].nome}} 
-      <p>Cargo: </p>   {{servidor.cargo.nome}} 
+       <p><b>Cargo:</b>  {{servidor.cargo[0].nome}} </p>   
+      <p><b>Função:</b> {{servidor.funcao[0]?.nome}}</p>  
+   <!--   <img src="public/img/{{servidor.foto}}" /> -->
+      <p><b>Email:</b> {{servidor.email}} </p>  
+      <p><b>Sexo:</b> {{servidor.sexo}}</p>   
+      <p><b>Estado Civil:</b> {{servidor.estadoCivil}} </p>  
+      <p><b>Localidade:</b>  {{servidor.cidade}} - {{servidor.estado}}</p>  
+
 </div> 
 
 </div>

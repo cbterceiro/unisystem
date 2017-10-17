@@ -10,7 +10,7 @@ export class TopbarComponent implements OnInit {
   instituicao: string;
   nomeCompleto: string;
   cargo: string;
-  setor: string;
+  funcao: string;
   areaInteresse: string;
 
   constructor() { }
@@ -29,7 +29,7 @@ export class TopbarComponent implements OnInit {
     this.instituicao = '';
     this.nomeCompleto = '';
     this.cargo = '';
-    this.setor = '';
+    this.funcao = '';
     this.areaInteresse = '';
   }
 }
