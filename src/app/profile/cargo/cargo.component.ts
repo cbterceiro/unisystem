@@ -19,6 +19,11 @@ export class CargoComponent implements OnInit {
   objToEdit: Cargo;
   cargos: Cargo[];
 
+  cargosClass = 'cargos';
+  arrowExpand = 'chevron-down';
+  labelExpand = 'Ver mais';
+  hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
+
   hideAddIcon = true;
   isLoading: boolean;
 
@@ -39,6 +44,11 @@ export class CargoComponent implements OnInit {
     this.cargoService.getCargosByServidorId(servidor.id).subscribe(cargos => {
       this.cargos = cargos;
       this.isLoading = false;
+      if (this.cargos.length < 3) {
+        this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
     });
   }
 
@@ -62,6 +72,18 @@ export class CargoComponent implements OnInit {
       },
       reject: () => { }
     });
+  }
+
+  verMais(): void {
+    if (this.cargosClass === 'cargosExpandido') {
+      this.cargosClass = 'cargos';
+      this.arrowExpand = 'chevron-down';
+      this.labelExpand = 'Ver mais';
+    } else {
+      this.cargosClass = 'cargosExpandido';
+      this.arrowExpand = 'chevron-up';
+      this.labelExpand = 'Ver menos';
+    }
   }
 }
 

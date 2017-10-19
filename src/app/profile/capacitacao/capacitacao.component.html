@@ -1,28 +1,30 @@
 <div class="capacitacao card card-w-title">
-    <div class="edit-capacitacao-image-icon" (click)="showModalCapacitacao()">
-        <fa name="edit"></fa>
+    <div class="add-capacitacao-image-icon" (click)="showModalCapacitacao()">
+        <fa name="plus"></fa>
         <span>Adicionar</span>
-      </div>
-
-      <uns-capacitacao-modal [visible]="exibeModalCapacitacao" (visibleChange)="exibeModalCapacitacao=$event"></uns-capacitacao-modal>
-
-  <h1>Capacitação</h1>
-
-      <div class="formacoes">
-    <div *ngFor="let capacitacao of capacitacaoList" class="formacao">
-      <hr class="formacaohr">
-      <div class="edit-formacao-image-icon" (click)="editarFormacao()">
-            <fa name="pencil"></fa>
-      </div>
-      <h4>{{capacitacao.entidade}}</h4>
-      <div class="delete-formacao-image-icon" (click)="deletarCapacitacao(capacitacao.id)">
-            <fa name="trash"></fa>
-      </div>
-      <p>{{capacitacao.modalidade}}</p>
-      <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-      <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
     </div>
-</div>
+
+    <uns-capacitacao-modal [visible]="exibeModalCapacitacao" (visibleChange)="exibeModalCapacitacao=$event"></uns-capacitacao-modal>
+
+    <h1>Capacitação</h1>
+
+    <div class="{{capacitacoesClass}}">
+        <div *ngFor="let capacitacao of capacitacaoList; let ultimo = last" class="capacitacao">
+            <div class="edit-formacao-image-icon" (click)="editarFormacao()">
+                <fa name="pencil"></fa>
+            </div>
+            <h4>{{capacitacao.entidade}}</h4>
+            <div class="delete-formacao-image-icon" (click)="deletarCapacitacao(capacitacao.id)">
+                <fa name="trash"></fa>
+            </div>
+            <p>{{capacitacao.modalidade}}</p>
+            <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+            <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
+            <hr *ngIf="!ultimo">
+        </div>
+    </div>
+    <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+        <fa name={{arrowExpand}}></fa>{{labelExpand}}
+    </div>
 
 </div>
-

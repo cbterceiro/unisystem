@@ -9,18 +9,22 @@
     Você não possui funções cadastradas
   </div>
 
-  <div *ngFor="let funcao of funcoes; let ultimo = last" class="funcao">
-    <uns-action-icon icon="pencil" label="Editar" (click)="editarFuncao(funcao)" topPosition="0px"></uns-action-icon>
-    <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="22px"></uns-action-icon>
+  <div class="{{funcoesClass}}">
+    <div *ngFor="let funcao of funcoes; let ultimo = last" class="funcao">
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarFuncao(funcao)" topPosition="0px"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="22px"></uns-action-icon>
 
-    <h4>{{funcao.nome}}</h4>
-    <p>Descrição: {{funcao.descricao}}</p>
-    <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <h4>{{funcao.nome}}</h4>
+      <p>Descrição: {{funcao.descricao}}</p>
+      <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
 
-    <!--<p>Nível: {{funcao.nivel}}</p>-->
+      <!--<p>Nível: {{funcao.nivel}}</p>-->
 
-    <hr *ngIf="!ultimo">
+      <hr *ngIf="!ultimo">
+    </div>
+  </div>
+  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+    <fa name={{arrowExpand}}></fa>{{labelExpand}}
   </div>
 </div>
-
 <uns-funcao-modal [(visible)]="exibeModalfuncao" (onSave)="getFuncoes()" [funcaoEdit]="objToEdit"></uns-funcao-modal>

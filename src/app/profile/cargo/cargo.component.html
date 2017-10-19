@@ -9,16 +9,21 @@
     Você não possui cargos cadastrados
   </div>
 
-  <div *ngFor="let cargo of cargos; let ultimo = last" class="cargo">
-    <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)" topPosition="0px"></uns-action-icon>
-    <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="22px"></uns-action-icon>
+  <div class="{{cargosClass}}">
+    <div *ngFor="let cargo of cargos; let ultimo = last" class="cargo">
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)" topPosition="0px"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="22px"></uns-action-icon>
 
-    <h4>{{cargo.nome}}</h4>
-    <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <h4>{{cargo.nome}}</h4>
+      <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
 
-    <!--<p>Nível: {{cargo.nivel}}</p>-->
+      <!--<p>Nível: {{cargo.nivel}}</p>-->
 
-    <hr *ngIf="!ultimo">
+      <hr *ngIf="!ultimo">
+    </div>
+  </div>
+  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+    <fa name={{arrowExpand}}></fa>{{labelExpand}}
   </div>
 </div>
 

@@ -9,3 +9,32 @@ h4, p {
   line-height: 1em;
   margin-left: 0.6em;
 }
+
+
+.cargos {
+  overflow-y: hidden;
+  max-height: 183px; /* exibe 2 cargos */
+
+  transition: max-height 0.35s ease-out;
+}
+
+.cargosExpandido {
+  overflow-y: hidden;
+  max-height: 911px; /*exibe até 10 cargos */
+
+  transition: max-height 0.35s ease-in;
+}
+
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 100%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
+}

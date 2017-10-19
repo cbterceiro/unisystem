@@ -20,6 +20,11 @@ export class FuncaoComponent implements OnInit {
 
   funcoes: Funcao[];
 
+  funcoesClass = 'funcoes';
+  arrowExpand = 'chevron-down';
+  labelExpand = 'Ver mais';
+  hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
+
   hideAddIcon = true;
   isLoading: boolean;
 
@@ -40,6 +45,11 @@ export class FuncaoComponent implements OnInit {
     this.funcaoService.getFuncoesByServidorId(servidor.id).subscribe(funcoes => {
       this.funcoes = funcoes;
       this.isLoading = false;
+      if (this.funcoes.length < 3) {
+        this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
     });
   }
 
@@ -63,6 +73,18 @@ export class FuncaoComponent implements OnInit {
       },
       reject: () => { }
     });
+  }
+
+  verMais(): void {
+    if (this.funcoesClass === 'funcoesExpandido') {
+      this.funcoesClass = 'funcoes';
+      this.arrowExpand = 'chevron-down';
+      this.labelExpand = 'Ver mais';
+    } else {
+      this.funcoesClass = 'funcoesExpandido';
+      this.arrowExpand = 'chevron-up';
+      this.labelExpand = 'Ver menos';
+    }
   }
 }
 

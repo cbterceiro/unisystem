@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 import { HabilidadeModalComponent } from './habilidade-modal.component';
 
-import {DataListModule, SharedModule} from 'primeng/primeng';
-import {Habilidade} from './habilidade.model'
+import { DataListModule, SharedModule } from 'primeng/primeng';
+import { Habilidade } from './habilidade.model'
 
-import {HabilidadeService} from './habilidade.service'
+import { HabilidadeService } from './habilidade.service'
 
 @Component({
   selector: 'uns-habilidade',
@@ -20,56 +20,78 @@ export class HabilidadeComponent implements OnInit {
   modalhabilidade: HabilidadeModalComponent;
   exibeModalhabilidade: boolean = false;
   objToEdit: Habilidade;
-  
+
+  habilidadesClass = 'habilidades';
+  arrowExpand = 'chevron-down';
+  labelExpand = 'Ver mais';
+  hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
+
   constructor(private cService: HabilidadeService) { }
-  habilidades : Habilidade[];
- 
- /* 
-  this.CountryService.GetCountries()
-    .subscribe(countries => {
-        this.myGridOptions.rowData = countries as CountryData[]
-    })*/
+  habilidades: Habilidade[];
+
+  /* 
+   this.CountryService.GetCountries()
+     .subscribe(countries => {
+         this.myGridOptions.rowData = countries as CountryData[]
+     })*/
 
   ngOnInit() {
-    
+
     this.atualizaForm();
     //this.funcoes = 
-    
+
   }
-  
-  atualizaForm(): void
-  {
-    this.cService.getAllHabilidadesFromId(1).subscribe(c => { 
+
+  atualizaForm(): void {
+    this.cService.getAllHabilidadesFromId(1).subscribe(c => {
       this.habilidades = c as Habilidade[];
       console.log("habilidades:");
-       console.log(this.habilidades);
+      console.log(this.habilidades);
+      if (this.habilidades.length < 3) {
+        this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
     });
   }
 
   addNewhabilidade(): void {
     console.log('modal: ' + this.exibeModalhabilidade + '  interno: ');
-  this.objToEdit = null;
+    this.objToEdit = null;
     this.exibeModalhabilidade = true;
 
   }
-  
-    editarhabilidade(habilidade : Habilidade): void {
+
+  editarhabilidade(habilidade: Habilidade): void {
     console.log('editando habilidade ');
     this.objToEdit = habilidade;
     //this.modalhabilidade.setupForm();
     //this.modalhabilidade.setupForm();
-    
+
     this.exibeModalhabilidade = true;
 
   }
-  
-    deletarhabilidade(id : number): void {
+
+  deletarhabilidade(id: number): void {
     console.log('deletando habilidade id ' + id);
-    this.cService.delete(id).subscribe(ok => { 
+    this.cService.delete(id).subscribe(ok => {
       console.log("Sucesso ao deletar:" + ok);
       this.atualizaForm();
     });
 
+  }
+
+
+  verMais(): void {
+    if (this.habilidadesClass === 'habilidadesExpandido') {
+      this.habilidadesClass = 'habilidades';
+      this.arrowExpand = 'chevron-down';
+      this.labelExpand = 'Ver mais';
+    } else {
+      this.habilidadesClass = 'habilidadesExpandido';
+      this.arrowExpand = 'chevron-up';
+      this.labelExpand = 'Ver menos';
+    }
   }
 
 }

@@ -1,28 +1,29 @@
 <div class="formacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
-  <h1>Formação Acadêmica</h1>
+    <h1>Formação Acadêmica</h1>
 
-  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="adicionarFormacaoAcademica()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+    <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="adicionarFormacaoAcademica()" topPosition="30px"
+        rightPosition="27px"></uns-action-icon>
 
-  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+    <uns-spinner [isLoading]="isLoading"></uns-spinner>
 
-  <div *ngIf="!isLoading && formacoesAcademicas && !formacoesAcademicas.length" class="text-center">
-    Você ainda não cadastrou sua formação acadêmica
-  </div>
-
-  <div class="{{ formacoesClass }}">
-    <div *ngFor="let formacao of formacoesAcademicas; let ultimo = last;" class="formacao">
-      <uns-action-icon icon="pencil" label="Editar" (click)="editarFormacao(formacao)" topPosition="0px"></uns-action-icon>
-      <uns-action-icon icon="trash" label="Remover" (click)="deletarFormacao(formacao)" topPosition="22px"></uns-action-icon>
-
-      <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
-      <p>{{formacao.curso}}</p>
-      <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-      <hr *ngIf="!ultimo">
+    <div *ngIf="!isLoading && formacoesAcademicas && !formacoesAcademicas.length" class="text-center">
+        Você ainda não cadastrou sua formação acadêmica
     </div>
-  </div>
-  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
-    <fa name={{arrowExpand}}></fa>{{labelExpand}}
-  </div>
+
+    <div class="{{formacoesClass}}">
+        <div *ngFor="let formacao of formacoesAcademicas; let ultimo = last;" class="formacao">
+            <uns-action-icon icon="pencil" label="Editar" (click)="editarFormacao(formacao)" topPosition="0px"></uns-action-icon>
+            <uns-action-icon icon="trash" label="Remover" (click)="deletarFormacao(formacao)" topPosition="22px"></uns-action-icon>
+
+            <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
+            <p>{{formacao.curso}}</p>
+            <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+            <hr *ngIf="!ultimo">
+        </div>
+    </div>
+    <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+        <fa name={{arrowExpand}}></fa>{{labelExpand}}
+    </div>
 </div>
 
 <uns-formacao-academica-modal [(visible)]="exibeModalFormacao" (onSave)="atualizarListaFormacoes()" [formacaoEdit]="objToEdit"></uns-formacao-academica-modal>

@@ -3,7 +3,7 @@
     <div class="ui-g">
       <div class="ui-g-12">
         <label class="form-label">Instituição Acadêmica</label>
-        <p-autoComplete [suggestions]="resultadoInstituicoesAcademicas" field="nome" (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicao_academica_id" [minLength]="3"></p-autoComplete>
+        <p-autoComplete [suggestions]="resultadoInstituicoesAcademicas" field="nome" (completeMethod)="pesquisarInstituicoesAcademicas($event)" formControlName="instituicao_academica_id" [minLength]="1"></p-autoComplete>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.instituicao_academica_id.pristine || formacaoForm.controls.instituicao_academica_id.valid">
           A instituição acadêmica é um campo obrigatório.
         </small>
@@ -12,7 +12,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Curso</label>
-        <p-autoComplete [suggestions]="resultadoCursos" (completeMethod)="pesquisarCursos($event)" formControlName="curso" [minLength]="3"></p-autoComplete>
+        <p-autoComplete [suggestions]="resultadoCursos" (completeMethod)="pesquisarCursos($event)" formControlName="curso" [minLength]="1"></p-autoComplete>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.curso.pristine || formacaoForm.controls.curso.valid">
           O curso é um campo é obrigatório.
         </small>
@@ -35,7 +35,7 @@
       </div>
       <div class="ui-g-6">
         <label class="form-label">Data de Término</label>
-        <p-calendar default-config formControlName="dataFim" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [minDate]="formacaoForm.controls.dataInicio.value"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange" [minDate]="formacaoForm.controls.dataInicio.value" [maxDate]="today"></p-calendar>
         <small class="validation-error-message" [hidden]="formacaoForm.controls.dataFim.pristine || formacaoForm.controls.dataFim.valid">
           A data de término é um campo obrigatório.
         </small>

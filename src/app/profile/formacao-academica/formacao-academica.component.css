@@ -25,10 +25,12 @@ h4, p {
   text-align: center;
   margin: 0 0 -2em -1em;
   min-height: 31px;
-  width: 106%;
+  width: 100%;
   border-top-style: solid;
   border-width: 1px;
   border-color: #999;
   padding-top: 6px;
   cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
 }

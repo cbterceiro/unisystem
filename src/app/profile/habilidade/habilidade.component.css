@@ -32,12 +32,8 @@
     transition: all 150ms ease-in-out;
   }
   
-.habilidade  .ui-widget-content {
-border: none;
-}
-
-  .hr{
-    width: 100%;
+  .habilidade  .ui-widget-content {
+    border: none;
   }
 
   h3{
@@ -101,3 +97,32 @@ border: none;
   .habilidade .delete-habilidade-image-icon fa {
     margin-right: 2px;
   }
+
+  .habilidades {
+    overflow-y: hidden;
+    max-height: 177px; /* exibe 2 habilidades */
+  
+    transition: max-height 0.35s ease-out;
+  }
+  
+  .habilidadesExpandido {
+    overflow-y: hidden;
+    max-height: 891px; /*exibe até 10 habilidades */
+  
+    transition: max-height 0.35s ease-in;
+  }
+  
+  .botaoVerMais {
+    text-align: center;
+    margin: 0 0 -2em -1em;
+    min-height: 31px;
+    width: 100%;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #999;
+    padding-top: 6px;
+    cursor: pointer;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  

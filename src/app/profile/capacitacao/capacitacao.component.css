@@ -1,5 +1,5 @@
 /*botão adicionar nova formação*/
-.formacao .add-formacao-image-icon {
+.capacitacao .add-capacitacao-image-icon {
   float: right;
   top: 12px;
   right: 12px;
@@ -12,28 +12,28 @@
   opacity: 0;
   overflow: hidden;
 }
-.formacao .add-formacao-image-icon span,
-.formacao .add-formacao-image-icon fa {
+.capacitacao .add-capacitacao-image-icon span,
+.capacitacao .add-capacitacao-image-icon fa {
   float: right;
 }
-.formacao .add-formacao-image-icon span {
+.capacitacao .add-capacitacao-image-icon span {
   font-size: 11px;
   margin-right: 5px;
 }
-.formacao .add-formacao-image-icon fa {
+.capacitacao .add-capacitacao-image-icon fa {
   margin-right: 2px;
 }
-.formacao:hover .add-formacao-image-icon {
+.capacitacao:hover .add-capacitacao-image-icon {
   opacity: 1;
   transition: opacity 300ms ease-in-out;
 }
-.formacao .add-formacao-image-icon:hover {
+.capacitacao .add-capacitacao-image-icon:hover {
   background-color: #e5e5e5;
   width: 75px;
   transition: all 150ms ease-in-out;
 }
 /*botão editar formação*/
-.formacao .edit-formacao-image-icon {
+.capacitacao .edit-capacitacao-image-icon {
   position: relative;
   float: right;
   top: 12px;
@@ -47,19 +47,19 @@
   opacity: 1;
   overflow: hidden;
 }
-.formacao .edit-formacao-image-icon span,
-.formacao .edit-formacao-image-icon fa {
+.capacitacao .edit-capacitacao-image-icon span,
+.capacitacao .edit-capacitacao-image-icon fa {
   float: right;
 }
-.formacao .edit-formacao-image-icon span {
+.capacitacao .edit-capacitacao-image-icon span {
   font-size: 11px;
   margin-right: 5px;
 }
-.formacao .edit-formacao-image-icon fa {
+.capacitacao .edit-capacitacao-image-icon fa {
   margin-right: 2px;
 }
 /*botão deletar formação*/
-.formacao .delete-formacao-image-icon {
+.capacitacao .delete-capacitacao-image-icon {
   /*position: relative;*/
   float: right;
   /*bottom: 25px;*/
@@ -73,19 +73,19 @@
   opacity: 1;
   overflow: hidden;
 }
-.formacao .delete-formacao-image-icon span,
-.formacao .delete-formacao-image-icon fa {
+.capacitacao .delete-capacitacao-image-icon span,
+.capacitacao .delete-capacitacao-image-icon fa {
   float: right;
 }
-.formacao .delete-formacao-image-icon span {
+.capacitacao .delete-capacitacao-image-icon span {
   font-size: 11px;
   margin-right: 5px;
 }
-.formacao .delete-formacao-image-icon fa {
+.capacitacao .delete-capacitacao-image-icon fa {
   margin-right: 2px;
 }
 /**/
-.formacaohr{
+.capacitacaohr{
   width: 100%;
 }
 
@@ -97,4 +97,32 @@ h4{
 p{
   line-height: 1em;
   margin-left: 0.6em;
+}
+
+.capacitacoes {
+  overflow-y: hidden;
+  max-height: 311px; /* exibe 2 capacitações */
+
+  transition: max-height 0.35s ease-out;
+}
+
+.capacitacoesExpandido {
+  overflow-y: hidden;
+  max-height: 3111px; /*exibe até 10 capacitações */
+
+  transition: max-height 0.35s ease-in;
+}
+
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 100%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
 }

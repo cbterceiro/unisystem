@@ -9,3 +9,31 @@ h4, p {
   line-height: 1em;
   margin-left: 0.6em;
 }
+
+.funcoes {
+  overflow-y: hidden;
+  max-height: 247px; /* exibe 2 funções */
+
+  transition: max-height 0.35s ease-out;
+}
+
+.funcoesExpandido {
+  overflow-y: hidden;
+  max-height: 1231px; /*exibe até 10 funções */
+
+  transition: max-height 0.35s ease-in;
+}
+
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 100%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
+}

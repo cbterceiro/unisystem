@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 import { CapacitacaoModalComponent } from './capacitacao-modal.component';
 
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
 
-import {CapacitacaoService} from './capacitacao.service';
-import {Capacitacao} from './capacitacao.model'
+import { CapacitacaoService } from './capacitacao.service';
+import { Capacitacao } from './capacitacao.model'
 
 @Component({
   selector: 'uns-capacitacao',
@@ -18,6 +18,10 @@ export class CapacitacaoComponent implements OnInit {
   modalCapacitacao: CapacitacaoModalComponent;
   exibeModalCapacitacao: boolean = false;
 
+  capacitacoesClass = 'capacitacoes';
+  arrowExpand = 'chevron-down';
+  labelExpand = 'Ver mais';
+  hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
 
   capacitacaoList: Capacitacao[];
 
@@ -25,8 +29,8 @@ export class CapacitacaoComponent implements OnInit {
     private capacitacaoService: CapacitacaoService) { }
 
   ngOnInit() {
-     this.preencherCapacitacao();
-   }
+    this.preencherCapacitacao();
+  }
 
 
   showModalCapacitacao(): void {
@@ -34,11 +38,17 @@ export class CapacitacaoComponent implements OnInit {
     console.log('modal: ' + this.exibeModalCapacitacao);
   }
 
-  preencherCapacitacao(): void{
-    this.capacitacaoService.getAll(1).subscribe(result => { 
+  preencherCapacitacao(): void {
+    this.capacitacaoService.getAll(1).subscribe(result => {
       this.capacitacaoList = result as Capacitacao[];
+      console.log("capacitacoes: ", this.capacitacaoList)
+      if (this.capacitacaoList.length < 3) {
+        this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
     }
-  );
+    );
   }
 
   deletarCapacitacao(id: number): void {
@@ -48,7 +58,19 @@ export class CapacitacaoComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Perfil atualizado com sucesso.'
         });*/
-        console.log("Deletado!!");
-      });
+      console.log("Deletado!!");
+    });
+  }
+
+  verMais(): void {
+    if (this.capacitacoesClass === 'capacitacoesExpandido') {
+      this.capacitacoesClass = 'capacitacoes';
+      this.arrowExpand = 'chevron-down';
+      this.labelExpand = 'Ver mais';
+    } else {
+      this.capacitacoesClass = 'capacitacoesExpandido';
+      this.arrowExpand = 'chevron-up';
+      this.labelExpand = 'Ver menos';
+    }
   }
 }

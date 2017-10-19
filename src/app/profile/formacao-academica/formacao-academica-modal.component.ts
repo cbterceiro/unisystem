@@ -36,7 +36,7 @@ export class FormacaoAcademicaModalComponent implements OnInit, OnChanges {
   dateErrorMessage = true;
   nivel: SelectItem[];
   calendarYearRange: string;
-
+  today: Date = new Date();
   resultadoInstituicoesAcademicas: InstituicaoAcademica[]; // resultado da pesquisa de instituicoes academicas
   resultadoCursos: Curso[]; // resultado da pesquisa de cursos
 
@@ -65,7 +65,9 @@ export class FormacaoAcademicaModalComponent implements OnInit, OnChanges {
         dataFim: [this.formacaoEdit.dataFim, Validators.required],
         nivel: [this.formacaoEdit.nivel, Validators.required],
         instituicao_academica_id: [this.formacaoEdit['instituicaoAcademica'], Validators.required],
+        
       });
+      console.log(this.formacaoEdit['instituicaoAcademica']);
     } else {
       this.setupForm();
       this.idToEdit = null;
