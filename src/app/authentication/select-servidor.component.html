@@ -9,7 +9,7 @@
     <div class="ui-g-12 login-error-message fadeOutUp" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
-    <div class="ui-g-12">
+    <div class="ui-g-12" [hidden]="loading">
       <p-dropdown [options]="servidores" [(ngModel)]="servidorSelecionado" [autoWidth]="false"></p-dropdown>
     </div>
     <div class="ui-g-12">

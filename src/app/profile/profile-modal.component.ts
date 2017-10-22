@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -21,10 +21,11 @@ import { environment } from '../../environments/environment';
   templateUrl: 'profile-modal.component.html',
   styleUrls: ['profile-modal.component.css']
 })
-export class ProfileModalComponent implements OnInit {
+export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   visible: boolean;
   isSubmitting: boolean;
+  isUpdatingPicture: boolean;
 
   imageUploadUrl: string;
 
@@ -172,20 +173,29 @@ export class ProfileModalComponent implements OnInit {
     }
   }
 
+  onBeforeUpload(event) {
+    this.isUpdatingPicture = true;
+  }
+
   onUpload(event) {
+    this.isUpdatingPicture = false;
     this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
-    this.closeModal();
     this.profileForm.patchValue(JSON.parse(event.xhr.response));
     this.authenticatedUserService.updateServidor(this.profileForm.value);
   }
 
   onUploadError(event) {
+    this.isUpdatingPicture = false;
     this.messageService.sendError({ detail: 'Erro no envio da foto.' });
     this.closeModal();
   }
 
   ngOnDestroy() {
-    if (this.routeParamsSubscription) this.routeParamsSubscription.unsubscribe();
-    if (this.imageListenerSubscription) this.imageListenerSubscription.unsubscribe();
+    if (this.routeParamsSubscription) {
+      this.routeParamsSubscription.unsubscribe();
+    }
+    if (this.imageListenerSubscription) {
+      this.imageListenerSubscription.unsubscribe();
+    }
   }
 }

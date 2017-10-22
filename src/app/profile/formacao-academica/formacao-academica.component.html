@@ -1,13 +1,12 @@
 <div class="formacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
     <h1>Formação Acadêmica</h1>
 
-    <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="adicionarFormacaoAcademica()" topPosition="30px"
-        rightPosition="27px"></uns-action-icon>
+    <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="adicionarFormacaoAcademica()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
-    <uns-spinner [isLoading]="isLoading"></uns-spinner>
+    <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
     <div *ngIf="!isLoading && formacoesAcademicas && !formacoesAcademicas.length" class="text-center">
-        Você ainda não cadastrou sua formação acadêmica
+        Você não possui formações acadêmicas cadastradas
     </div>
 
     <div class="{{formacoesClass}}">

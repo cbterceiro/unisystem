@@ -1,30 +1,31 @@
-<div class="capacitacao card card-w-title">
-    <div class="add-capacitacao-image-icon" (click)="showModalCapacitacao()">
-        <fa name="plus"></fa>
-        <span>Adicionar</span>
-    </div>
+<div class="capacitacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
+  <h1>Capacitação</h1>
 
-    <uns-capacitacao-modal [visible]="exibeModalCapacitacao" (visibleChange)="exibeModalCapacitacao=$event"></uns-capacitacao-modal>
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCapacitacao()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
-    <h1>Capacitação</h1>
+  <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
-    <div class="{{capacitacoesClass}}">
-        <div *ngFor="let capacitacao of capacitacaoList; let ultimo = last" class="capacitacao">
-            <div class="edit-formacao-image-icon" (click)="editarFormacao()">
-                <fa name="pencil"></fa>
-            </div>
-            <h4>{{capacitacao.entidade}}</h4>
-            <div class="delete-formacao-image-icon" (click)="deletarCapacitacao(capacitacao.id)">
-                <fa name="trash"></fa>
-            </div>
-            <p>{{capacitacao.modalidade}}</p>
-            <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
-            <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
-            <hr *ngIf="!ultimo">
-        </div>
+  <div *ngIf="!isLoading && capacitacoes && !capacitacoes.length" class="text-center">
+    Você não possui capacitação cadastrada
+  </div>
+
+  <div class="{{capacitacoesClass}}">
+    <div *ngFor="let capacitacao of capacitacoes; let ultimo = last" class="capacitacao">
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarCapacitacao(capacitacao)" topPosition="0px"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarCapacitacao(capacitacao.id)" topPosition="22px"></uns-action-icon>
+
+      <h4>{{capacitacao.entidade}}</h4>
+      <p>{{capacitacao.modalidade}}</p>
+      <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
+
+      <hr *ngIf="!ultimo">
     </div>
-    <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
-        <fa name={{arrowExpand}}></fa>{{labelExpand}}
-    </div>
+  </div>
+  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+    <fa name={{arrowExpand}}></fa>{{labelExpand}}
+  </div>
 
 </div>
+
+<uns-capacitacao-modal [(visible)]="exibeModalCapacitacao" (onSave)="getCapacitacoes()" [capacitacaoEdit]="objToEdit"></uns-capacitacao-modal>

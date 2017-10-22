@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConfirmationService } from 'primeng/primeng';
@@ -26,6 +26,8 @@ export class CargoComponent implements OnInit {
 
   hideAddIcon = true;
   isLoading: boolean;
+  finishedInitialLoading: true;
+  @Output('onAfterInitialLoading') afterInitialLoadingEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private cargoService: CargoService,
@@ -48,6 +50,11 @@ export class CargoComponent implements OnInit {
         this.hideVerMais = true;
       } else {
         this.hideVerMais = false;
+      }
+
+      if (!this.finishedInitialLoading) {
+        this.finishedInitialLoading = true;
+        this.afterInitialLoadingEmitter.emit();
       }
     });
   }

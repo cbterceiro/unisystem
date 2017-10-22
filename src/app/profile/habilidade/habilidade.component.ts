@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HabilidadeModalComponent } from './habilidade-modal.component';
@@ -26,10 +26,13 @@ export class HabilidadeComponent implements OnInit {
   labelExpand = 'Ver mais';
   hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
 
+  finishedInitialLoading: true;
+  @Output('onAfterInitialLoading') afterInitialLoadingEmitter: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private cService: HabilidadeService) { }
   habilidades: Habilidade[];
 
-  /* 
+  /*
    this.CountryService.GetCountries()
      .subscribe(countries => {
          this.myGridOptions.rowData = countries as CountryData[]
@@ -38,19 +41,22 @@ export class HabilidadeComponent implements OnInit {
   ngOnInit() {
 
     this.atualizaForm();
-    //this.funcoes = 
+    //this.funcoes =
 
   }
 
   atualizaForm(): void {
     this.cService.getAllHabilidadesFromId(1).subscribe(c => {
       this.habilidades = c as Habilidade[];
-      console.log("habilidades:");
-      console.log(this.habilidades);
       if (this.habilidades.length < 3) {
         this.hideVerMais = true;
       } else {
         this.hideVerMais = false;
+      }
+
+      if (!this.finishedInitialLoading) {
+        this.finishedInitialLoading = true;
+        this.afterInitialLoadingEmitter.emit();
       }
     });
   }

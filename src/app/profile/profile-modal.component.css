@@ -30,6 +30,13 @@
 .profile-image /deep/ .ui-button-text {
   display: none;
 }
+.profile-image /deep/ .spinner {
+  position: absolute;
+  z-index: 1;
+  height: 180px;
+  padding-top: 70px;
+  background-color: rgba(0,0,0,0.5);
+}
 
 .profile-image-overlay {
   opacity: 0;

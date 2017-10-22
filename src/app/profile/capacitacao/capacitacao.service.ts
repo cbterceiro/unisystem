@@ -16,12 +16,12 @@ export class CapacitacaoService {
 
   getAll(id: number): Observable<Capacitacao[]> {
     return this.httpClientService.get(`/servidores/${id}/atividades-complementares`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => this.jsonToCapacitacoes(res.json() || []));
   }
 
   getById(id: number): Observable<Capacitacao> {
     return this.httpClientService.get(`/atividades-complementares/${id}`)
-      .map((res: Response) => res.json() || {});
+      .map((res: Response) => this.jsonToCapacitacao(res.json() || {}));
   }
 
   delete(id: number): Observable<any> {
@@ -31,6 +31,13 @@ export class CapacitacaoService {
 
   save(Capacitacao: Capacitacao): Observable<any> {
     return Capacitacao.id ? this.update(Capacitacao) : this.create(Capacitacao);
+  }
+
+  searchEntidades(entidade: string): Observable<string[]> {
+    return this.httpClientService.search(`/atividades-complementares/pesquisa`, new SearchModel({
+      fields: ['entidade'],
+      filters: [`entidade like %${entidade}%`]
+    })).map((res: Response) => (res.json() || []).map(c => c.entidade));
   }
 
   private create(Capacitacao: Capacitacao): Observable<any> {

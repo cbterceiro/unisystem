@@ -5,5 +5,5 @@ export class Capacitacao {
   dataInicio: Date;
   dataFim: Date;
   cargaHoraria: string;
-  servidore_id: number;
+  servidor_id: number;
 }

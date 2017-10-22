@@ -1,3 +1,6 @@
+.habilidade {
+  position: relative;
+}
 .habilidade .add-habilidade-image-icon {
     float: right;
     top: 12px;
@@ -31,7 +34,7 @@
     width: 75px;
     transition: all 150ms ease-in-out;
   }
-  
+
   .habilidade  .ui-widget-content {
     border: none;
   }
@@ -45,7 +48,7 @@
     line-height: 1em;
     margin-left: 0.6em;
   }
-  
+
   .habilidade .edit-habilidade-image-icon {
     position: relative;
     float: right;
@@ -100,18 +103,18 @@
 
   .habilidades {
     overflow-y: hidden;
-    max-height: 177px; /* exibe 2 habilidades */
-  
+    max-height: 176px; /* exibe 2 habilidades */
+
     transition: max-height 0.35s ease-out;
   }
-  
+
   .habilidadesExpandido {
     overflow-y: hidden;
     max-height: 891px; /*exibe até 10 habilidades */
-  
+
     transition: max-height 0.35s ease-in;
   }
-  
+
   .botaoVerMais {
     text-align: center;
     margin: 0 0 -2em -1em;
@@ -125,4 +128,3 @@
     padding-left: 1em;
     padding-right: 1em;
   }
-  

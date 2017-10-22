@@ -1,10 +1,9 @@
-<p-dialog header="Adicionar Capacitação" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
-  <form [formGroup]="capacitacaoForm" class="ui-fluid" (submit)="onSubmit(capacitacaoForm.isValid, capacitacaoForm.value)">
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="capacitacaoForm" class="ui-fluid" (submit)="onSubmit(capacitacaoForm.valid, capacitacaoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Entidade</label>
-        <p-autoComplete [(ngModel)]="text" [suggestions]="resultadoEntidades" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade" [dropdown]="true"></p-autoComplete>
-        <!--<p-dropdown [options]="entidade" [autoWidth]="false" formControlName="entidade"></p-dropdown>-->
+        <p-autoComplete [suggestions]="sugestoesEntidade" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade"></p-autoComplete>
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.entidade.pristine || capacitacaoForm.controls.entidade.valid">
           A entidade é obrigatória.
         </small>
@@ -19,15 +18,15 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
-        <label class="form-label">Data de Início</label>
-        <p-calendar default-config formControlName="dataInicio"></p-calendar>
+        <label class="form-label">Início</label>
+        <p-calendar default-config formControlName="dataInicio" [maxDate]="capacitacaoForm.controls.dataFim.value"></p-calendar>
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataInicio.pristine || capacitacaoForm.controls.dataInicio.valid">
           A data de início é obrigatória.
         </small>
       </div>
       <div class="ui-g-6">
-        <label class="form-label">Data de Término</label>
-        <p-calendar default-config formControlName="dataFim"></p-calendar>
+        <label class="form-label">Fim</label>
+        <p-calendar default-config formControlName="dataFim" [minDate]="capacitacaoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataFim.pristine || capacitacaoForm.controls.dataFim.valid">
           A data de término é obrigatória.
         </small>
@@ -35,16 +34,17 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-4">
-        <label class="form-label">Carga Horaria</label>
+        <label class="form-label">Carga Horária</label>
         <input formControlName="cargaHoraria" type="text" pInputText>
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.cargaHoraria.pristine || capacitacaoForm.controls.cargaHoraria.valid">
-          Carga Horaria é obrigatório.
+          A carga horária é obrigatória.
         </small>
       </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!capacitacaoForm.valid"></button>
       </div>
     </div>
   </form>

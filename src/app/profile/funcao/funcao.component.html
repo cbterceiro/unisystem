@@ -3,7 +3,7 @@
 
   <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewFuncao()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
-  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+  <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
   <div *ngIf="!isLoading && funcoes && !funcoes.length" class="text-center">
     Você não possui funções cadastradas

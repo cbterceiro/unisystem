@@ -1,6 +1,7 @@
-<uns-cargo></uns-cargo>
-<uns-funcao></uns-funcao>
-<uns-formacao-academica></uns-formacao-academica>
-<uns-capacitacao></uns-capacitacao>
-<uns-habilidade></uns-habilidade>
+<uns-spinner [isLoading]="isLoading()"></uns-spinner>
+<uns-cargo (onAfterInitialLoading)="finished.cargo = true"></uns-cargo>
+<uns-funcao (onAfterInitialLoading)="finished.funcao = true"></uns-funcao>
+<uns-formacao-academica (onAfterInitialLoading)="finished.formacaoAcademica = true"></uns-formacao-academica>
+<uns-capacitacao (onAfterInitialLoading)="finished.capacitacao = true"></uns-capacitacao>
+<uns-habilidade (onAfterInitialLoading)="finished.habilidade = true"></uns-habilidade>
 <router-outlet name="modal"></router-outlet>

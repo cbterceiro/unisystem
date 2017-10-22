@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CapacitacaoModalComponent } from './capacitacao-modal.component';
+import { ConfirmationService } from 'primeng/primeng';
 
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { AuthenticatedUserService } from '../../authentication';
 
 import { CapacitacaoService } from './capacitacao.service';
-import { Capacitacao } from './capacitacao.model'
+import { Capacitacao } from './capacitacao.model';
 
 @Component({
   selector: 'uns-capacitacao',
@@ -15,50 +15,70 @@ import { Capacitacao } from './capacitacao.model'
 })
 export class CapacitacaoComponent implements OnInit {
 
-  modalCapacitacao: CapacitacaoModalComponent;
-  exibeModalCapacitacao: boolean = false;
+  exibeModalCapacitacao = false;
+  objToEdit: Capacitacao;
+  capacitacoes: Capacitacao[];
 
   capacitacoesClass = 'capacitacoes';
   arrowExpand = 'chevron-down';
   labelExpand = 'Ver mais';
   hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
 
-  capacitacaoList: Capacitacao[];
+  hideAddIcon = true;
+  isLoading: boolean;
+  finishedInitialLoading: true;
+  @Output('onAfterInitialLoading') afterInitialLoadingEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private capacitacaoService: CapacitacaoService) { }
+    private capacitacaoService: CapacitacaoService,
+    private confirmationService: ConfirmationService,
+    private authenticatedUserService: AuthenticatedUserService,
+  ) { }
 
   ngOnInit() {
-    this.preencherCapacitacao();
+    this.getCapacitacoes();
   }
 
+  getCapacitacoes(): void {
+    const servidor = this.authenticatedUserService.getServidor();
+    this.isLoading = true;
+    this.capacitacoes = [];
+    this.capacitacaoService.getAll(servidor.id).subscribe(capacitacoes => {
+      this.capacitacoes = capacitacoes;
+      this.isLoading = false;
 
-  showModalCapacitacao(): void {
-    this.exibeModalCapacitacao = true;
-    console.log('modal: ' + this.exibeModalCapacitacao);
-  }
-
-  preencherCapacitacao(): void {
-    this.capacitacaoService.getAll(1).subscribe(result => {
-      this.capacitacaoList = result as Capacitacao[];
-      console.log("capacitacoes: ", this.capacitacaoList)
-      if (this.capacitacaoList.length < 3) {
+      if (this.capacitacoes.length < 3) {
         this.hideVerMais = true;
       } else {
         this.hideVerMais = false;
       }
-    }
-    );
+
+      if (!this.finishedInitialLoading) {
+        this.finishedInitialLoading = true;
+        this.afterInitialLoadingEmitter.emit();
+      }
+    });
+  }
+
+  addNewCapacitacao(): void {
+    this.objToEdit = null;
+    this.exibeModalCapacitacao = true;
+  }
+
+  editarCapacitacao(capacitacao: Capacitacao): void {
+    this.objToEdit = capacitacao;
+    this.exibeModalCapacitacao = true;
   }
 
   deletarCapacitacao(id: number): void {
-    console.log("Deletando id: " + id);
-    this.capacitacaoService.delete(id).subscribe(success => {
-      /*this.messageService.sendSuccess({
-          summary: 'Sucesso',
-          detail: 'Perfil atualizado com sucesso.'
-        });*/
-      console.log("Deletado!!");
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      accept: () => {
+        this.capacitacaoService.delete(id).subscribe(ok => {
+          this.getCapacitacoes();
+        });
+      },
+      reject: () => { }
     });
   }
 
