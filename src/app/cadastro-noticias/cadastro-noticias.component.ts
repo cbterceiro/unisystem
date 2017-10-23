@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class CadastroNoticiasComponent implements OnInit {
+
+    noticia: string;
+
     constructor() { }
 
     ngOnInit() { }
 
-    onClick(): void {
-        
-        
-    
+    publish(): void {
+
     }
 }
