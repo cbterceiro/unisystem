@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'http://uni-back-slayper.c9users.io/',
+  backendServerPath: 'https://front2-thallesab.c9users.io/',
 };

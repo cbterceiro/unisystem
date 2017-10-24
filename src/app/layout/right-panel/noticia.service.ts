@@ -15,7 +15,7 @@ export class NoticiaService {
   ) { }
 
   getNoticias(): Observable<Noticia[]> {
-    return this.httpClientService.get('/noticias')
+    return this.httpClientService.get('/noticias-sege')
       .map((res: Response) => res.json() || []);
   }
 }
