@@ -9,7 +9,6 @@ import { SelectItem } from 'primeng/primeng';
 import { markFormGroupDirty } from '../../shared/functions';
 
 import { AuthenticatedUserService } from '../../authentication';
-
 import { MessageService } from '../../core';
 
 import { FormacaoAcademicaService } from './formacao-academica.service';

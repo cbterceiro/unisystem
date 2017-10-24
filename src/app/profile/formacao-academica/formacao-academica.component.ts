@@ -1,10 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-
 import { ConfirmationService } from 'primeng/primeng';
-
 import { AuthenticatedUserService } from '../../authentication';
 
 import { MessageService } from '../../core';

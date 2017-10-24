@@ -4,7 +4,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Habilidade</label>
-        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome"
+        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoHabilidades" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome"
           [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="habilidadeForm.controls.nome.pristine || habilidadeForm.controls.nome.valid">
           Digite a habilidade.

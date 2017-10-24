@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { HabilidadeModalComponent } from './habilidade-modal.component';
-
 import { ConfirmationService } from 'primeng/primeng';
-import { Habilidade } from './habilidade.model'
+import { AuthenticatedUserService } from '../../authentication';
+import { MessageService } from '../../core';
 
+import { Habilidade } from './habilidade.model'
 import { HabilidadeService } from './habilidade.service'
+// import { HabilidadeModalComponent } from './habilidade-modal.component';
 
 @Component({
   selector: 'uns-habilidade',
@@ -17,7 +18,7 @@ import { HabilidadeService } from './habilidade.service'
 export class HabilidadeComponent implements OnInit {
   //constructor() { }
 
-  modalhabilidade: HabilidadeModalComponent;
+  // modalhabilidade: HabilidadeModalComponent;
   exibeModalhabilidade: boolean = false;
   objToEdit: Habilidade;
 
@@ -34,6 +35,8 @@ export class HabilidadeComponent implements OnInit {
 
   constructor(private cService: HabilidadeService,
     private confirmationService: ConfirmationService,
+    private authenticatedUserService: AuthenticatedUserService,
+    private messageService: MessageService,
   ) { }
 
   habilidades: Habilidade[];
@@ -52,8 +55,9 @@ export class HabilidadeComponent implements OnInit {
   }
 
   atualizaForm(): void {
+    const servidor = this.authenticatedUserService.getServidor();
     this.isLoading = true;
-    this.cService.getAllHabilidadesFromId(1).subscribe(c => {
+    this.cService.getAllHabilidadesFromId(servidor.id).subscribe(c => {
       this.isLoading = false;
       this.habilidades = c as Habilidade[];
       if (this.habilidades.length < 3) {
@@ -97,11 +101,6 @@ export class HabilidadeComponent implements OnInit {
       },
       reject: () => { }
     });
-    // console.log('deletando habilidade id ' + id);
-    // this.cService.delete(id).subscribe(ok => {
-    //   console.log("Sucesso ao deletar:" + ok);
-    //   this.atualizaForm();
-    // });
   }
 
 
