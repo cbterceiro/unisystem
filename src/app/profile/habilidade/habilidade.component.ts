@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { HabilidadeModalComponent } from './habilidade-modal.component';
 
-import { DataListModule, SharedModule } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/primeng';
 import { Habilidade } from './habilidade.model'
 
 import { HabilidadeService } from './habilidade.service'
@@ -26,10 +26,16 @@ export class HabilidadeComponent implements OnInit {
   labelExpand = 'Ver mais';
   hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
 
+  isLoading: boolean;
+  hideAddIcon = true;
+
   finishedInitialLoading: true;
   @Output('onAfterInitialLoading') afterInitialLoadingEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private cService: HabilidadeService) { }
+  constructor(private cService: HabilidadeService,
+    private confirmationService: ConfirmationService,
+  ) { }
+
   habilidades: Habilidade[];
 
   /*
@@ -46,7 +52,9 @@ export class HabilidadeComponent implements OnInit {
   }
 
   atualizaForm(): void {
+    this.isLoading = true;
     this.cService.getAllHabilidadesFromId(1).subscribe(c => {
+      this.isLoading = false;
       this.habilidades = c as Habilidade[];
       if (this.habilidades.length < 3) {
         this.hideVerMais = true;
@@ -78,13 +86,22 @@ export class HabilidadeComponent implements OnInit {
 
   }
 
-  deletarhabilidade(id: number): void {
-    console.log('deletando habilidade id ' + id);
-    this.cService.delete(id).subscribe(ok => {
-      console.log("Sucesso ao deletar:" + ok);
-      this.atualizaForm();
+  deletarhabilidade(habilidade: Habilidade): void {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro? \n',
+      accept: () => {
+        this.cService.delete(habilidade.id).subscribe(success => {
+          console.log("Sucesso ao deletar:");
+          this.atualizaForm();
+        });
+      },
+      reject: () => { }
     });
-
+    // console.log('deletando habilidade id ' + id);
+    // this.cService.delete(id).subscribe(ok => {
+    //   console.log("Sucesso ao deletar:" + ok);
+    //   this.atualizaForm();
+    // });
   }
 
 

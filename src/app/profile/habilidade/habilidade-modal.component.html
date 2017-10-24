@@ -1,22 +1,23 @@
-<p-dialog header="Adicionar Informações de Habilidade" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
-  (onHide)="closeModal()">
+<p-dialog header="Adicionar Informações de Habilidade" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30"
+  [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
   <form [formGroup]="habilidadeForm" class="ui-fluid" (submit)="onSubmit(habilidadeForm.isValid, habilidadeForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Habilidade</label>
-        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome" [dropdown]="true"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoFuncoes" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome"
+          [dropdown]="true"></p-autoComplete>
         <small class="validation-error-message" [hidden]="habilidadeForm.controls.nome.pristine || habilidadeForm.controls.nome.valid">
-          O nome da função é obrigatória.
+          Digite a habilidade.
         </small>
       </div>
     </div>
-    
+
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Nº de Recomendações</label>
       </div>
     </div>
-    
+
     <!-- <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Nacionalidade</label>
@@ -38,7 +39,8 @@
     </div> -->
     <div class="ui-g">
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <uns-spinner [isLoading]="isLoading"></uns-spinner>
+        <button *ngIf="!isLoading" pButton type="submit" label="Salvar" [disabled]="!habilidadeForm.valid"></button>
       </div>
     </div>
   </form>

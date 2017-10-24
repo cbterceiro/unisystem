@@ -1,25 +1,23 @@
-<div class="habilidade card card-w-title">
+<div class="habilidade card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
       <h1>Habilidades
-
-            <div class="add-habilidade-image-icon" (click)="addNewhabilidade()">
+            <!-- <div class="add-habilidade-image-icon" (click)="addNewhabilidade()">
                   <fa name="plus"></fa>
                   <span>Adicionar</span>
-            </div>
-
+            </div> -->
       </h1>
+      <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewhabilidade()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+
+      <div *ngIf="!isLoading && habilidades && !habilidades.length" class="text-center">
+            Você não possui habilidades cadastradas
+      </div>
+
       <uns-habilidade-modal [visible]="exibeModalhabilidade" [habilidadeEdit]="objToEdit" (visibleChange)="exibeModalhabilidade=$event; this.atualizaForm();"></uns-habilidade-modal>
 
       <div class="{{habilidadesClass}}">
             <div *ngFor="let habilidade of habilidades; let ultimo = last;" class="habilidade">
-                  <div class="edit-habilidade-image-icon" (click)="editarhabilidade(habilidade)">
-                        <fa name="pencil"></fa>
-                  </div>
-
+                  <uns-action-icon icon="pencil" label="Editar" (click)="editarhabilidade(habilidade)" topPosition="0px"></uns-action-icon>
+                  <uns-action-icon icon="trash" label="Remover" (click)="deletarhabilidade(habilidade)" topPosition="22px"></uns-action-icon>
                   <h3>{{habilidade.nome}}</h3>
-
-                  <div class="delete-habilidade-image-icon" (click)="deletarhabilidade(habilidade.id)">
-                        <fa name="trash"></fa>
-                  </div>
                   <p>Nº Recomendações: {{habilidade.numRecomendacoes}}</p>
                   <hr *ngIf="!ultimo">
             </div>

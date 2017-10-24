@@ -92,7 +92,7 @@ export class FormacaoAcademicaComponent implements OnInit {
 
   deletarFormacao(formacao: FormacaoAcademica): void {
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir este registro? \n' + formacao.curso,
+      message: 'Tem certeza que deseja excluir este registro? \n',
       accept: () => {
         this.formacaoAcademicaService.delete(formacao.id).subscribe(success => {
           this.atualizarListaFormacoes();
