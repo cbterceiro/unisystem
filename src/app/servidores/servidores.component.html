@@ -6,7 +6,7 @@
   </div>
   <div *ngFor="let servidor of servidores" class="servidor">
     <hr>
-    <img [src]="servidor.foto" style="border-radius: 8px; height:150px; width:150px; float: right;">
+    <img [src]="servidor.foto || defaultImageUrl" style="border-radius: 8px; height:150px; width:150px; float: right;">
     <h3>{{servidor.nome}}</h3>
 
     <p>

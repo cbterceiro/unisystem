@@ -22,6 +22,7 @@ export class ServidoresComponent implements OnInit {
   offset: number;
 
   isLoading: boolean;
+  defaultImageUrl: string = '/assets/img/default-user-icon.png';
 
   constructor(
     private servidorService: ServidorService,
