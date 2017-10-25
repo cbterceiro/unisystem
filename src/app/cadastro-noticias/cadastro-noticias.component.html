@@ -13,8 +13,7 @@
   <div *ngIf="noticias && !noticias.length" class="text-center">
     Ainda não existem notícias publicadas
   </div>
-  <div class="noticia" *ngFor="let noticia of noticias; let ultimo = last">
+  <div class="noticia" *ngFor="let noticia of noticias">
     <p [innerHTML]="noticia"></p>
-    <hr *ngIf="!ultimo" />
   </div>
 </div>
