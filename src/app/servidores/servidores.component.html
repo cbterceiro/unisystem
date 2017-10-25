@@ -1,19 +1,31 @@
 <div class="funcao card card-w-title">
   <h1>Servidores</h1>
+  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+  <div *ngIf="!isLoading && servidores && !servidores.length" class="text-center">
+    Não foram encontrados servidores com estes parâmetros
+  </div>
+  <div *ngFor="let servidor of servidores" class="servidor">
+    <hr>
+    <img [src]="servidor.foto" style="border-radius: 8px; height:150px; width:150px; float: right;">
+    <h3>{{servidor.nome}}</h3>
 
-
-<div *ngFor="let servidor of servidores" class="servidor">  
-      <hr class="hr">
-      <img [src]="servidor.foto" style="border-radius: 8px; height:150px; width:150px; float: right;">
-      <h3>{{servidor.nome}}</h3>
-      
-      <p><b>Cargo:</b>  {{servidor.cargo[0]?.nome}} </p>   
-      <p><b>Função:</b> {{servidor.funcao[0]?.nome}}</p> 
-      <p><b>Email:</b> {{servidor.email}} </p>  
-      <p><b>Sexo:</b> {{servidor.sexo}}</p>   
-      <p><b>Estado Civil:</b> {{servidor.estadoCivil}} </p>  
-      <p><b>Localidade:</b>  {{servidor.cidade}} - {{servidor.estado}}</p>  
-
-</div> 
-
+    <p>
+      <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
+    </p>
+    <p>
+      <b>Função:</b> {{servidor.funcao[0]?.nome}}
+    </p>
+    <p>
+      <b>Email:</b> {{servidor.email}}
+    </p>
+    <p>
+      <b>Sexo:</b> {{servidor.sexo}}
+    </p>
+    <p>
+      <b>Estado Civil:</b> {{servidor.estadoCivil}}
+    </p>
+    <p>
+      <b>Localidade:</b> {{servidor.cidade}} - {{servidor.estado}}
+    </p>
+  </div>
 </div>

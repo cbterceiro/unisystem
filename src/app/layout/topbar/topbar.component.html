@@ -1,8 +1,20 @@
+<div class="topbar">
+  <div class="topbar-content wrapper">
+    <span>Unisystem</span>
+    <div class="search-area">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText placeholder="Encontrar servidores" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <p-overlayPanel #op>
   <div class="ui-g ui-fluid search-overlay">
     <div class="ui-g-12">
       <h1>Pesquisar talentos</h1>
-      <hr class="style1">
+      <hr>
     </div>
 
     <div class="ui-g-6">
@@ -43,15 +55,3 @@
     </div>
   </div>
 </p-overlayPanel>
-
-<div class="topbar">
-  <div class="topbar-content wrapper">
-    <span>Unisystem</span>
-    <div class="search-area">
-      <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="encontrar" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
-      </div>
-    </div>
-  </div>
-</div>

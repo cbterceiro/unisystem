@@ -7,7 +7,7 @@ import { Servidor } from '../core/servidor.model';
 @Component({
   selector: 'uns-servidores',
   templateUrl: 'servidores.component.html',
-  // styleUrls: ['funcao.component.css']
+  // styleUrls: ['servidores.component.css']
 })
 export class ServidoresComponent implements OnInit {
 
@@ -21,59 +21,46 @@ export class ServidoresComponent implements OnInit {
   limite: number;
   offset: number;
 
+  isLoading: boolean;
+
   constructor(
-    private cService: ServidorService,
+    private servidorService: ServidorService,
     private route: ActivatedRoute,
     private el: ElementRef,
     private renderer: Renderer2,
   ) { }
 
   ngOnInit() {
-
-    //this.getAllServidores();
-
     this.route.queryParams
       .subscribe(params => {
-        //console.log(params); // {order: "popular"}
-
         this.nomeCompleto = params.nome;
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
         this.funcao = params.funcao;
         this.areaInteresse = params.interesse;
-        //this.order = params.order;
-        //console.log(this.order); // popular
+
         this.limite = 10;
         this.offset = 0;
-        console.log('nome: ' + this.nomeCompleto);
-        this.atualizaForm();
+        this.searchServidores();
       });
 
 
   }
-  
-    updateBackgroundImage(base64Img: string) {
+
+  updateBackgroundImage(base64Img: string) {
     const element = this.el.nativeElement.querySelector('.profile-image');
     if (base64Img && element) {
       this.renderer.setStyle(element, 'background-image', `url('${base64Img}')`);
     }
   }
 
-  atualizaForm(): void {
-    this.cService.getByPesquisa(this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.areaInteresse, this.limite, this.offset).subscribe(c => {
-      this.servidores = c as Servidor[];
-      console.log("servidores:");
-      console.log(this.servidores);
+  searchServidores(): void {
+    this.isLoading = true;
+    this.servidorService.getByPesquisa(
+      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.areaInteresse, this.limite, this.offset
+    ).subscribe(servidores => {
+      this.servidores = servidores;
+      this.isLoading = false;
     });
   }
-
-
-  getAllServidores(): void {
-    this.cService.getAll().subscribe(c => {
-      this.servidores = c as Servidor[];
-      console.log("servidores:");
-      console.log(this.servidores);
-    });
-  }
-
 }

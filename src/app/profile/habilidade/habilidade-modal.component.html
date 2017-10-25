@@ -1,11 +1,9 @@
-<p-dialog header="Adicionar Informações de Habilidade" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30"
-  [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+<p-dialog header="Adicionar Informações de Habilidade" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
   <form [formGroup]="habilidadeForm" class="ui-fluid" (submit)="onSubmit(habilidadeForm.isValid, habilidadeForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Habilidade</label>
-        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoHabilidades" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome"
-          [dropdown]="true"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="nome" [suggestions]="resultadoHabilidades" (completeMethod)="pesquisarhabilidade($event)" formControlName="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="habilidadeForm.controls.nome.pristine || habilidadeForm.controls.nome.valid">
           Digite a habilidade.
         </small>
