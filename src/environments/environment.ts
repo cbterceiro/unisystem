@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'https://front2-thallesab.c9users.io/',
+  backendServerPath: 'http://localhost:8080/',
 };

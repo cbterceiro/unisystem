@@ -15,6 +15,7 @@ import { AuthenticatedUserService } from './authenticated-user.service';
 export class SelectServidorComponent implements OnInit {
 
   loading: boolean;
+  disabled: boolean;
 
   servidores: SelectItem[];
   servidorSelecionado: Servidor;
@@ -39,6 +40,10 @@ export class SelectServidorComponent implements OnInit {
       });
       this.servidores.unshift({ label: 'Selecione um servidor', value: null });
       this.loading = false;
+    }, error => {
+      this.errorMessage = error.json().msg || 'Falha na conexão com o servidor';
+      this.loading = false;
+      this.disabled = true;
     });
   }
 

@@ -10,11 +10,16 @@ export class CadastroNoticiasComponent implements OnInit {
 
     noticia: string;
 
+    noticias: string[] = [];
+
     constructor() { }
 
     ngOnInit() { }
 
     publish(): void {
-
+        if (this.noticia) {
+            this.noticias.push(this.noticia);
+            this.noticia = '';
+        }
     }
 }

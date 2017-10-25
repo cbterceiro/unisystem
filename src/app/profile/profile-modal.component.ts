@@ -28,6 +28,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   isUpdatingPicture: boolean;
 
   imageUploadUrl: string;
+  maxFileSize: number = 1 * 1024 * 1024; // 1 MB
 
   profileForm: FormGroup;
 
@@ -173,6 +174,14 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+
+  onSelectFile(event) {
+    const file: File = event.files[0];
+    if (file.size > this.maxFileSize) {
+      this.messageService.sendError({ detail: `O tamanho máximo para a imagem é de ${this.maxFileSize / 1024 / 1024} MB.` });
+    }
+  }
+
   onBeforeUpload(event) {
     this.isUpdatingPicture = true;
   }
@@ -180,13 +189,13 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   onUpload(event) {
     this.isUpdatingPicture = false;
     this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
-    this.profileForm.patchValue(JSON.parse(event.xhr.response));
+    this.profileForm.get('foto').setValue(JSON.parse(event.xhr.response).foto);
     this.authenticatedUserService.updateServidor(this.profileForm.value);
   }
 
   onUploadError(event) {
     this.isUpdatingPicture = false;
-    this.messageService.sendError({ detail: 'Erro no envio da foto.' });
+    this.messageService.sendError({ detail: JSON.parse(event.xhr.responseText).msg || 'Erro no envio da foto.' });
     this.closeModal();
   }
 

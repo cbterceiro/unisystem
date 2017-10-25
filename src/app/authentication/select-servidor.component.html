@@ -10,10 +10,10 @@
       {{ errorMessage }}
     </div>
     <div class="ui-g-12" [hidden]="loading">
-      <p-dropdown [options]="servidores" [(ngModel)]="servidorSelecionado" [autoWidth]="false"></p-dropdown>
+      <p-dropdown [options]="servidores" [(ngModel)]="servidorSelecionado" [disabled]="disabled" [autoWidth]="false"></p-dropdown>
     </div>
     <div class="ui-g-12">
-      <button pButton class="bg-primary-color" label="Entrar" icon="ui-icon-person" (click)="login()" [disabled]="loading"></button>
+      <button pButton class="bg-primary-color" label="Entrar" icon="ui-icon-person" (click)="login()" [disabled]="loading || disabled"></button>
     </div>
   </div>
 </div>

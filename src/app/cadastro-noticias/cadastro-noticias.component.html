@@ -10,4 +10,11 @@
 
 <div class="noticias card card-w-title">
   <h1>Noticias Recentes</h1>
+  <div *ngIf="noticias && !noticias.length" class="text-center">
+    Ainda não existem notícias publicadas
+  </div>
+  <div class="noticia" *ngFor="let noticia of noticias; let ultimo = last">
+    <p [innerHTML]="noticia"></p>
+    <hr *ngIf="!ultimo" />
+  </div>
 </div>
