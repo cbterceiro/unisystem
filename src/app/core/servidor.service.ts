@@ -50,7 +50,10 @@ export class ServidorService {
   }
 
   save(servidor: Servidor): Observable<any> {
-    return servidor.id ? this.update(servidor) : this.create(servidor);
+    const s: Servidor = Object.assign({}, servidor);
+    delete s.foto;
+    console.log('>>>>', s);
+    return s.id ? this.update(s) : this.create(s);
   }
 
   getImageUrl(id: number): string {
