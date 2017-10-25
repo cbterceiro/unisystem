@@ -26,8 +26,8 @@
     </div>
 
     <div class="ui-g-6">
-      <label class="form-label">Area de interesse</label>
-      <input type="text" [(ngModel)]="areaInteresse" pInputText>
+      <label class="form-label">Habilidades</label>
+      <input type="text" [(ngModel)]="habilidades" pInputText>
     </div>
 
     <div class="ui-g-12">
@@ -38,7 +38,7 @@
       </span>
 
       <span class="ui-g-3">
-        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
+        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], habilidades: [(habilidades)]}"></button>
       </span>
     </div>
   </div>
@@ -50,7 +50,7 @@
     <div class="search-area">
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="encontrar" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], interesse: [(areaInteresse)]}"></button>
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], habilidades: [(habilidades)]}"></button>
       </div>
     </div>
   </div>

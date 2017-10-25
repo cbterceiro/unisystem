@@ -9,6 +9,10 @@
       
       <p><b>Cargo:</b>  {{servidor.cargo[0]?.nome}} </p>   
       <p><b>Função:</b> {{servidor.funcao[0]?.nome}}</p> 
+      <p><b>Habilidades:</b></p>
+      <ul>
+        <li *ngFor="let habilidade of servidor.habilidade">{{ habilidade.nome }}</li>
+      </ul>
       <p><b>Email:</b> {{servidor.email}} </p>  
       <p><b>Sexo:</b> {{servidor.sexo}}</p>   
       <p><b>Estado Civil:</b> {{servidor.estadoCivil}} </p>  
