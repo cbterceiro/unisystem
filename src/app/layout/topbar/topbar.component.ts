@@ -20,12 +20,10 @@ export class TopbarComponent implements OnInit {
   }
 
   pesquisarServidor(): void {
-    console.log('pesquisa servidor');
     console.log(this.nomeCompleto);
   }
 
   limparCampos(): void {
-    console.log('limpar campos pesquisa');
     this.instituicao = '';
     this.nomeCompleto = '';
     this.cargo = '';
