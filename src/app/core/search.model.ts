@@ -25,8 +25,7 @@ export class SearchModel {
       s.push(`offset=${this.offset}`);
     }
     if (this.filters && this.filters.length) {
-      
-      this.filters = this.filters.filter(function(n){ return (n != undefined && n != '' && n.indexOf('%%') == -1) });
+      this.filters = this.filters.filter(n => n && n.indexOf('%%') == -1);
       s.push(`filter=${encodeURI(this.filters.join(','))}`);
     }
     if (this.orderBy && this.orderBy.length) {
