@@ -1,0 +1,53 @@
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}"
+  (onHide)="closeModal()">
+  <form [formGroup]="publicacaoForm" class="ui-fluid" (submit)="onSubmit(publicacaoForm.valid, publicacaoForm.value)">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <label class="form-label">Título</label>
+        <input formControlName="titulo" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="publicacaoForm.controls.titulo.pristine || publicacaoForm.controls.titulo.valid">
+          A publicação deve ter um título.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <!-- <div class="ui-g-6">
+        <label class="form-label">Ano</label>
+        <p-calendar default-config formControlName="ano" [monthNavigator]="true" [yearNavigator]="true" [yearRange]="calendarYearRange"
+          dateFormat="mm.yyyy"></p-calendar>
+        <small class="validation-error-message" [hidden]="publicacaoForm.controls.ano.pristine || publicacaoForm.controls.ano.valid">
+              O ano da publicação é um campo obrigatório.
+            </small>
+      </div> -->
+      <div class="ui-g-6">
+        <label class="form-label">Ano</label>
+        <p-dropdown [options]="ano" [autoWidth]="false" formControlName="ano"></p-dropdown>
+        <small class="validation-error-message" [hidden]="publicacaoForm.controls.ano.pristine || publicacaoForm.controls.ano.valid">
+            O ano da publicação é um campo obrigatório.
+              </small>
+      </div>
+      <div class="ui-g-6">
+        <label class="form-label">Local</label>
+        <input formControlName="local" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="publicacaoForm.controls.local.pristine || publicacaoForm.controls.local.valid">
+          O local é um campo obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Tipo de publicação</label>
+        <p-dropdown [options]="tipo" [autoWidth]="false" formControlName="tipo"></p-dropdown>
+        <small class="validation-error-message" [hidden]="publicacaoForm.controls.tipo.pristine || publicacaoForm.controls.tipo.valid">
+              Tipo de publicação é um campo obrigatório.
+            </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <uns-spinner [isLoading]="isLoading"></uns-spinner>
+        <button *ngIf="!isLoading" pButton type="submit" label="Salvar" [disabled]="!publicacaoForm.valid"></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

@@ -1,0 +1,36 @@
+.publicacao {
+  position: relative;
+}
+
+h4, p {
+  line-height: 1em;
+  margin-left: 0.6em;
+}
+
+.publicacoes {
+  overflow-y: hidden;
+  max-height: 311px; /* exibe 2 formações acadêmicas */
+
+  transition: max-height 0.35s ease-out;
+}
+
+.publicacoesExpandido {
+  overflow-y: hidden;
+  max-height: 1555px; /*exibe até 10 formações acadêmicas */
+
+  transition: max-height 0.35s ease-in;
+}
+
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 100%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
+}
