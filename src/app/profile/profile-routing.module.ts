@@ -6,11 +6,8 @@ import { ProfileModalComponent } from './profile-modal.component';
 
 const routes: Routes = [
   {
-    path: '', component: ProfileComponent, children: [
-      { path: '', component: ProfileModalComponent, outlet: 'modal' },
-    ]
+    path: '', component: ProfileComponent,
   },
-
 ];
 
 @NgModule({

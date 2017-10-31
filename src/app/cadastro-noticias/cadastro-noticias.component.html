@@ -3,17 +3,17 @@
   <p-editor [(ngModel)]="noticia" [style]="{'height':'320px'}"></p-editor>
 
   <p>
-    <button pButton type="button" (click)="publish()" label="Publicar"></button>
-    <button pButton type="button" label="Cancelar"></button>
+    <button pButton type="button" label="Publicar" (click)="publish()"></button>
+    <button pButton type="button" label="Cancelar" (click)="cancel()"></button>
   </p>
 </div>
 
-<div class="noticias card card-w-title">
+<div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}">
   <h1>Noticias Recentes</h1>
   <div *ngIf="noticias && !noticias.length" class="text-center">
     Ainda não existem notícias publicadas
   </div>
-  <div class="noticia" *ngFor="let noticia of noticias">
-    <p [innerHTML]="noticia"></p>
-  </div>
+</div>
+<div class="card" *ngFor="let noticia of noticias">
+  <p [innerHTML]="noticia"></p>
 </div>

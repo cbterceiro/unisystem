@@ -4,7 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { ProfileModalComponent } from './profile-modal.component';
 
 import { FormacaoAcademicaComponent } from './formacao-academica/formacao-academica.component';
 import { FormacaoAcademicaModalComponent } from './formacao-academica/formacao-academica-modal.component';
@@ -38,7 +37,6 @@ import { PublicacaoService } from './publicacao/publicacao.service';
   ],
   declarations: [
     ProfileComponent,
-    ProfileModalComponent,
     CargoComponent,
     CargoModalComponent,
     FuncaoComponent,
