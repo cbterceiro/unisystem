@@ -37,6 +37,11 @@ export class HabilidadeService {
      return new Observable<Habilidade[]>();
   }
   
+  searchHabilidades(nome: string): Observable<Habilidade[]> {
+    return this.httpClientService.get(`/habilidade/nome/${nome}`)
+      .map((res: Response) => res.json().map(h => h.nome) || {});
+  }
+  
   /*
     getAllSetoresContains(habilidade: string): Observable<Setor[]> {
     //return this.httpClientService.get('/habilidade')
