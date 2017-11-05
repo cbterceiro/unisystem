@@ -27,7 +27,7 @@ export class HabilidadeModalComponent implements OnInit {
 
 
   habilidadeForm: FormGroup;
-  nome: string;
+  nome: string[];
   numRecomendacoes: number;
 
   resultadoHabilidades: string[]; //resultado da pesquisa de habilidades
@@ -52,7 +52,6 @@ export class HabilidadeModalComponent implements OnInit {
     console.log("passou init modal habilidade");
   }
 
-
   ngOnChanges(changes: SimpleChanges) {
     if (this.habilidadeEdit && this.visible) {
       console.log("habilidade: " + this.habilidadeEdit.id);
@@ -69,8 +68,6 @@ export class HabilidadeModalComponent implements OnInit {
       this.idToEdit = 0;
     }
   }
-
-
 
   setupForm(): void {
     console.log("passou setupform modal habilidade");
@@ -119,12 +116,15 @@ export class HabilidadeModalComponent implements OnInit {
     if (isValid) {
       const servidor = this.authenticatedUserService.getServidor();
       habilidade.servidor_id = servidor.id;
-      this.cService.savehabilidade(habilidade).subscribe(ok => {
+      for(let i=0; i<habilidade.nome.length; i++){
+        this.cService.savehabilidade({id: habilidade.id, nome: habilidade.nome[i], numRecomendacoes: habilidade.numRecomendacoes, servidor_id: habilidade.servidor_id}).subscribe(ok => {
         this.isSubmitting = false;
         this.messageService.sendSuccess({ detail: 'Habilidade atualizada com sucesso.' });
         this.onSave.emit(true);
-        this.closeModal();
-      })
+        //if(i == habilidade.nome.length-1)
+          this.closeModal();
+        })
+      }  
     }
   }
 
