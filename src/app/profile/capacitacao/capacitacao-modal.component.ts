@@ -46,6 +46,7 @@ export class CapacitacaoModalComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.capacitacaoEdit && this.visible) {
       this.capacitacaoForm = this.formBuilder.group({
+        nome: [this.capacitacaoEdit.nome, Validators.required],
         entidade: [this.capacitacaoEdit.entidade, Validators.required],
         modalidade: [this.capacitacaoEdit.modalidade, Validators.required],
         dataInicio: [this.capacitacaoEdit.dataInicio, Validators.required],
@@ -58,6 +59,7 @@ export class CapacitacaoModalComponent implements OnChanges {
     } else {
       this.capacitacaoForm = this.formBuilder.group({
         entidade: ['', Validators.required],
+        nome: ['', Validators.required],
         modalidade: ['', Validators.required],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],

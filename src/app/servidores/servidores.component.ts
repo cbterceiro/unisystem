@@ -16,10 +16,11 @@ export class ServidoresComponent implements OnInit {
   instituicao: string;
   nomeCompleto: string;
   cargo: string;
-  funcao: string;
+  orgao: string;
   habilidades: string;
   limite: number;
   offset: number;
+  funcao: string;
 
   isLoading: boolean;
   defaultImageUrl: string = '/assets/img/default-user-icon.png';
@@ -37,7 +38,7 @@ export class ServidoresComponent implements OnInit {
         this.nomeCompleto = params.nome;
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
-        this.funcao = params.funcao;
+        this.orgao = params.orgao;
         this.habilidades = params.habilidades;
 
         this.limite = 10;
@@ -58,7 +59,7 @@ export class ServidoresComponent implements OnInit {
   searchServidores(): void {
     this.isLoading = true;
     this.servidorService.getByPesquisa(
-      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.habilidades, this.limite, this.offset
+      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.habilidades, this.limite, this.offset
     ).subscribe(servidores => {
       this.servidores = servidores;
       this.isLoading = false;

@@ -15,6 +15,8 @@
       <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="22px"></uns-action-icon>
 
       <h4>{{cargo.nome}}</h4>
+      <p>{{cargo.orgao}}</p>
+     <!-- <p-checkbox checked="{{cargo.atual}}" binary="true" label="Atual"></p-checkbox> -->
       <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
 
       <!--<p>Nível: {{cargo.nivel}}</p>-->

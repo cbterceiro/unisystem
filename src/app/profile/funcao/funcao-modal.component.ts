@@ -33,6 +33,7 @@ export class FuncaoModalComponent implements OnChanges {
 
   sugestoesFuncao: string[];
   sugestoesSetor: string[];
+  sugestoesOrgao: string[];
 
   idToEdit: number;
 
@@ -52,6 +53,8 @@ export class FuncaoModalComponent implements OnChanges {
       this.funcaoForm = this.formBuilder.group({
         nome: [this.funcaoEdit.nome, Validators.required],
         setor: [null], // terá setor aqui?
+        orgao: [this.funcaoEdit.orgao],
+        atual: [this.funcaoEdit.atual],
         descricao: [this.funcaoEdit.descricao],
         dataInicio: [this.funcaoEdit.dataInicio, Validators.required],
         dataFim: [this.funcaoEdit.dataFim, Validators.required],
@@ -63,6 +66,8 @@ export class FuncaoModalComponent implements OnChanges {
       this.funcaoForm = this.formBuilder.group({
         nome: ['', Validators.required],
         setor: [''],
+        orgao: [''],
+        atual: [false],
         descricao: [''],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
@@ -77,6 +82,13 @@ export class FuncaoModalComponent implements OnChanges {
     const nomeFuncao = event.query;
     this.funcaoService.searchFuncoes(nomeFuncao).subscribe(funcoes => {
       this.sugestoesFuncao = funcoes;
+    });
+  }
+  
+    pesquisarOrgao(event) {
+    const nomeOrgao = event.query;
+    this.funcaoService.searchFuncoes(nomeOrgao).subscribe(orgao => {
+      this.sugestoesOrgao = orgao;
     });
   }
 
