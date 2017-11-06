@@ -45,6 +45,7 @@ export class CargoComponent implements OnInit {
     this.cargos = [];
     this.cargoService.getCargosByServidorId(servidor.id).subscribe(cargos => {
       this.cargos = cargos;
+      console.log(cargos);
       this.isLoading = false;
       if (this.cargos.length < 3) {
         this.hideVerMais = true;

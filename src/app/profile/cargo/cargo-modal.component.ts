@@ -32,7 +32,7 @@ export class CargoModalComponent implements OnChanges {
   cargoForm: FormGroup;
 
   sugestoesCargo: string[];
-  sugestoesSetor: string[];
+  sugestoesOrgao: string[];
 
   idToEdit: number;
 
@@ -50,8 +50,9 @@ export class CargoModalComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.cargoEdit && this.visible) {
       this.cargoForm = this.formBuilder.group({
-        nome: [this.cargoEdit.nome, Validators.required],
-        setor: [this.cargoEdit.setor],
+        cargo: [this.cargoEdit.cargo, Validators.required],
+        orgao: [this.cargoEdit.orgao],
+        atual: [this.cargoEdit.atual],
         dataInicio: [this.cargoEdit.dataInicio, Validators.required],
         dataFim: [this.cargoEdit.dataFim, Validators.required],
       });
@@ -60,8 +61,9 @@ export class CargoModalComponent implements OnChanges {
       this.title = 'Editar informações de cargo';
     } else {
       this.cargoForm = this.formBuilder.group({
-        nome: ['', Validators.required],
-        setor: [''],
+        cargo: ['', Validators.required],
+        orgao: ['', Validators.required],
+        atual: [false],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
       });
@@ -79,9 +81,9 @@ export class CargoModalComponent implements OnChanges {
   }
 
   pesquisarSetor(event) {
-    const nomeSetor = event.query;
+    const nomeOrgao = event.query;
     // buscar no backend os setores
-    this.sugestoesSetor = ['Setor 1', 'Setor 2'];
+    this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
   }
 
   onSubmit(isValid: boolean, cargo: Cargo): void {

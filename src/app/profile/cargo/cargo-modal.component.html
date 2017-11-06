@@ -2,18 +2,23 @@
   <form [formGroup]="cargoForm" class="ui-fluid" (submit)="onSubmit(cargoForm.valid, cargoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
-        <label class="form-label">Nome</label>
-        <p-autoComplete [suggestions]="sugestoesCargo" (completeMethod)="pesquisarCargo($event)" formControlName="nome"></p-autoComplete>
-        <small class="validation-error-message" [hidden]="cargoForm.controls.nome.pristine || cargoForm.controls.nome.valid">
+        <label class="form-label">Cargo</label>
+        <p-autoComplete [suggestions]="sugestoesCargo" (completeMethod)="pesquisarCargo($event)" formControlName="cargo"></p-autoComplete>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.cargo.pristine || cargoForm.controls.cargo.valid">
           O nome do cargo é obrigatório.
         </small>
       </div>
       <div class="ui-g-6">
         <label class="form-label">Setor</label>
-        <p-autoComplete [suggestions]="sugestoesSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
-        <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
-          O setor é obrigatório.
+        <p-autoComplete [suggestions]="sugestoesSetores" (completeMethod)="pesquisarSetor($event)" formControlName="orgao"></p-autoComplete>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.orgao.pristine || cargoForm.controls.orgao.valid">
+          O nome do orgão é obrigatório.
         </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <p-checkbox formControlName="atual" label="Atual"></p-checkbox >
       </div>
     </div>
     <div class="ui-g">

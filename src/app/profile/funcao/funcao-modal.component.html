@@ -16,6 +16,17 @@
         </small>
       </div>
     </div>
+    
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Orgão</label>
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao"></p-autoComplete>
+      </div>
+      <div class="ui-g-6">
+        <p-checkbox formControlName="atual" label="Atual"></p-checkbox >
+      </div>
+    </div>
+    
     <div class="ui-g">
       <div class="ui-g-12">
         <label class="form-label">Descrição</label>

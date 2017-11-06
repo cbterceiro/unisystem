@@ -4,7 +4,7 @@
     <div class="search-area">
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="Encontrar servidores" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], habilidades: [(habilidades)]}"></button>
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], habilidades: [(habilidades)]}"></button>
       </div>
     </div>
   </div>
@@ -33,8 +33,8 @@
     </div>
 
     <div class="ui-g-6">
-      <label class="form-label">Função</label>
-      <input type="text" [(ngModel)]="funcao" pInputText>
+      <label class="form-label">Orgão</label>
+      <input type="text" [(ngModel)]="orgao" pInputText>
     </div>
 
     <div class="ui-g-6">
@@ -50,7 +50,7 @@
       </span>
 
       <span class="ui-g-3">
-        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], funcao: [(funcao)], habilidades: [(habilidades)]}"></button>
+        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], habilidades: [(habilidades)]}"></button>
       </span>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div class="funcao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
-  <h1>Funções</h1>
+  <h1>O que você faz...</h1>
 
   <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewFuncao()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
@@ -15,6 +15,8 @@
       <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="22px"></uns-action-icon>
 
       <h4>{{funcao.nome}}</h4>
+      <p>Orgão: {{funcao.orgao}}</p>
+      <p>Setor: {{funcao.setor}}</p>
       <p>Descrição: {{funcao.descricao}}</p>
       <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
 
