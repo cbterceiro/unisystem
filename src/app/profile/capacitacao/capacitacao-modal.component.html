@@ -7,6 +7,7 @@
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.nome.pristine || capacitacaoForm.controls.nome.valid">
           A entidade é obrigatória.
         </small>
+      </div>
     </div>
     <div class="ui-g">
       <div class="ui-g-6">
@@ -28,7 +29,7 @@
       <div class="ui-g-6">
         <label class="form-label">Ano Início</label>
         <input formControlName="dataInicio" type="text" pInputText>
-       <!-- <p-calendar default-config formControlName="dataInicio" [maxDate]="capacitacaoForm.controls.dataFim.value"></p-calendar> -->
+        <!-- <p-calendar default-config formControlName="dataInicio" [maxDate]="capacitacaoForm.controls.dataFim.value"></p-calendar> -->
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataInicio.pristine || capacitacaoForm.controls.dataInicio.valid">
           A data de início é obrigatória.
         </small>
@@ -36,7 +37,7 @@
       <div class="ui-g-6">
         <label class="form-label"> AnoFim</label>
         <input formControlName="dataFim" type="text" pInputText>
-      <!--  <p-calendar default-config formControlName="dataFim" [minDate]="capacitacaoForm.controls.dataInicio.value"></p-calendar> -->
+        <!--  <p-calendar default-config formControlName="dataFim" [minDate]="capacitacaoForm.controls.dataInicio.value"></p-calendar> -->
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.dataFim.pristine || capacitacaoForm.controls.dataFim.valid">
           A data de término é obrigatória.
         </small>
