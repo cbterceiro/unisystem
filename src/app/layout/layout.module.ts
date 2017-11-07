@@ -11,8 +11,6 @@ import { RightPanelComponent } from './right-panel/right-panel.component';
 
 import { ProfileModalComponent } from './left-panel/profile-modal/profile-modal.component';
 
-import { NoticiaService } from './right-panel/noticia.service';
-
 @NgModule({
   imports: [
     SharedModule,
@@ -27,7 +25,7 @@ import { NoticiaService } from './right-panel/noticia.service';
     RightPanelComponent,
     ProfileModalComponent,
   ],
-  providers: [NoticiaService],
+  providers: [],
 })
 export class LayoutModule {
 

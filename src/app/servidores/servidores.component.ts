@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ServidorService } from '../core/servidor.service';
-import { Servidor } from '../core/servidor.model';
+import { ServidorService, Servidor } from '../core';
 
 @Component({
   selector: 'uns-servidores',

@@ -3,9 +3,9 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService } from '../../core';
+import { HttpClientService } from './http-client.service';
 
-import { Noticia } from './noticia.model';
+import { Noticia } from '../models/noticia.model';
 
 @Injectable()
 export class NoticiaService {
