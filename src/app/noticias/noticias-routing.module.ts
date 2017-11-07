@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CadastroNoticiasComponent } from './cadastro-noticias.component';
+import { NoticiasComponent } from './noticias.component';
 
 const routes: Routes = [
-  { path: '', component: CadastroNoticiasComponent },
+  { path: '', component: NoticiasComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CadastroNoticiasRoutingModule { }
+export class NoticiasRoutingModule { }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'uns-cadastro-noticias',
-    templateUrl: 'cadastro-noticias.component.html',
-    styleUrls: ['cadastro-noticias.component.css']
+    selector: 'uns-noticias',
+    templateUrl: 'noticias.component.html',
+    styleUrls: ['noticias.component.css']
 })
 
-export class CadastroNoticiasComponent implements OnInit {
+export class NoticiasComponent implements OnInit {
 
     noticia: string;
 
