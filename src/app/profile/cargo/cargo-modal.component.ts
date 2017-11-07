@@ -65,7 +65,7 @@ export class CargoModalComponent implements OnChanges {
         orgao: ['', Validators.required],
         atual: [false],
         dataInicio: [null, Validators.required],
-        dataFim: [null, Validators.required],
+        dataFim: [null],
       });
 
       this.idToEdit = null;

@@ -40,7 +40,7 @@ export class ServidoresComponent implements OnInit {
         this.cargo = params.cargo;
         this.orgao = params.orgao;
         this.habilidades = params.habilidades;
-
+        this.funcao = '';
         this.limite = 10;
         this.offset = 0;
         this.searchServidores();
@@ -58,6 +58,7 @@ export class ServidoresComponent implements OnInit {
 
   searchServidores(): void {
     this.isLoading = true;
+    this.habilidades = '';
     this.servidorService.getByPesquisa(
       this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.habilidades, this.limite, this.offset
     ).subscribe(servidores => {

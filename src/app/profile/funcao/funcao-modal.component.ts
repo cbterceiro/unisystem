@@ -70,7 +70,7 @@ export class FuncaoModalComponent implements OnChanges {
         atual: [false],
         descricao: [''],
         dataInicio: [null, Validators.required],
-        dataFim: [null, Validators.required],
+        dataFim: [null],
       });
 
       this.idToEdit = null;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService, CheckboxModule } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
