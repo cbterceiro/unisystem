@@ -1,7 +1,6 @@
 export class Noticia {
+  id: number;
   titulo: string;
-  link: string;
-  data: string;
+  imgDestaque: string;
   conteudo: string;
-  imgSrc: string;
 }

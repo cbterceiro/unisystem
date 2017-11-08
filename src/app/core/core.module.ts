@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 
 import { SessionService } from './services/session.service';
 import { HttpClientService } from './services/http-client.service';
+import { FileUploadService } from './services/file-upload.service';
 import { MessageService } from './services/message.service';
 import { ServidorService } from './services/servidor.service';
 import { NoticiaService } from './services/noticia.service';
@@ -11,6 +12,7 @@ import { ErrorHandler as MyErrorHandler } from './error-handler';
   providers: [
     SessionService,
     HttpClientService,
+    FileUploadService,
     MessageService,
     ServidorService,
     NoticiaService,

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
 import { NoticiasComponent } from './noticias.component';
+import { NoticiaFormComponent } from './noticia-form.component';
 
 import { NoticiasRoutingModule } from './noticias-routing.module';
 
@@ -14,6 +15,7 @@ import { NoticiasRoutingModule } from './noticias-routing.module';
     exports: [],
     declarations: [
         NoticiasComponent,
+        NoticiaFormComponent,
     ],
     providers: [],
 })

@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 
-@Component({
-    selector: 'uns-noticias',
-    templateUrl: 'noticias.component.html',
-    styleUrls: ['noticias.component.css']
-})
+import { Noticia, NoticiaService } from '../core';
 
+@Component({
+  selector: 'uns-noticias',
+  templateUrl: 'noticias.component.html',
+  styleUrls: ['noticias.component.css']
+})
 export class NoticiasComponent implements OnInit {
 
-    noticia: string;
+  noticias: Noticia[] = [];
+  isLoading: boolean;
 
-    noticias: string[] = [];
+  constructor(
+    private noticiaService: NoticiaService,
+  ) { }
 
-    constructor() { }
+  ngOnInit() {
+    this.getNoticias();
+  }
 
-    ngOnInit() { }
-
-    publish(): void {
-        if (this.noticia) {
-            this.noticias.push(this.noticia);
-            this.noticia = '';
-        }
-    }
-
-    cancel(): void {
-        this.noticia = '';
-    }
+  getNoticias() {
+    this.noticias = [];
+    this.isLoading = true;
+    this.noticiaService.getNoticias().subscribe(noticias => {
+      this.noticias = noticias;
+      this.isLoading = false;
+    });
+  }
 }
