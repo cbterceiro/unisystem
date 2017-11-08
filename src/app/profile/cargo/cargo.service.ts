@@ -26,6 +26,13 @@ export class CargoService {
       filters: [`nome like %${name}%`]
     })).map((res: Response) => (res.json() || []).map(c => c.nome));
   }
+  
+  searchCargosCadastrados(name: string): Observable<string[]> {
+    return this.httpClientService.search(`/cargosCadastrados/pesquisa`, new SearchModel({
+      fields: ['nome'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(c => c.nome));
+  }
 
   save(cargo: Cargo): Observable<any> {
     return cargo.id ? this.update(cargo) : this.create(cargo);

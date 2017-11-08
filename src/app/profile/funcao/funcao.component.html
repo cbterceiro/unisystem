@@ -18,9 +18,8 @@
       <p>Orgão: {{funcao.orgao}}</p>
       <p>Setor: {{funcao.setor}}</p>
       <p>Descrição: {{funcao.descricao}}</p>
-      <p>Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}}</p>
-
-      <!--<p>Nível: {{funcao.nivel}}</p>-->
+      <p *ngIf="funcao.dataFim" >Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}} </p>
+      <p *ngIf="!funcao.dataFim">Inicio: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} </p>
 
       <hr *ngIf="!ultimo">
     </div>

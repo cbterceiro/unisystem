@@ -1,7 +1,7 @@
 export class Cargo {
   id: number;
-  cargo: string;
   orgao: string;
+  setor: string;
   nome: string;
   atual: boolean;
   dataInicio: Date;

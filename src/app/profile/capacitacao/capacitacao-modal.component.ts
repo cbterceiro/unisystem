@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnChanges, SimpleChanges, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, SpinnerModule } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
@@ -33,8 +33,10 @@ export class CapacitacaoModalComponent implements OnChanges {
   sugestoesEntidade: string[];
 
   idToEdit: number;
+  anoAtual: number;
 
   isSubmitting: boolean;
+  modalidade: SelectItem[];
 
   constructor(
     private capacitacaoService: CapacitacaoService,
@@ -44,13 +46,16 @@ export class CapacitacaoModalComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.anoAtual = (new Date()).getFullYear();
+    
     if (this.capacitacaoEdit && this.visible) {
       this.capacitacaoForm = this.formBuilder.group({
-        nome: [this.capacitacaoEdit.nome, Validators.required],
+        nomeCurso: [this.capacitacaoEdit.nomeCurso, Validators.required],
         entidade: [this.capacitacaoEdit.entidade, Validators.required],
         modalidade: [this.capacitacaoEdit.modalidade, Validators.required],
-        dataInicio: [this.capacitacaoEdit.dataInicio, Validators.required],
-        dataFim: [this.capacitacaoEdit.dataFim, Validators.required],
+        anoFim: [this.capacitacaoEdit.anoFim, Validators.required],
+      //  dataInicio: [this.capacitacaoEdit.dataInicio, Validators.required],
+       // dataFim: [this.capacitacaoEdit.dataFim, Validators.required],
         cargaHoraria: [this.capacitacaoEdit.cargaHoraria, Validators.required],
       });
 
@@ -59,23 +64,39 @@ export class CapacitacaoModalComponent implements OnChanges {
     } else {
       this.capacitacaoForm = this.formBuilder.group({
         entidade: ['', Validators.required],
-        nome: ['', Validators.required],
+        nomeCurso: ['', Validators.required],
         modalidade: ['', Validators.required],
-        dataInicio: [null, Validators.required],
-        dataFim: [null, Validators.required],
+        anoFim: [0, Validators.required],
+       // dataInicio: [null, Validators.required],
+       // dataFim: [null, Validators.required],
         cargaHoraria: [null, Validators.required],
       });
 
       this.idToEdit = null;
       this.title = 'Adicionar informações de capacitação';
+      
+      if(this.modalidade == null)
+      {
+        this.setupDropdownModalidade();
+      }
     }
   }
+  
 
   pesquisarEntidades(event) {
     const entidade = event.query;
     this.capacitacaoService.searchEntidades(entidade).subscribe(entidades => {
       this.sugestoesEntidade = entidades;
     });
+  }
+  
+  setupDropdownModalidade(): void {
+    this.modalidade = [
+      { label: 'Modalidade', value: null },
+      { label: 'Presencial', value: 'Presencial' },
+      { label: 'Semi-Presencial', value: 'Semi-Presencial' },
+      { label: 'EAD', value: 'EAD' },
+    ];
   }
 
   onSubmit(isValid: boolean, capacitacao: Capacitacao): void {

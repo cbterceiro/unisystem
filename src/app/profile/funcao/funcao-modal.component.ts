@@ -34,6 +34,7 @@ export class FuncaoModalComponent implements OnChanges {
   sugestoesFuncao: string[];
   sugestoesSetor: string[];
   sugestoesOrgao: string[];
+  atualChecked: boolean;
 
   idToEdit: number;
 
@@ -70,9 +71,12 @@ export class FuncaoModalComponent implements OnChanges {
         atual: [false],
         descricao: [''],
         dataInicio: [null, Validators.required],
-        dataFim: [null],
+        dataFim: [null, Validators.required],
       });
 
+      this.funcaoForm.get('atual')
+          .valueChanges
+          .subscribe(value => this.handleChange(value));
       this.idToEdit = null;
       this.title = 'Adicionar informações de função';
     }
@@ -80,22 +84,40 @@ export class FuncaoModalComponent implements OnChanges {
 
   pesquisarFuncao(event) {
     const nomeFuncao = event.query;
-    this.funcaoService.searchFuncoes(nomeFuncao).subscribe(funcoes => {
+    this.funcaoService.searchFuncoesCadastradas(nomeFuncao).subscribe(funcoes => {
       this.sugestoesFuncao = funcoes;
     });
   }
   
     pesquisarOrgao(event) {
-    const nomeOrgao = event.query;
-    this.funcaoService.searchFuncoes(nomeOrgao).subscribe(orgao => {
-      this.sugestoesOrgao = orgao;
-    });
+   // const nomeOrgao = event.query;
+   // this.funcaoService.searchFuncoes(nomeOrgao).subscribe(orgao => {
+   // this.sugestoesOrgao = orgao;
+   // });
   }
 
   pesquisarSetor(event) {
     const nomeSetor = event.query;
     // buscar no backend os setores
     this.sugestoesSetor = ['Setor 1', 'Setor 2'];
+  }
+  
+  handleChange(value: boolean) {
+    let dataFinalForm = this.funcaoForm.get('dataFim');
+    console.log(dataFinalForm);
+    
+    if (value) {
+      this.atualChecked = true;
+      dataFinalForm.setValue(null, {onlySelf: true});
+      dataFinalForm.clearValidators();
+      dataFinalForm.updateValueAndValidity();
+     // dataFinalForm.enabled();
+    } else {
+      this.atualChecked = false;
+      dataFinalForm.setValidators(Validators.required);
+      dataFinalForm.updateValueAndValidity();
+      // dataFinalForm.disable();
+    }
   }
 
   onSubmit(isValid: boolean, funcao: Funcao): void {

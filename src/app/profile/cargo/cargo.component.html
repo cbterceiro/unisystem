@@ -16,8 +16,10 @@
 
       <h4>{{cargo.nome}}</h4>
       <p>{{cargo.orgao}}</p>
-     <p-checkbox binary="true" label="Atual"></p-checkbox>
-      <p>Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="cargo.dataFim" >Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
+      <p *ngIf="!cargo.dataFim">Inicio: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} </p>
+
+      
 
       <!--<p>Nível: {{cargo.nivel}}</p>-->
 
