@@ -55,7 +55,8 @@
     <div class="ui-g">
       <div class="ui-g-4">
         <label class="form-label">Carga Horária</label>
-        <input formControlName="cargaHoraria" type="text" pInputText>
+        <p-spinner formControlName="cargaHoraria" [thousandSeparator]=""></p-spinner>
+        <!-- <input formControlName="cargaHoraria" type="text" pInputText> -->
         <small class="validation-error-message" [hidden]="capacitacaoForm.controls.cargaHoraria.pristine || capacitacaoForm.controls.cargaHoraria.valid">
           A carga horária é obrigatória.
         </small>
