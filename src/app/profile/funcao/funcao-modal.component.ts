@@ -88,14 +88,13 @@ export class FuncaoModalComponent implements OnChanges {
       this.sugestoesFuncao = funcoes;
     });
   }
-  
+
     pesquisarOrgao(event) {
    // const nomeOrgao = event.query;
    // this.funcaoService.searchFuncoes(nomeOrgao).subscribe(orgao => {
    // this.sugestoesOrgao = orgao;
    // });
-  }
-
+    }
   pesquisarSetor(event) {
     const nomeSetor = event.query;
     // buscar no backend os setores

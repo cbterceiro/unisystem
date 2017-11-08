@@ -1,0 +1,35 @@
+<div class="noticias card card-w-title">
+  <h1>Cadastro de notícias</h1>
+  <form [formGroup]="noticiaForm" class="ui-fluid" (submit)="onSubmit(noticiaForm.valid, noticiaForm.value)">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <label class="form-label text-center">Imagem da Notícia</label>
+        <!--img-->
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <label class="form-label">Título</label>
+        <input formControlName="titulo" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="noticiaForm.controls.titulo.pristine || noticiaForm.controls.titulo.valid">
+          O título da notícia é obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <label class="form-label">Conteúdo</label>
+        <textarea pInputTextarea formControlName="conteudo" autoResize="autoResize" [rows]="5"></textarea>
+        <small class="validation-error-message" [hidden]="noticiaForm.controls.conteudo.pristine || noticiaForm.controls.conteudo.valid">
+          O conteúdo da notícia é obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!noticiaForm.valid"></button>
+      </div>
+    </div>
+  </form>
+</div>
