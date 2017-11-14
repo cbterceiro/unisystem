@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -6,15 +6,15 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem, DomHandler } from 'primeng/primeng';
 
-import { markFormGroupDirty, delay } from '../shared/functions';
+import { markFormGroupDirty, delay } from '../../../shared/functions';
 
-import { SessionService, SessionKeys, MessageService } from '../core';
+import { SessionService, SessionKeys, MessageService } from '../../../core';
 
-import { ServidorService, Servidor } from '../core/';
+import { ServidorService, Servidor } from '../../../core/';
 
-import { AuthenticatedUserService } from '../authentication/';
+import { AuthenticatedUserService } from '../../../authentication/';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'uns-profile-modal',
@@ -23,7 +23,6 @@ import { environment } from '../../environments/environment';
 })
 export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  visible: boolean;
   isSubmitting: boolean;
   isUpdatingPicture: boolean;
 
@@ -41,12 +40,18 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   dialogElement: HTMLElement;
   dialogElementHeight: number;
 
-  routeParamsSubscription: Subscription;
   imageListenerSubscription: Subscription;
 
+  // Two-way data binding de visible
+  _visible: boolean;
+  @Input() get visible(): boolean { return this._visible; }
+  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  set visible(visible: boolean) {
+    this._visible = visible;
+    this.visibleChange.emit(visible);
+  }
+
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private servidorService: ServidorService,
     private sessionService: SessionService,
@@ -58,7 +63,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subscribeToRouteParams();
     this.setupForm();
     this.setYearRange();
     this.loadServidor();
@@ -68,12 +72,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     const servidor: Servidor = this.authenticatedUserService.getServidor();
     this.updateBackgroundImage(servidor.foto);
-  }
-
-  subscribeToRouteParams(): void {
-    this.routeParamsSubscription = this.activatedRoute.params.subscribe(params => {
-      this.visible = params['show'] || false;
-    });
   }
 
   setupForm(): void {
@@ -146,8 +144,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeModal(): void {
     this.visible = false;
-    // Navega para a rota atual apenas alterando o parâmetro de exibição
-    this.router.navigate(['./', { show: false }], { skipLocationChange: true, relativeTo: this.activatedRoute });
   }
 
   setYearRange(): void {
@@ -200,9 +196,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.routeParamsSubscription) {
-      this.routeParamsSubscription.unsubscribe();
-    }
     if (this.imageListenerSubscription) {
       this.imageListenerSubscription.unsubscribe();
     }

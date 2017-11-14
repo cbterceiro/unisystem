@@ -17,11 +17,12 @@ export class ServidoresComponent implements OnInit {
   nomeCompleto: string;
   cargo: string;
   funcao: string;
-  areaInteresse: string;
+  habilidades: string;
   limite: number;
   offset: number;
 
   isLoading: boolean;
+  defaultImageUrl: string = '/assets/img/default-user-icon.png';
 
   constructor(
     private servidorService: ServidorService,
@@ -37,7 +38,7 @@ export class ServidoresComponent implements OnInit {
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
         this.funcao = params.funcao;
-        this.areaInteresse = params.interesse;
+        this.habilidades = params.habilidades;
 
         this.limite = 10;
         this.offset = 0;
@@ -57,7 +58,7 @@ export class ServidoresComponent implements OnInit {
   searchServidores(): void {
     this.isLoading = true;
     this.servidorService.getByPesquisa(
-      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.areaInteresse, this.limite, this.offset
+      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.habilidades, this.limite, this.offset
     ).subscribe(servidores => {
       this.servidores = servidores;
       this.isLoading = false;

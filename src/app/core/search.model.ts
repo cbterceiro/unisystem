@@ -25,12 +25,8 @@ export class SearchModel {
       s.push(`offset=${this.offset}`);
     }
     if (this.filters && this.filters.length) {
-      
-      this.filters = this.filters.filter(function(n){ return (n != undefined && n != '' && n.indexOf('%%') == -1) });
-      //s = this.filters.clean('');
-      console.log('filters:');
-      console.log(this.filters);
-      s.push(`filter=${this.filters.join(',')}`);
+      this.filters = this.filters.filter(n => n && n.indexOf('%%') == -1);
+      s.push(`filter=${encodeURI(this.filters.join(','))}`);
     }
     if (this.orderBy && this.orderBy.length) {
       s.push(`order=${this.orderBy.join(',')}`);

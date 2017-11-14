@@ -9,6 +9,8 @@ import { LeftPanelComponent } from './left-panel/left-panel.component';
 import { LeftPanelProfileComponent } from './left-panel/left-panel-profile.component';
 import { RightPanelComponent } from './right-panel/right-panel.component';
 
+import { ProfileModalComponent } from './left-panel/profile-modal/profile-modal.component';
+
 import { NoticiaService } from './right-panel/noticia.service';
 
 @NgModule({
@@ -23,6 +25,7 @@ import { NoticiaService } from './right-panel/noticia.service';
     LeftPanelComponent,
     LeftPanelProfileComponent,
     RightPanelComponent,
+    ProfileModalComponent,
   ],
   providers: [NoticiaService],
 })

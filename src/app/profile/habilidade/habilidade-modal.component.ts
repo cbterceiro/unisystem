@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem } from 'primeng/primeng';
+import {ChipsModule} from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 import { MessageService } from '../../core';
@@ -30,6 +31,7 @@ export class HabilidadeModalComponent implements OnInit {
   numRecomendacoes: number;
 
   resultadoHabilidades: string[]; //resultado da pesquisa de habilidades
+  resultadosHabilidades: Habilidade[]; //resultado da pesquisa de habilidades
 
   idToEdit: number;
 
@@ -75,6 +77,12 @@ export class HabilidadeModalComponent implements OnInit {
     this.habilidadeForm = this.formBuilder.group({
       nome: ['', Validators.required],
       numRecomendacoes: [''],
+    });
+  }
+
+  pesquisarhabilidades(event): void {
+    this.cService.searchHabilidades(event.query).subscribe(habilidades => {
+      this.resultadosHabilidades = habilidades;
     });
   }
 

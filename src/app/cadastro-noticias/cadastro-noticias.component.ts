@@ -22,4 +22,8 @@ export class CadastroNoticiasComponent implements OnInit {
             this.noticia = '';
         }
     }
+
+    cancel(): void {
+        this.noticia = '';
+    }
 }

@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'profile', loadChildren: 'app/profile/profile.module#ProfileModule' },
       { path: 'servidores', loadChildren: 'app/servidores/servidores.module#ServidoresModule' },
       { path: 'noticias', loadChildren: 'app/cadastro-noticias/cadastro-noticias.module#CadastroNoticiasModule' },
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: '', redirectTo: 'noticias', pathMatch: 'full' },
     ]
   },
   // Página 404

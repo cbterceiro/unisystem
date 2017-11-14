@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'https://unisystem-tdsjimmy.c9users.io',
+  backendServerPath: 'http://localhost:8080',
 };

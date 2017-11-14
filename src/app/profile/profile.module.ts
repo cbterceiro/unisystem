@@ -4,7 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { ProfileModalComponent } from './profile-modal.component';
 
 import { FormacaoAcademicaComponent } from './formacao-academica/formacao-academica.component';
 import { FormacaoAcademicaModalComponent } from './formacao-academica/formacao-academica-modal.component';
@@ -27,6 +26,10 @@ import { HabilidadeComponent } from './habilidade/habilidade.component';
 import { HabilidadeModalComponent } from './habilidade/habilidade-modal.component';
 import { HabilidadeService } from './habilidade/habilidade.service';
 
+import { PublicacaoComponent } from './publicacao/publicacao.component';
+import { PublicacaoModalComponent } from './publicacao/publicacao-modal.component';
+import { PublicacaoService } from './publicacao/publicacao.service';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -34,7 +37,6 @@ import { HabilidadeService } from './habilidade/habilidade.service';
   ],
   declarations: [
     ProfileComponent,
-    ProfileModalComponent,
     CargoComponent,
     CargoModalComponent,
     FuncaoComponent,
@@ -45,6 +47,8 @@ import { HabilidadeService } from './habilidade/habilidade.service';
     CapacitacaoModalComponent,
     HabilidadeComponent,
     HabilidadeModalComponent,
+    PublicacaoComponent,
+    PublicacaoModalComponent,
   ],
   providers: [
     CapacitacaoService,
@@ -52,6 +56,7 @@ import { HabilidadeService } from './habilidade/habilidade.service';
     CargoService,
     FuncaoService,
     HabilidadeService,
+    PublicacaoService,
   ],
 })
 export class ProfileModule { }

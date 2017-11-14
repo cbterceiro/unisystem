@@ -6,7 +6,7 @@
   </div>
   <div *ngFor="let servidor of servidores" class="servidor">
     <hr>
-    <img [src]="servidor.foto" style="border-radius: 8px; height:150px; width:150px; float: right;">
+    <img [src]="servidor.foto || defaultImageUrl" style="border-radius: 8px; height:150px; width:150px; float: right;">
     <h3>{{servidor.nome}}</h3>
 
     <p>
@@ -15,6 +15,12 @@
     <p>
       <b>Função:</b> {{servidor.funcao[0]?.nome}}
     </p>
+    <p>
+      <b>Habilidades:</b>
+    </p>
+    <ul>
+      <li *ngFor="let habilidade of servidor.habilidade">{{ habilidade.nome }}</li>
+    </ul>
     <p>
       <b>Email:</b> {{servidor.email}}
     </p>

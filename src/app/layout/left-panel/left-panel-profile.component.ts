@@ -13,12 +13,12 @@ import { AuthenticatedUserService } from '../../authentication';
 export class LeftPanelProfileComponent implements OnInit, OnDestroy {
 
   name: string;
-  hideEditIcon = true;
+  hideEditIcon: boolean = true;
+  isProfileModalVisible: boolean;
 
-  imageListenerSubscription: Subscription;
+  userSubscription: Subscription;
 
   constructor(
-    private router: Router,
     private authenticatedUserService: AuthenticatedUserService,
     private el: ElementRef,
     private renderer: Renderer2,
@@ -32,13 +32,14 @@ export class LeftPanelProfileComponent implements OnInit, OnDestroy {
   }
 
   setupImageListener(): void {
-    this.imageListenerSubscription = this.authenticatedUserService.listen().subscribe(servidor => {
+    this.userSubscription = this.authenticatedUserService.listen().subscribe(servidor => {
+      this.name = servidor.nome;
       this.updateBackgroundImage(servidor.foto);
     });
   }
 
   showProfileModal(): void {
-    this.router.navigate(['/profile', { show: true }], { skipLocationChange: true });
+    this.isProfileModalVisible = true;
   }
 
   updateBackgroundImage(base64Img: string) {
@@ -49,8 +50,8 @@ export class LeftPanelProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.imageListenerSubscription) {
-      this.imageListenerSubscription.unsubscribe();
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 }
