@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService, CheckboxModule } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
@@ -45,6 +45,7 @@ export class CargoComponent implements OnInit {
     this.cargos = [];
     this.cargoService.getCargosByServidorId(servidor.id).subscribe(cargos => {
       this.cargos = cargos;
+      console.log(cargos);
       this.isLoading = false;
       if (this.cargos.length < 3) {
         this.hideVerMais = true;

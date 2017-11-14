@@ -2,18 +2,31 @@
   <form [formGroup]="cargoForm" class="ui-fluid" (submit)="onSubmit(cargoForm.valid, cargoForm.value)">
     <div class="ui-g">
       <div class="ui-g-6">
-        <label class="form-label">Nome</label>
+        <label class="form-label">Cargo</label>
         <p-autoComplete [suggestions]="sugestoesCargo" (completeMethod)="pesquisarCargo($event)" formControlName="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.nome.pristine || cargoForm.controls.nome.valid">
           O nome do cargo é obrigatório.
         </small>
       </div>
+      
       <div class="ui-g-6">
+        <label class="form-label">Órgão</label>
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao"></p-autoComplete>
+        <small class="validation-error-message" [hidden]="cargoForm.controls.orgao.pristine || cargoForm.controls.orgao.valid">
+          O nome do órgão é obrigatório.
+        </small>
+      </div>
+    </div>
+    <div class="ui-g">
+    <!--  <div class="ui-g-6">
         <label class="form-label">Setor</label>
         <p-autoComplete [suggestions]="sugestoesSetores" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
-          O setor é obrigatório.
+          O nome do setor é obrigatório.
         </small>
+      </div> -->
+      <div class="ui-g-6">
+          <p-checkbox binary="true" formControlName="atual" label="Atual"></p-checkbox>
       </div>
     </div>
     <div class="ui-g">
@@ -26,7 +39,7 @@
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar default-config formControlName="dataFim" [minDate]="cargoForm.controls.dataInicio.value"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [disabled]="atualChecked" [minDate]="cargoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="cargoForm.controls.dataFim.pristine || cargoForm.controls.dataFim.valid">
           A data de fim de vigência do cargo é obrigatória.
         </small>

@@ -1,0 +1,13 @@
+<uns-noticia-form (onSave)="getNoticias()"></uns-noticia-form>
+
+<div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}">
+  <h1>Notícias Recentes</h1>
+  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+  <div *ngIf="!isLoading && noticias && !noticias.length" class="text-center">
+    Ainda não existem notícias publicadas
+  </div>
+</div>
+<div class="card noticia" *ngFor="let noticia of noticias">
+  <h1>{{ noticia.titulo }}</h1>
+  <p class="conteudo" [innerHTML]="noticia.conteudo"></p>
+</div>

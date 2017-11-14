@@ -3,9 +3,9 @@ import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import { SearchModel } from './search.model';
+import { SearchModel } from '../models/search.model';
 
 @Injectable()
 export class HttpClientService {

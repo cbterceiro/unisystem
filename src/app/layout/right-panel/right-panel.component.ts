@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Noticia } from './noticia.model';
-import { NoticiaService } from './noticia.service';
+import { NoticiaService, NoticiaExterna } from '../../core';
 
 @Component({
   selector: 'uns-right-panel',
@@ -10,7 +9,7 @@ import { NoticiaService } from './noticia.service';
 })
 export class RightPanelComponent implements OnInit {
 
-  news: Noticia[];
+  news: NoticiaExterna[];
   isLoading: boolean;
 
   constructor(
@@ -19,8 +18,8 @@ export class RightPanelComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.noticiaService.getNoticias().subscribe(result => {
-      this.news = result as Noticia[];
+    this.noticiaService.getNoticiasExternas().subscribe(noticias => {
+      this.news = noticias;
       this.isLoading = false;
     });
   }

@@ -16,6 +16,18 @@
         </small>
       </div>
     </div>
+    
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Órgão</label>
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao"></p-autoComplete>
+      </div>
+      <div class="ui-g-6">
+        <br/>
+        <p-checkbox binary="true" formControlName="atual" label="Atual"></p-checkbox>
+      </div>
+    </div>
+    
     <div class="ui-g">
       <div class="ui-g-12">
         <label class="form-label">Descrição</label>
@@ -32,7 +44,7 @@
       </div>
       <div class="ui-g-6">
         <label class="form-label">Fim</label>
-        <p-calendar default-config formControlName="dataFim" [minDate]="funcaoForm.controls.dataInicio.value"></p-calendar>
+        <p-calendar default-config formControlName="dataFim" [disabled]="atualChecked" [minDate]="funcaoForm.controls.dataInicio.value"></p-calendar>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.dataFim.pristine || funcaoForm.controls.dataFim.valid">
           A data de fim de vigência da função é obrigatória.
         </small>

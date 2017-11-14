@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnChanges, Input, Output, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -32,9 +32,10 @@ export class CargoModalComponent implements OnChanges {
   cargoForm: FormGroup;
 
   sugestoesCargo: string[];
-  sugestoesSetor: string[];
-
+  sugestoesOrgao: string[];
+  sugestoesSetores: string[];
   idToEdit: number;
+  atualChecked: boolean;
 
   isSubmitting: boolean;
 
@@ -51,17 +52,21 @@ export class CargoModalComponent implements OnChanges {
     if (this.cargoEdit && this.visible) {
       this.cargoForm = this.formBuilder.group({
         nome: [this.cargoEdit.nome, Validators.required],
-        setor: [this.cargoEdit.setor],
+        orgao: [this.cargoEdit.orgao],
+        atual: [this.cargoEdit.atual],
         dataInicio: [this.cargoEdit.dataInicio, Validators.required],
         dataFim: [this.cargoEdit.dataFim, Validators.required],
       });
 
+      this.atualChecked = this.cargoEdit.atual;
       this.idToEdit = this.cargoEdit.id;
       this.title = 'Editar informações de cargo';
     } else {
+      this.atualChecked = false;
       this.cargoForm = this.formBuilder.group({
         nome: ['', Validators.required],
-        setor: [''],
+        orgao: ['', Validators.required],
+        atual: [false],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
       });
@@ -69,19 +74,54 @@ export class CargoModalComponent implements OnChanges {
       this.idToEdit = null;
       this.title = 'Adicionar informações de cargo';
     }
+    
+    this.cargoForm.get('atual')
+    .valueChanges
+    .subscribe(value => this.handleChange(value));
   }
 
   pesquisarCargo(event) {
     const nomeCargo = event.query;
-    this.cargoService.searchCargos(nomeCargo).subscribe(cargos => {
+    this.cargoService.searchCargosCadastrados(nomeCargo).subscribe(cargos => {
       this.sugestoesCargo = cargos;
     });
   }
+  
+  pesquisarOrgao(event) {
+    //const nomeOrgao = event.query;
+    //this.orgaoService.searchCargos(nomeOrgao).subscribe(orgao => {
+      //this.sugestoesOrgao = orgao;
+    //});
+  }
 
   pesquisarSetor(event) {
-    const nomeSetor = event.query;
+    const nomeOrgao = event.query;
     // buscar no backend os setores
-    this.sugestoesSetor = ['Setor 1', 'Setor 2'];
+    this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
+  }
+
+  cbAtualCkick(cargo: Cargo) {
+    // this.cargoForm.controls['atual'].value
+    // console.log((cargo.atual == true ? 'true' : 'false'));
+    //console.log(this.cargoForm.controls['atual'].value);
+  }
+  
+  handleChange(value: boolean) {
+    let dataFinalForm = this.cargoForm.get('dataFim');
+    console.log(dataFinalForm);
+    
+    if (value) {
+      this.atualChecked = true;
+      dataFinalForm.setValue(null, {onlySelf: true});
+      dataFinalForm.clearValidators();
+      dataFinalForm.updateValueAndValidity();
+     // dataFinalForm.enabled();
+    } else {
+      this.atualChecked = false;
+      dataFinalForm.setValidators(Validators.required);
+      dataFinalForm.updateValueAndValidity();
+      // dataFinalForm.disable();
+    }
   }
 
   onSubmit(isValid: boolean, cargo: Cargo): void {

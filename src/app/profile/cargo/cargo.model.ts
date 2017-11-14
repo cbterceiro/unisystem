@@ -1,8 +1,9 @@
 export class Cargo {
-  funcao: string;
-  setor: string;
   id: number;
+  orgao: string;
+  setor: string;
   nome: string;
+  atual: boolean;
   dataInicio: Date;
   dataFim: Date;
   servidor_id: number;

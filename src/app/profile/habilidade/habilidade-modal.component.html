@@ -1,7 +1,7 @@
 <p-dialog header="Adicionar Informações de Habilidade" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
   <form [formGroup]="habilidadeForm" class="ui-fluid" (submit)="onSubmit(habilidadeForm.isValid, habilidadeForm.value)">
     <div class="ui-g">
-      <div class="ui-g-6">
+      <div class="ui-g-12">
         <label class="form-label">Habilidade</label>
         <!--<p-autoComplete [(ngModel)]="nome" [suggestions]="resultadosHabilidades" (completeMethod)="pesquisarhabilidades($event)" formControlName="nome" [minLength]="1" [multiple]="true"></p-autoComplete>-->
         <p-chips [(ngModel)]="nome" formControlName="nome"></p-chips>

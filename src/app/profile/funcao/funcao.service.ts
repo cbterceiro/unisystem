@@ -25,6 +25,13 @@ export class FuncaoService {
       filters: [`nome like %${name}%`]
     })).map((res: Response) => (res.json() || []).map(f => f.nome));
   }
+  
+    searchFuncoesCadastradas(name: string): Observable<string[]> {
+    return this.httpClientService.search(`/funcoesCadastradas/pesquisa`, new SearchModel({
+      fields: ['nome'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(f => f.nome));
+  }
 
   getAllFuncoes(): Observable<Funcao[]> {
     return this.httpClientService.get('/funcao')

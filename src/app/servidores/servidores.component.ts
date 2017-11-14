@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ServidorService } from '../core/servidor.service';
-import { Servidor } from '../core/servidor.model';
+import { ServidorService, Servidor } from '../core';
 
 @Component({
   selector: 'uns-servidores',
@@ -16,10 +15,11 @@ export class ServidoresComponent implements OnInit {
   instituicao: string;
   nomeCompleto: string;
   cargo: string;
-  funcao: string;
+  orgao: string;
   habilidades: string;
   limite: number;
   offset: number;
+  funcao: string;
 
   isLoading: boolean;
   defaultImageUrl: string = '/assets/img/default-user-icon.png';
@@ -37,9 +37,9 @@ export class ServidoresComponent implements OnInit {
         this.nomeCompleto = params.nome;
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
-        this.funcao = params.funcao;
+        this.orgao = params.orgao;
         this.habilidades = params.habilidades;
-
+        this.funcao = '';
         this.limite = 10;
         this.offset = 0;
         this.searchServidores();
@@ -57,8 +57,9 @@ export class ServidoresComponent implements OnInit {
 
   searchServidores(): void {
     this.isLoading = true;
+    this.habilidades = '';
     this.servidorService.getByPesquisa(
-      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.habilidades, this.limite, this.offset
+      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.habilidades, this.limite, this.offset
     ).subscribe(servidores => {
       this.servidores = servidores;
       this.isLoading = false;
