@@ -12,14 +12,14 @@ h4, p {
 
 .funcoes {
   overflow-y: hidden;
-  max-height: 247px; /* exibe 2 funções */
+  max-height: 374px; /* exibe 2 funções */
 
   transition: max-height 0.35s ease-out;
 }
 
 .funcoesExpandido {
   overflow-y: hidden;
-  max-height: 1231px; /*exibe até 10 funções */
+  max-height: 1871px; /*exibe até 10 funções */
 
   transition: max-height 0.35s ease-in;
 }

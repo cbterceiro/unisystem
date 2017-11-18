@@ -15,8 +15,9 @@
       <uns-action-icon icon="trash" label="Remover" (click)="deletarCapacitacao(capacitacao.id)" topPosition="22px"></uns-action-icon>
 
       <h4>{{capacitacao.entidade}}</h4>
-      <p>{{capacitacao.modalidade}}</p>
-      <p>{{capacitacao.dataInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+      <p>{{capacitacao.nomeCurso}} ({{capacitacao.modalidade}})</p>
+      <!--<p>{{capacitacao.anoInicio | date: 'dd/MM/yyyy'}} à {{capacitacao.anoFim | date: 'dd/MM/yyyy'}}</p>-->
+      <p>Conclusão: {{capacitacao.anoFim}}</p>
       <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
 
       <hr *ngIf="!ultimo">
