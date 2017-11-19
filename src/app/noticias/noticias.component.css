@@ -1,3 +1,18 @@
+.noticia.ql-editor {
+  white-space: initial;
+}
+
 .noticia .conteudo {
   text-align: justify;
+}
+.noticia .conteudo /deep/ p {
+  margin-bottom: 10px;
+}
+
+.noticia .img-destaque {
+  text-align: center;
+  margin-bottom: 0.8em;
+}
+.noticia .img-destaque img {
+  max-width: 100%;
 }

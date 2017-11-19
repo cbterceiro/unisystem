@@ -2,9 +2,8 @@
   <h1>Cadastro de notícias</h1>
   <form [formGroup]="noticiaForm" class="ui-fluid" (submit)="onSubmit(noticiaForm.valid, noticiaForm.value)">
     <div class="ui-g">
-      <div class="ui-g-12">
-        <label class="form-label text-center">Imagem da Notícia</label>
-        <!--img-->
+      <div class="ui-g-12 file-upload">
+        <p-fileUpload #fileUpload accept="image/*" [maxFileSize]="maxFileSize" customUpload="true" (uploadHandler)="onCustomUpload($event)" [showUploadButton]="false" chooseLabel="Escolher imagem" cancelLabel="Cancelar"></p-fileUpload>
       </div>
     </div>
     <div class="ui-g">
@@ -19,7 +18,7 @@
     <div class="ui-g">
       <div class="ui-g-12">
         <label class="form-label">Conteúdo</label>
-        <textarea pInputTextarea formControlName="conteudo" autoResize="autoResize" [rows]="5"></textarea>
+        <p-editor class="editor" formControlName="conteudo" [style]="{height: '320px'}"></p-editor>
         <small class="validation-error-message" [hidden]="noticiaForm.controls.conteudo.pristine || noticiaForm.controls.conteudo.valid">
           O conteúdo da notícia é obrigatório.
         </small>

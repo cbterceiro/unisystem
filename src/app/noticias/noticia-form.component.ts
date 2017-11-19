@@ -1,5 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { FileUpload } from 'primeng/primeng';
 
 import { MessageService, NoticiaService, Noticia } from '../core';
 
@@ -14,6 +16,9 @@ export class NoticiaFormComponent implements OnInit {
 
   noticiaForm: FormGroup;
   isSubmitting: boolean;
+
+  maxFileSize: number = 1 * 1024 * 1024; // 1 MB
+  @ViewChild('fileUpload') fileUpload: FileUpload;
 
   @Output() onSave: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -37,10 +42,31 @@ export class NoticiaFormComponent implements OnInit {
   onSubmit(isValid: boolean, noticia: Noticia): void {
     if (isValid) {
       this.noticiaService.create(noticia).subscribe(id => {
-        console.log('ID da notícia cadastrada:', id);
-        this.messageService.sendSuccess({ detail: 'Notícia criada com sucesso.' });
-        this.noticiaForm.reset();
-        this.onSave.emit(true);
+        const file = this.fileUpload.files && this.fileUpload.files[0];
+        if (!file) {
+          this.messageService.sendSuccess({ detail: 'Notícia criada com sucesso.' });
+          this.noticiaForm.reset({ titulo: '', conteudo: '' });
+          this.noticiaForm.get('conteudo').markAsPristine();
+          this.onSave.emit(true);
+        } else {
+          this.noticiaService.updateImgDestaque(id, file).subscribe(
+            img => {
+              this.messageService.sendSuccess({ detail: 'Notícia criada com sucesso.' });
+              this.noticiaForm.reset({ titulo: '', conteudo: '' });
+              this.noticiaForm.get('conteudo').markAsPristine();
+              this.onSave.emit(true);
+              this.fileUpload.clear();
+            },
+            error => {
+              console.error(error);
+              this.messageService.sendWarn({ detail: 'Notícia criada sem a imagem de destaque!' });
+              this.noticiaForm.reset({ titulo: '', conteudo: '' });
+              this.noticiaForm.get('conteudo').markAsPristine();
+              this.onSave.emit(true);
+              this.fileUpload.clear();
+            }
+          );
+        }
       });
     } else {
       markFormGroupDirty(this.noticiaForm);

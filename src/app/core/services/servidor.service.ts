@@ -4,6 +4,7 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { HttpClientService } from './http-client.service';
+import { FileUploadService } from './file-upload.service';
 import { SearchModel } from '../models/search.model';
 
 import { Servidor } from '../models/servidor.model';
@@ -15,6 +16,7 @@ export class ServidorService {
 
   constructor(
     private httpClientService: HttpClientService,
+    private fileUploadService: FileUploadService,
   ) { }
 
   getAll(): Observable<Servidor[]> {
@@ -25,7 +27,6 @@ export class ServidorService {
   }
 
   getByPesquisa(nome: string, instituicao: string, cargo: string, funcao: string, orgao: string, habilidades: string, limite: number, offset: number): Observable<Servidor[]> {
-
     return this.httpClientService.search('/servidores', new SearchModel({
       fields: ['numeroFuncional', 'funcao.nome', 'funcao.orgao', 'habilidade.nome', 'funcao.dataInicio', 'cargo.nome', 'cargo.dataInicio', 'nome', 'id', 'sexo', 'estadoCivil', 'estado', 'cidade', 'email', 'foto'],
       limit: limite,
@@ -33,10 +34,6 @@ export class ServidorService {
       filters: ['nome like %' + nome + '%', (orgao.length > 0 ? 'funcao.orgao like %' + orgao + '%' : ''), (cargo.length > 0 ? 'cargo.nome like %' + cargo + '%' : ''), (funcao.length > 0 ? 'funcao.nome like %' + funcao + '%' : ''), (habilidades.length > 0 ? 'habilidade.nome like %' + habilidades + '%' : '')],
       orderBy: ['nome asc, cargo.dataInicio desc, funcao.dataInicio desc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
-
-    // console.log(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`);
-    //  return this.httpClientService.get(`/servidores/pesquisa?fields=nome, id, foto, sexo, estadoCivil, estado, cidade, email&limit=${limite}&offset=${offset}&filter=nome like %${nome}%&order=nome asc`)
-    //  .map((res: Response) => this.jsonToServidores(res.json() || {}));
   }
 
   getById(id: number): Observable<Servidor> {
@@ -55,10 +52,9 @@ export class ServidorService {
     return s.id ? this.update(s) : this.create(s);
   }
 
-  getImageUrl(id: number): string {
-    const path = environment.backendServerPath;
-    const backendServerPath = path.endsWith('/') ? path.slice(0, -1) : path;
-    return `${backendServerPath}/servidores/${id}/foto`;
+  updateImg(id: number, file: File) {
+    return this.fileUploadService.uploadFile(`/servidores/${id}/foto`, 'foto', file)
+      .map((res: Response) => res.json() || {});
   }
 
   private create(servidor: Servidor): Observable<any> {
