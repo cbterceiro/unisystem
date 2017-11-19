@@ -11,6 +11,9 @@ import { CalendarDefaultConfigDirective } from './calendar-default-config.direct
 import { SpinnerComponent } from './spinner.component';
 import { ActionIconComponent } from './action-icon.component';
 
+import { SafeHtmlPipe } from './safe-html.pipe';
+import { SafeUrlPipe } from './safe-url.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +23,8 @@ import { ActionIconComponent } from './action-icon.component';
     CalendarDefaultConfigDirective,
     SpinnerComponent,
     ActionIconComponent,
+    SafeHtmlPipe,
+    SafeUrlPipe,
   ],
   exports: [
     CommonModule,
@@ -31,6 +36,8 @@ import { ActionIconComponent } from './action-icon.component';
     CalendarDefaultConfigDirective,
     SpinnerComponent,
     ActionIconComponent,
+    SafeHtmlPipe,
+    SafeUrlPipe,
   ]
   // providers: [ NÃO CRIE PROVIDERS AQUI ]
 

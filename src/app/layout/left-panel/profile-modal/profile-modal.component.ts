@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { SelectItem, DomHandler } from 'primeng/primeng';
+import { SelectItem, FileUpload, DomHandler } from 'primeng/primeng';
 
 import { markFormGroupDirty, delay } from '../../../shared/functions';
 
@@ -26,7 +26,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   isSubmitting: boolean;
   isUpdatingPicture: boolean;
 
-  imageUploadUrl: string;
   maxFileSize: number = 1 * 1024 * 1024; // 1 MB
 
   profileForm: FormGroup;
@@ -39,6 +38,8 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   dialogElement: HTMLElement;
   dialogElementHeight: number;
+
+  @ViewChild('fileUpload') fileUpload: FileUpload;
 
   imageListenerSubscription: Subscription;
 
@@ -117,7 +118,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loadServidor(): void {
     const servidor: Servidor = this.authenticatedUserService.getServidor();
-    this.imageUploadUrl = this.servidorService.getImageUrl(servidor.id);
     this.profileForm.patchValue(servidor);
 
     // Hack para consertar o bug do PrimeNG de exibição de data no formato inválido na primeira vez em que o componente
@@ -170,7 +170,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
   onSelectFile(event) {
     const file: File = event.files[0];
     if (file.size > this.maxFileSize) {
@@ -178,21 +177,27 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onBeforeUpload(event) {
-    this.isUpdatingPicture = true;
-  }
-
-  onUpload(event) {
-    this.isUpdatingPicture = false;
-    this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
-    this.profileForm.get('foto').setValue(JSON.parse(event.xhr.response).foto);
-    this.authenticatedUserService.updateServidor(this.profileForm.value);
-  }
-
-  onUploadError(event) {
-    this.isUpdatingPicture = false;
-    this.messageService.sendError({ detail: JSON.parse(event.xhr.responseText).msg || 'Erro no envio da foto.' });
-    this.closeModal();
+  onCustomUpload(event) {
+    const file = event.files && event.files[0];
+    const id = this.profileForm.get('id').value;
+    if (file && id) {
+      this.isUpdatingPicture = true;
+      this.servidorService.updateImg(id, file).subscribe(
+        img => {
+          this.isUpdatingPicture = false;
+          this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
+          this.profileForm.get('foto').setValue(img.foto);
+          this.authenticatedUserService.updateServidor(this.profileForm.value);
+          this.fileUpload.clear();
+        },
+        error => {
+          this.isUpdatingPicture = false;
+          this.messageService.sendError({ detail: error.json().msg || 'Erro no envio da foto.' });
+          this.fileUpload.clear();
+          this.closeModal();
+        }
+      );
+    }
   }
 
   ngOnDestroy() {

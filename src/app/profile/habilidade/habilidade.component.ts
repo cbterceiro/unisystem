@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef,  Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ConfirmationService } from 'primeng/primeng';
 import { AuthenticatedUserService } from '../../authentication';
 import { MessageService } from '../../core';
+import {ViewEncapsulation} from '@angular/core';
 
 import { Habilidade } from './habilidade.model'
 import { HabilidadeService } from './habilidade.service'
@@ -12,7 +13,8 @@ import { HabilidadeService } from './habilidade.service'
 @Component({
   selector: 'uns-habilidade',
   templateUrl: 'habilidade.component.html',
-  styleUrls: ['habilidade.component.css']
+  styleUrls: ['habilidade.component.css'],
+  encapsulation: ViewEncapsulation.None 
 })
 
 export class HabilidadeComponent implements OnInit {
@@ -37,6 +39,7 @@ export class HabilidadeComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private authenticatedUserService: AuthenticatedUserService,
     private messageService: MessageService,
+     private el: ElementRef
   ) { }
 
   habilidades: Habilidade[];
@@ -88,6 +91,36 @@ export class HabilidadeComponent implements OnInit {
 
     this.exibeModalhabilidade = true;
 
+  }
+  
+  addHabilidade(value): void{
+    var self = this;
+   
+    setTimeout( function(){
+       var elements = self.el.nativeElement.querySelectorAll('.ui-chips-token');
+     var element = elements[elements.length - 1];
+      element.firstElementChild.click()
+      const servidor = self.authenticatedUserService.getServidor();
+            self.cService.savehabilidade({id: 0, nome: value, numRecomendacoes: 0, servidor_id:  servidor.id}).subscribe(ok => {
+            self.messageService.sendSuccess({ detail: 'Habilidade incluída com sucesso.' });
+            self.atualizaForm();
+        })
+    }, 0);
+    
+     
+  }
+  
+  removeHabilidade(element, habilidade: Habilidade){
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja remover esta habilidade? \n',
+      accept: () => {
+        this.cService.delete(habilidade.id).subscribe(success => {
+          this.messageService.sendSuccess({ detail: 'Habilidade removida com sucesso.' });
+          element.parentElement.querySelector('span.ui-chips-token-icon.fa.fa-fw.fa-close').click();
+        });
+      },
+      reject: () => { }
+    });
   }
 
   deletarhabilidade(habilidade: Habilidade): void {

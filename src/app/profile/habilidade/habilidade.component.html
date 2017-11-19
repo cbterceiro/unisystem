@@ -4,8 +4,20 @@
                   <fa name="plus"></fa>
                   <span>Adicionar</span>
             </div> -->
-      </h1>
-      <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewhabilidade()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+      </h1> 
+      <div class="habilidade_wrapper">
+      <p-chips [(ngModel)]="habilidades"  allowDuplicate="false"
+      (onAdd)="addHabilidade($event.value);">
+    <ng-template let-item pTemplate="item" >
+     {{item.nome}} 
+     <span *ngIf="item.numRecomendacoes > 0"><span style="padding-right:0.3em;padding-left:0.3em">|</span> 
+     {{item.numRecomendacoes}}</span>
+     <i style="margin-left:1em" class="fa fa-close" (click)="removeHabilidade($event.target,item)" style="cursor: pointer;"></i>
+    
+    </ng-template>
+</p-chips>
+</div>
+      <!--<uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewhabilidade()" topPosition="30px" rightPosition="27px"></uns-action-icon>
 
       <div *ngIf="!isLoading && habilidades && !habilidades.length" class="text-center">
             Você não possui habilidades cadastradas
@@ -24,5 +36,5 @@
       </div>
       <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
             <fa name={{arrowExpand}}></fa>{{labelExpand}}
-      </div>
+      </div>-->
 </div>

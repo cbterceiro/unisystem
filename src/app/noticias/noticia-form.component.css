@@ -1,0 +1,12 @@
+.file-upload /deep/ .ui-fileupload-buttonbar .ui-button .ui-button-text {
+  padding-left: 2em;
+}
+.file-upload /deep/ .ui-fileupload-files .ui-fileupload-row > div:nth-child(2) {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor /deep/ .ql-image {
+  display: none;
+}

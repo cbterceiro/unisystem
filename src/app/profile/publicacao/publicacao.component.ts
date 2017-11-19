@@ -42,34 +42,34 @@ export class PublicacaoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.atualizarListaPublicacoes();
+    this.atualizarListaPublicacoes();
     const today = new Date().getFullYear().toString();
-    this.publicacoes = [
-      {
-        id: 0,
-        titulo: "Livro Angular",
-        ano: today,
-        local: "Vila Velha",
-        tipo: "Produção bibliográfica",
-        servidor_id: 1
-      },
-      {
-        id: 1,
-        titulo: "Livro Node",
-        ano: today,
-        local: "Vila Velha",
-        tipo: "Produção bibliográfica",
-        servidor_id: 1
-      },
-      {
-        id: 2,
-        titulo: "Livro Javascript",
-        ano: today,
-        local: "Vix",
-        tipo: "Produção bibliográfica",
-        servidor_id: 1
-      },
-    ];
+    // this.publicacoes = [
+    //   {
+    //     id: 0,
+    //     titulo: "Livro Angular",
+    //     ano: today,
+    //     local: "Vila Velha",
+    //     tipo: "Produção bibliográfica",
+    //     servidor_id: 1
+    //   },
+    //   {
+    //     id: 1,
+    //     titulo: "Livro Node",
+    //     ano: today,
+    //     local: "Vila Velha",
+    //     tipo: "Produção bibliográfica",
+    //     servidor_id: 1
+    //   },
+    //   {
+    //     id: 2,
+    //     titulo: "Livro Javascript",
+    //     ano: today,
+    //     local: "Vix",
+    //     tipo: "Produção bibliográfica",
+    //     servidor_id: 1
+    //   },
+    // ];
     if (this.publicacoes.length < 3) {
       this.hideVerMais = true;
     } else {
@@ -81,20 +81,20 @@ export class PublicacaoComponent implements OnInit {
     const servidor = this.authenticatedUserService.getServidor();
     this.isLoading = true;
     this.publicacoes = [];
-    // this.publicacaoService.getAll(servidor.id).subscribe(publicacoes => {
-    //   this.isLoading = false;
-    //   this.publicacoes = publicacoes;
-    //   if (this.publicacoes.length < 3) {
-    //     this.hideVerMais = true;
-    //   } else {
-    //     this.hideVerMais = false;
-    //   }
+    this.publicacaoService.getAll(servidor.id).subscribe(publicacoes => {
+      this.isLoading = false;
+      this.publicacoes = publicacoes;
+      if (this.publicacoes.length < 3) {
+        this.hideVerMais = true;
+      } else {
+        this.hideVerMais = false;
+      }
 
-    //   if (!this.finishedInitialLoading) {
-    //     this.finishedInitialLoading = true;
-    //     this.afterInitialLoadingEmitter.emit();
-    //   }
-    // });
+      if (!this.finishedInitialLoading) {
+        this.finishedInitialLoading = true;
+        this.afterInitialLoadingEmitter.emit();
+      }
+    });
   }
 
   verMais(): void {
@@ -123,9 +123,9 @@ export class PublicacaoComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir este registro? \n',
       accept: () => {
-        // this.publicacaoService.delete(publicacao.id).subscribe(success => {
-        //   this.atualizarListaPublicacoes();
-        // });
+        this.publicacaoService.delete(publicacao.id).subscribe(success => {
+          this.atualizarListaPublicacoes();
+        });
       },
       reject: () => { }
     });
