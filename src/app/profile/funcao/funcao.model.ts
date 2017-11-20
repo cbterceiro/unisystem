@@ -5,7 +5,8 @@ export class Funcao {
   nome: string;
   orgao: ModelId;
   orgao_id: number;
-  setor: string;
+  setor: ModelId;
+  setor_id: number;
   atual: boolean;
   dataInicio: Date;
   dataFim: Date;

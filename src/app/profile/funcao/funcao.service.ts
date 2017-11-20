@@ -40,6 +40,13 @@ export class FuncaoService {
     })).map((res: Response) => (res.json() || []).map(f => f));
   }
 
+  searchSetores(name: string): Observable<ModelId[]> {
+    return this.httpClientService.search(`/setores`, new SearchModel({
+      fields: [ 'id', 'nome'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(f => f));
+  }
+
   getAllFuncoes(): Observable<Funcao[]> {
     return this.httpClientService.get('/funcao')
       .map((res: Response) => res.json() || []);

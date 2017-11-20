@@ -32,14 +32,13 @@ export class FuncaoModalComponent implements OnChanges {
   funcaoForm: FormGroup;
 
   sugestoesFuncao: string[];
-  sugestoesSetor: string[];
+  sugestoesSetor: ModelId[];
   sugestoesOrgao: ModelId[];
   atualChecked: boolean;
 
   idToEdit: number;
 
   isSubmitting: boolean;
-  orgaoModel: ModelId;
 
   constructor(
     private router: Router,
@@ -54,8 +53,8 @@ export class FuncaoModalComponent implements OnChanges {
     if (this.funcaoEdit && this.visible) {
       this.funcaoForm = this.formBuilder.group({
         nome: [this.funcaoEdit.nome, Validators.required],
-        setor: [null], // terá setor aqui?
-        orgao_id: [this.funcaoEdit.orgao.id],
+        setor: [this.funcaoEdit.setor], // terá setor aqui?
+        orgao: [this.funcaoEdit.orgao],
         atual: [this.funcaoEdit.atual],
         descricao: [this.funcaoEdit.descricao],
         dataInicio: [this.funcaoEdit.dataInicio, Validators.required],
@@ -67,8 +66,8 @@ export class FuncaoModalComponent implements OnChanges {
     } else {
       this.funcaoForm = this.formBuilder.group({
         nome: ['', Validators.required],
-        setor: [''],
-        orgao_id: null,
+        setor: null,
+        orgao: null,
         atual: [false],
         descricao: [''],
         dataInicio: [null, Validators.required],
@@ -81,8 +80,6 @@ export class FuncaoModalComponent implements OnChanges {
       this.idToEdit = null;
       this.title = 'Adicionar informações de função';
     }
-
-    this.orgaoModel = new ModelId();
   }
 
   pesquisarFuncao(event) {
@@ -100,8 +97,9 @@ export class FuncaoModalComponent implements OnChanges {
   }
   pesquisarSetor(event) {
     const nomeSetor = event.query;
-    // buscar no backend os setores
-    this.sugestoesSetor = ['Setor 1', 'Setor 2'];
+    this.funcaoService.searchSetores(nomeSetor).subscribe(orgao => {
+      this.sugestoesSetor = orgao;
+    });
   }
   
   handleChange(value: boolean) {
@@ -127,6 +125,8 @@ export class FuncaoModalComponent implements OnChanges {
       const servidor = this.authenticatedUserService.getServidor();
       funcao.id = this.idToEdit;
       funcao.servidor_id = servidor.id;
+      funcao.orgao_id = funcao.orgao ? funcao.orgao.id : null;
+      funcao.setor_id = funcao.setor.id;      
       this.isSubmitting = true;
       this.funcaoService.save(funcao).subscribe(success => {
         this.isSubmitting = false;

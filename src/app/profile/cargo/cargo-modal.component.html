@@ -11,9 +11,13 @@
       
       <div class="ui-g-6">
         <label class="form-label">Órgão</label>
-        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao"></p-autoComplete>
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao" field="sigla">
+          <ng-template let-brand pTemplate="item">
+            {{brand.sigla}} - {{brand.nome}}
+          </ng-template>
+        </p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.orgao.pristine || cargoForm.controls.orgao.valid">
-          O nome do órgão é obrigatório.
+          O órgão é obrigatório.
         </small>
       </div>
     </div>

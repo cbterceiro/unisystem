@@ -10,7 +10,7 @@
       </div>
       <div class="ui-g-6">
         <label class="form-label">Setor</label>
-        <p-autoComplete [suggestions]="sugestoesSetor" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
+        <p-autoComplete [suggestions]="sugestoesSetor" (completeMethod)="pesquisarSetor($event)" formControlName="setor" field="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="funcaoForm.controls.setor.pristine || funcaoForm.controls.setor.valid">
           O setor é obrigatório.
         </small>
@@ -20,7 +20,7 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Órgão</label>
-        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao_id" field="sigla">
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao" field="sigla">
           <ng-template let-brand pTemplate="item">
             {{brand.sigla}} - {{brand.nome}}
         </ng-template>
