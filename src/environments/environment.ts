@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'http://localhost:8080',
+  backendServerPath: 'https://plataforma-talentos-node-backend-srsalute.c9users.io/:8080',
 };
