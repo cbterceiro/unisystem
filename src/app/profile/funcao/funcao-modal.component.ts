@@ -8,7 +8,7 @@ import { SelectItem } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
-import { MessageService } from '../../core';
+import { MessageService , ModelId } from '../../core';
 
 import { markFormGroupDirty } from '../../shared/functions';
 
@@ -33,12 +33,13 @@ export class FuncaoModalComponent implements OnChanges {
 
   sugestoesFuncao: string[];
   sugestoesSetor: string[];
-  sugestoesOrgao: string[];
+  sugestoesOrgao: ModelId[];
   atualChecked: boolean;
 
   idToEdit: number;
 
   isSubmitting: boolean;
+  orgaoModel: ModelId;
 
   constructor(
     private router: Router,
@@ -54,7 +55,7 @@ export class FuncaoModalComponent implements OnChanges {
       this.funcaoForm = this.formBuilder.group({
         nome: [this.funcaoEdit.nome, Validators.required],
         setor: [null], // terá setor aqui?
-        orgao: [this.funcaoEdit.orgao],
+        orgao_id: [this.funcaoEdit.orgao.id],
         atual: [this.funcaoEdit.atual],
         descricao: [this.funcaoEdit.descricao],
         dataInicio: [this.funcaoEdit.dataInicio, Validators.required],
@@ -67,7 +68,7 @@ export class FuncaoModalComponent implements OnChanges {
       this.funcaoForm = this.formBuilder.group({
         nome: ['', Validators.required],
         setor: [''],
-        orgao: [''],
+        orgao_id: null,
         atual: [false],
         descricao: [''],
         dataInicio: [null, Validators.required],
@@ -80,6 +81,8 @@ export class FuncaoModalComponent implements OnChanges {
       this.idToEdit = null;
       this.title = 'Adicionar informações de função';
     }
+
+    this.orgaoModel = new ModelId();
   }
 
   pesquisarFuncao(event) {
@@ -89,12 +92,12 @@ export class FuncaoModalComponent implements OnChanges {
     });
   }
 
-    pesquisarOrgao(event) {
-   // const nomeOrgao = event.query;
-   // this.funcaoService.searchFuncoes(nomeOrgao).subscribe(orgao => {
-   // this.sugestoesOrgao = orgao;
-   // });
-    }
+  pesquisarOrgao(event) {
+    const nomeOrgao = event.query;
+    this.funcaoService.searchOrgaos(nomeOrgao).subscribe(orgao => {
+      this.sugestoesOrgao = orgao;
+    });
+  }
   pesquisarSetor(event) {
     const nomeSetor = event.query;
     // buscar no backend os setores

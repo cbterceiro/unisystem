@@ -20,7 +20,11 @@
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Órgão</label>
-        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao"></p-autoComplete>
+        <p-autoComplete [suggestions]="sugestoesOrgao" (completeMethod)="pesquisarOrgao($event)" formControlName="orgao_id" field="sigla">
+          <ng-template let-brand pTemplate="item">
+            {{brand.sigla}} - {{brand.nome}}
+        </ng-template>
+        </p-autoComplete>
       </div>
       <div class="ui-g-6">
         <br/>

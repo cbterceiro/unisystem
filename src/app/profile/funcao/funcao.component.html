@@ -15,7 +15,7 @@
       <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="22px"></uns-action-icon>
 
       <h4>{{funcao.nome}}</h4>
-      <p>Orgão: {{funcao.orgao}}</p>
+      <p *ngIf="funcao.orgao">Orgão: {{funcao.orgao.nome}}</p>
       <p>Setor: {{funcao.setor}}</p>
       <p>Descrição: {{funcao.descricao}}</p>
       <p *ngIf="funcao.dataFim" >Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}} </p>

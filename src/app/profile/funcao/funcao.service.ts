@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HttpClientService, SearchModel } from '../../core';
+import { HttpClientService, SearchModel, ModelId } from '../../core';
 
 import { Funcao } from './funcao.model';
 
@@ -26,11 +26,18 @@ export class FuncaoService {
     })).map((res: Response) => (res.json() || []).map(f => f.nome));
   }
   
-    searchFuncoesCadastradas(name: string): Observable<string[]> {
+  searchFuncoesCadastradas(name: string): Observable<string[]> {
     return this.httpClientService.search(`/funcoesCadastradas/pesquisa`, new SearchModel({
       fields: ['nome'],
       filters: [`nome like %${name}%`]
     })).map((res: Response) => (res.json() || []).map(f => f.nome));
+  }
+
+  searchOrgaos(name: string): Observable<ModelId[]> {
+    return this.httpClientService.search(`/orgaos`, new SearchModel({
+      fields: [ 'id', 'nome', 'sigla'],
+      filters: [`nome like %${name}%`]
+    })).map((res: Response) => (res.json() || []).map(f => f));
   }
 
   getAllFuncoes(): Observable<Funcao[]> {
