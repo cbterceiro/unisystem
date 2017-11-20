@@ -8,12 +8,13 @@ import { SelectItem } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
-import { MessageService } from '../../core';
+import { MessageService, ModelId } from '../../core';
 
 import { markFormGroupDirty } from '../../shared/functions';
 
 import { Cargo } from './cargo.model';
 import { CargoService } from './cargo.service';
+import { FuncaoService } from '../funcao/funcao.service';
 
 @Component({
   selector: 'uns-cargo-modal',
@@ -32,7 +33,7 @@ export class CargoModalComponent implements OnChanges {
   cargoForm: FormGroup;
 
   sugestoesCargo: string[];
-  sugestoesOrgao: string[];
+  sugestoesOrgao: ModelId[];
   sugestoesSetores: string[];
   idToEdit: number;
   atualChecked: boolean;
@@ -44,6 +45,7 @@ export class CargoModalComponent implements OnChanges {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private cargoService: CargoService,
+    private funcaoService: FuncaoService,
     private authenticatedUserService: AuthenticatedUserService,
     private messageService: MessageService,
   ) { }
@@ -54,6 +56,7 @@ export class CargoModalComponent implements OnChanges {
         nome: [this.cargoEdit.nome, Validators.required],
         orgao: [this.cargoEdit.orgao],
         setor: [this.cargoEdit.setor],
+        orgao_id: [this.cargoEdit.orgao.id],
         atual: [this.cargoEdit.atual],
         dataInicio: [this.cargoEdit.dataInicio, Validators.required],
         dataFim: [this.cargoEdit.dataFim, Validators.required],
@@ -66,8 +69,9 @@ export class CargoModalComponent implements OnChanges {
       this.atualChecked = false;
       this.cargoForm = this.formBuilder.group({
         nome: ['', Validators.required],
-        orgao: ['', Validators.required],
         setor: ['', Validators.required],
+        orgao: [null, Validators.required],
+        orgao_id: null,
         atual: [false],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
@@ -90,16 +94,16 @@ export class CargoModalComponent implements OnChanges {
   }
   
   pesquisarOrgao(event) {
-    //const nomeOrgao = event.query;
-    //this.orgaoService.searchCargos(nomeOrgao).subscribe(orgao => {
-      //this.sugestoesOrgao = orgao;
-    //});
+    const nomeOrgao = event.query;
+    this.funcaoService.searchOrgaos(nomeOrgao).subscribe(orgao => {
+      this.sugestoesOrgao = orgao;
+    });
   }
 
   pesquisarSetor(event) {
-    const nomeOrgao = event.query;
-    // buscar no backend os setores
-    this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
+    // const nomeOrgao = event.query;
+    // // buscar no backend os setores
+    // this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
   }
 
   cbAtualCkick(cargo: Cargo) {
@@ -110,7 +114,6 @@ export class CargoModalComponent implements OnChanges {
   
   handleChange(value: boolean) {
     let dataFinalForm = this.cargoForm.get('dataFim');
-    console.log(dataFinalForm);
     
     if (value) {
       this.atualChecked = true;
@@ -131,6 +134,7 @@ export class CargoModalComponent implements OnChanges {
       const servidor = this.authenticatedUserService.getServidor();
       cargo.id = this.idToEdit;
       cargo.servidor_id = servidor.id;
+      cargo.orgao_id = cargo.orgao.id;
       this.isSubmitting = true;
       this.cargoService.save(cargo).subscribe(success => {
         this.isSubmitting = false;

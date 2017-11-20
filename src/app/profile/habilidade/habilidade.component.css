@@ -11,7 +11,21 @@
     line-height: 1em;
     margin-left: 0.6em;
   }
+  
+   .habilidade_wrapper .ui-state-active,
+ .habilidade_wrapper .ui-state-highlight {
+    background-color: #623586 !important;
+    color: #ffffff;
+}
 
+ .habilidade_wrapper  .ui-chips-token {
+    padding: .4em .5em !important;
+        margin: 2px !important;
+}
+
+  .habilidade_wrapper .ui-chips-token-icon.fa.fa-fw.fa-close{
+  display:  none !important;
+}
   .habilidades {
     overflow-y: hidden;
     max-height: 176px; /* exibe 2 habilidades */

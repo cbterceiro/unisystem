@@ -26,6 +26,7 @@ export class NoticiaService {
   getNoticias(): Observable<Noticia[]> {
     return this.httpClientService.search('/noticias', new SearchModel({
       fields: ['id', 'titulo', 'conteudo', 'imgDestaque'],
+      orderBy: ['created_at desc']
     })).map((res: Response) => this.jsonToNoticias(res.json() || []));
   }
 
@@ -34,11 +35,10 @@ export class NoticiaService {
       .map((res: Response) => res.json().id);
   }
 
-  updateImgDestaque(): Observable<boolean> {
-    //return this.
-    return null;
+  updateImgDestaque(id: number, file: File): Observable<boolean> {
+    return this.fileUploadService.uploadFile(`/noticias/${id}/foto`, 'foto', file)
+      .map((res: Response) => res.json() || {});
   }
-
 
   private jsonToNoticia(json: any): Noticia {
     const noticia: Noticia = Object.assign(new Noticia(), json);

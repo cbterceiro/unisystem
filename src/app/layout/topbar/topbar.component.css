@@ -6,6 +6,11 @@
   text-align: center;
   background-color: #623586;
   color: #ffffff;
+  background-image: url('../../../assets/img/logo_amarela.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 80px 50px;
+  background-position: 13% 0%; 
 }
 .topbar-content {
   height: 100%;
@@ -14,7 +19,7 @@
 }
 
 .search-area {
-  margin-left:175px;
+  margin-left:250px;
   width: 600px;
 }
 

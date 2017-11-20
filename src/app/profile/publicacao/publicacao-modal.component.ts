@@ -76,8 +76,8 @@ export class PublicacaoModalComponent implements OnInit, OnChanges {
     this.publicacaoForm = this.formBuilder.group({
       id: [null],
       titulo: [null, Validators.required],
-      ano: [null, Validators.required],
       local: [null, Validators.required],
+      ano: [null, Validators.required],
       tipo: [null, Validators.required],
     });
   }
