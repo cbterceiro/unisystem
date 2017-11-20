@@ -24,13 +24,13 @@ export class ServidorService {
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
-  getByPesquisa(nome: string, instituicao: string, cargo: string, funcao: string, orgao: string, habilidades: string, limite: number, offset: number): Observable<Servidor[]> {
+  getByPesquisa(nome: string, instituicao: string, cargo: string, funcao: string, orgao: string, setor: string, limite: number, offset: number): Observable<Servidor[]> {
 
     return this.httpClientService.search('/servidores', new SearchModel({
       fields: ['numeroFuncional', 'funcao.nome', 'funcao.orgao', 'habilidade.nome', 'funcao.dataInicio', 'cargo.nome', 'cargo.dataInicio', 'nome', 'id', 'sexo', 'estadoCivil', 'estado', 'cidade', 'email', 'foto'],
       limit: limite,
       offset: offset,
-      filters: ['nome like %' + nome + '%', (orgao.length > 0 ? 'funcao.orgao like %' + orgao + '%' : ''), (cargo.length > 0 ? 'cargo.nome like %' + cargo + '%' : ''), (funcao.length > 0 ? 'funcao.nome like %' + funcao + '%' : ''), (habilidades.length > 0 ? 'habilidade.nome like %' + habilidades + '%' : '')],
+      filters: ['nome like %' + nome + '%', (orgao.length > 0 ? 'funcao.orgao like %' + orgao + '%' : ''), (cargo.length > 0 ? 'cargo.nome like %' + cargo + '%' : ''), (funcao.length > 0 ? 'funcao.nome like %' + funcao + '%' : ''), (setor.length > 0 ? 'cargo.setor like %' + setor + '%' : '')],
       orderBy: ['nome asc, cargo.dataInicio desc, funcao.dataInicio desc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
 

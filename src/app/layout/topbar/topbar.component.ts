@@ -11,7 +11,7 @@ export class TopbarComponent implements OnInit {
   nomeCompleto: string;
   cargo: string;
   orgao: string;
-  habilidades: string;
+  setor: string;
 
   constructor() { }
 
@@ -28,6 +28,6 @@ export class TopbarComponent implements OnInit {
     this.nomeCompleto = '';
     this.cargo = '';
     this.orgao = '';
-    this.habilidades = '';
+    this.setor = '';
   }
 }

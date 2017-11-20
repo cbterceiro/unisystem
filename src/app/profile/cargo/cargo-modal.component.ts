@@ -53,6 +53,7 @@ export class CargoModalComponent implements OnChanges {
       this.cargoForm = this.formBuilder.group({
         nome: [this.cargoEdit.nome, Validators.required],
         orgao: [this.cargoEdit.orgao],
+        setor: [this.cargoEdit.setor],
         atual: [this.cargoEdit.atual],
         dataInicio: [this.cargoEdit.dataInicio, Validators.required],
         dataFim: [this.cargoEdit.dataFim, Validators.required],
@@ -66,6 +67,7 @@ export class CargoModalComponent implements OnChanges {
       this.cargoForm = this.formBuilder.group({
         nome: ['', Validators.required],
         orgao: ['', Validators.required],
+        setor: ['', Validators.required],
         atual: [false],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
@@ -140,6 +142,7 @@ export class CargoModalComponent implements OnChanges {
       markFormGroupDirty(this.cargoForm);
     }
   }
+  
 
   closeModal(): void {
     this.visible = false;

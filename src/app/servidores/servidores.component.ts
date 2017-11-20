@@ -16,7 +16,7 @@ export class ServidoresComponent implements OnInit {
   nomeCompleto: string;
   cargo: string;
   orgao: string;
-  habilidades: string;
+  setor: string;
   limite: number;
   offset: number;
   funcao: string;
@@ -38,7 +38,7 @@ export class ServidoresComponent implements OnInit {
         this.instituicao = params.instituicao;
         this.cargo = params.cargo;
         this.orgao = params.orgao;
-        this.habilidades = params.habilidades;
+        this.setor = params.setor;
         this.funcao = '';
         this.limite = 10;
         this.offset = 0;
@@ -57,9 +57,8 @@ export class ServidoresComponent implements OnInit {
 
   searchServidores(): void {
     this.isLoading = true;
-    this.habilidades = '';
     this.servidorService.getByPesquisa(
-      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.habilidades, this.limite, this.offset
+      this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.setor, this.limite, this.offset
     ).subscribe(servidores => {
       this.servidores = servidores;
       this.isLoading = false;
