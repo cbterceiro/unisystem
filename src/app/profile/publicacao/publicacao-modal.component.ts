@@ -51,7 +51,7 @@ export class PublicacaoModalComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.publicacaoEdit && this.visible) {
       this.idToEdit = this.publicacaoEdit.id;
-      this.title = 'Editar publicacao';
+      this.title = 'Editar publicação';
       this.publicacaoForm = this.formBuilder.group({// preencher campos com os valores do objeto
         id: [this.idToEdit],
         titulo: [this.publicacaoEdit.titulo, Validators.required],
@@ -63,7 +63,7 @@ export class PublicacaoModalComponent implements OnInit, OnChanges {
     } else {
       this.setupForm();
       this.idToEdit = null;
-      this.title = 'Adicionar publicacao';
+      this.title = 'Adicionar publicação';
     }
   }
 

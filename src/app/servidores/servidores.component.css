@@ -1,0 +1,16 @@
+.router-detalhe {
+  cursor: pointer;
+}
+h3 span.router-detalhe:hover {
+  color: #fcaf05;
+}
+img.router-detalhe {
+  border-radius: 8px;
+  height: 150px;
+  width: 150px;
+  float: right;
+  box-sizing: border-box;
+}
+img.router-detalhe:hover {
+  border: 1px solid #fcaf05;
+}

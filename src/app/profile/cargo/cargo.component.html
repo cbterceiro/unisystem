@@ -15,13 +15,9 @@
       <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="22px"></uns-action-icon>
 
       <h4>{{cargo.nome}}</h4>
-       <p *ngIf="cargo.orgao">Orgão: {{cargo.orgao.sigla}}</p>
-      <p *ngIf="cargo.dataFim" >Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
+      <p *ngIf="cargo.orgao">Orgão: {{cargo.orgao.sigla}}</p>
+      <p *ngIf="cargo.dataFim">Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
       <p *ngIf="!cargo.dataFim">Inicio: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} </p>
-
-      
-
-      <!--<p>Nível: {{cargo.nivel}}</p>-->
 
       <hr *ngIf="!ultimo">
     </div>
