@@ -6,7 +6,7 @@ import { ServidorService, Servidor } from '../core';
 @Component({
   selector: 'uns-servidores',
   templateUrl: 'servidores.component.html',
-  // styleUrls: ['servidores.component.css']
+  styleUrls: ['servidores.component.css']
 })
 export class ServidoresComponent implements OnInit {
 
@@ -27,6 +27,7 @@ export class ServidoresComponent implements OnInit {
   constructor(
     private servidorService: ServidorService,
     private route: ActivatedRoute,
+    private router: Router,
     private el: ElementRef,
     private renderer: Renderer2,
   ) { }
@@ -44,8 +45,6 @@ export class ServidoresComponent implements OnInit {
         this.offset = 0;
         this.searchServidores();
       });
-
-
   }
 
   updateBackgroundImage(base64Img: string) {
@@ -64,5 +63,9 @@ export class ServidoresComponent implements OnInit {
       this.servidores = servidores;
       this.isLoading = false;
     });
+  }
+
+  redirectToServidorDetalhe(id: number): void {
+    this.router.navigate([id, 'detalhe'], { relativeTo: this.route });
   }
 }

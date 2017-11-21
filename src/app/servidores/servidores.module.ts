@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ServidoresRoutingModule } from './servidores-routing.module';
 import { ServidoresComponent } from './servidores.component';
+import { ServidorDetalheComponent } from './servidor-detalhe.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { ServidoresComponent } from './servidores.component';
   ],
   declarations: [
     ServidoresComponent,
+    ServidorDetalheComponent,
   ],
   providers: [
   ],

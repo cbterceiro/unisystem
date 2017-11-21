@@ -6,8 +6,10 @@
   </div>
   <div *ngFor="let servidor of servidores" class="servidor">
     <hr>
-    <img [src]="servidor.foto || defaultImageUrl" style="border-radius: 8px; height:150px; width:150px; float: right;">
-    <h3>{{servidor.nome}}</h3>
+    <img class="router-detalhe" (click)="redirectToServidorDetalhe(servidor.id)" [src]="servidor.foto || defaultImageUrl">
+    <h3>
+      <span class="router-detalhe" (click)="redirectToServidorDetalhe(servidor.id)">{{servidor.nome}}</span>
+    </h3>
 
     <p>
       <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
@@ -18,7 +20,7 @@
     <p>
       <b>Órgão:</b> {{servidor.funcao[0]?.orgao}}
     </p>
-  <!--  <p>
+    <!--  <p>
       <b>Habilidades:</b>
     </p>
     <ul>
