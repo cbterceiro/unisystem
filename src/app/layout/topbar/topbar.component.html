@@ -43,12 +43,12 @@
     </div>
 
     <div class="ui-g-12">
-      <div class="ui-g-7"></div>
+      <div class="ui-g-6"></div>
 
-      <span class="ui-g-2">
-        <button pButton type="button" class="ui-button-secondary" icon="fa-eraser" (click)="limparCampos()"></button>
+      <span class="ui-g-3">
+        <button pButton type="button"  label="Limpar" (click)="limparCampos()"></button>
       </span>
-
+<!--class="ui-button-secondary" icon="fa-eraser" -->
       <span class="ui-g-3">
         <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)]}"></button>
       </span>

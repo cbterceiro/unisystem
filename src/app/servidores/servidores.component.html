@@ -15,10 +15,10 @@
       <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
     </p>
     <p>
-      <b>Setor:</b> {{servidor.cargo[0]?.setor[0]?.nome}}
+      <b>Setor:</b> {{ servidor.cargo ? servidor.cargo[0]?.setor ? servidor.cargo[0]?.setor.nome : '' : '' }}
     </p>
     <p>
-      <b>Órgão:</b> {{servidor.cargo[0]?.orgao[0]?.nome}}
+      <b>Órgão:</b> {{servidor.cargo? servidor.cargo[0]?.orgao? servidor.cargo[0]?.orgao.nome: '' : '' }}
     </p>
 
     <!--  <p>
