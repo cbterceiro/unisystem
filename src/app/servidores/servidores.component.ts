@@ -57,9 +57,16 @@ export class ServidoresComponent implements OnInit {
 
   searchServidores(): void {
     this.isLoading = true;
-    this.servidorService.getByPesquisa(
+  /*  this.servidorService.getByPesquisa(
       this.nomeCompleto, this.instituicao, this.cargo, this.funcao, this.orgao, this.setor, this.limite, this.offset
     ).subscribe(servidores => {
+      this.servidores = servidores;
+      this.isLoading = false;
+    });*/
+        this.servidorService.getByPesquisa2(
+      this.nomeCompleto, this.instituicao, this.cargo, this.orgao, this.setor, this.limite, this.offset
+    ).subscribe(servidores => {
+      console.log(servidores);
       this.servidores = servidores;
       this.isLoading = false;
     });

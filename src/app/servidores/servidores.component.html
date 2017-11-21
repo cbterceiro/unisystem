@@ -13,11 +13,12 @@
       <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
     </p>
     <p>
-      <b>Setor:</b> {{servidor.cargo[0]?.setor}}
+      <b>Setor:</b> {{servidor.cargo[0]?.setor[0]?.nome}}
     </p>
     <p>
-      <b>Órgão:</b> {{servidor.funcao[0]?.orgao}}
+      <b>Órgão:</b> {{servidor.cargo[0]?.orgao[0]?.nome}}
     </p>
+ 
   <!--  <p>
       <b>Habilidades:</b>
     </p>
