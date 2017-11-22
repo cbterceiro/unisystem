@@ -1,4 +1,4 @@
-<uns-noticia-form (onSave)="getNoticias()"></uns-noticia-form>
+<uns-noticia-form *ngIf="isAdmin" (onSave)="getNoticias()"></uns-noticia-form>
 
 <div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}">
   <h1>Notícias Recentes</h1>

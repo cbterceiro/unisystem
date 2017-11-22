@@ -13,4 +13,5 @@ export class Servidor {
   nacionalidade: string;
   email: string;
   foto: string;
+  admin: number;
 }
