@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendServerPath: 'http://uni-back2-slayper.c9users.io/',
+  backendServerPath: 'https://plataforma-talentos-node-backend-srsalute.c9users.io/',
 };
