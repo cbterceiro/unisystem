@@ -34,7 +34,7 @@ var ServidorService = (function () {
     };
     ServidorService.prototype.getByPesquisa2 = function (nome, instituicao, cargo, orgao, setor, limite, offset) {
         var _this = this;
-        return this.httpClientService.get('/servidores2?nome=' + nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao=' + orgao + '&setor=' + setor)
+        return this.httpClientService.get('/servidores?nome=' + nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao=' + orgao + '&setor=' + setor)
             .map(function (res) { return _this.jsonToServidores(res.json() || []); });
     };
     ServidorService.prototype.getById = function (id) {
