@@ -13,14 +13,14 @@ h4, p {
 
 .cargos {
   overflow-y: hidden;
-  max-height: 183px; /* exibe 2 cargos */
+  max-height: 263px; /* exibe 2 cargos */
 
   transition: max-height 0.35s ease-out;
 }
 
 .cargosExpandido {
   overflow-y: hidden;
-  max-height: 911px; /*exibe até 10 cargos */
+  max-height: 1250px; /*exibe até 10 cargos */
 
   transition: max-height 0.35s ease-in;
 }
