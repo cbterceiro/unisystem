@@ -1,7 +1,8 @@
 <uns-spinner [isLoading]="isLoading()"></uns-spinner>
+
+<uns-habilidade (onAfterInitialLoading)="finished.habilidade = true"></uns-habilidade>
 <uns-cargo (onAfterInitialLoading)="finished.cargo = true"></uns-cargo>
 <uns-funcao (onAfterInitialLoading)="finished.funcao = true"></uns-funcao>
 <uns-formacao-academica (onAfterInitialLoading)="finished.formacaoAcademica = true"></uns-formacao-academica>
 <uns-capacitacao (onAfterInitialLoading)="finished.capacitacao = true"></uns-capacitacao>
-<uns-habilidade (onAfterInitialLoading)="finished.habilidade = true"></uns-habilidade>
 <uns-publicacao (onAfterInitialLoading)="finished.publicacao = true"></uns-publicacao>

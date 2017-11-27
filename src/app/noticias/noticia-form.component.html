@@ -3,7 +3,7 @@
   <form [formGroup]="noticiaForm" class="ui-fluid" (submit)="onSubmit(noticiaForm.valid, noticiaForm.value)">
     <div class="ui-g">
       <div class="ui-g-12 file-upload">
-        <p-fileUpload #fileUpload accept="image/*" [maxFileSize]="maxFileSize" customUpload="true" (uploadHandler)="onCustomUpload($event)" [showUploadButton]="false" chooseLabel="Escolher imagem" cancelLabel="Cancelar"></p-fileUpload>
+        <p-fileUpload #fileUpload accept="image/*" [maxFileSize]="maxFileSize" customUpload="true" (uploadHandler)="onCustomUpload($event)" [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Escolher imagem"></p-fileUpload>
       </div>
     </div>
     <div class="ui-g">
