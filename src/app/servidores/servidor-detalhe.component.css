@@ -22,7 +22,7 @@
   top:0;
   left:0;
   z-index: 1;
-  opacity: 0.6;
+  opacity: 0.4;
   background-image: url(/assets/img/background-mundo.png);
   background-size: 100%;
   background-repeat: no-repeat;
@@ -31,20 +31,6 @@
   -o-background-size: cover;
   -moz-background-size: cover;
   -webkit-background-size: cover;
-  transition:all 0.5s ease;
-  -webkit-transition:all 0.5s ease;
-  -o-transition:all 0.5s ease;
-  -moz-transition:all 0.5s ease;
-}
-
-
-.servidor:hover:before{
-  background-size: 150%;
-  background-position: -50% -150%;
-  transition:all 0.5s ease;
-  -webkit-transition:all 0.5s ease;
-  -o-transition:all 0.5s ease;
-  -moz-transition:all 0.5s ease;
 }
 
 
@@ -58,7 +44,9 @@
   background-position: 10px;
   z-index: 6;
   position: relative;
+  border-radius: 8px;
 }
+
 .servidor .servidor-info {
   text-align: center;
 }
