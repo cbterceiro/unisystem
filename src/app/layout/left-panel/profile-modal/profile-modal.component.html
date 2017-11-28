@@ -2,8 +2,7 @@
   <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.valid, profileForm.value)">
     <div class="ui-g profile-image-g">
       <div class="profile-image">
-        <uns-spinner [isLoading]="isUpdatingPicture"></uns-spinner>
-        <p-fileUpload #fileUpload accept="image/*" mode="basic" auto="auto" [maxFileSize]="maxFileSize" (onSelect)="onSelectFile($event)" customUpload="true" (uploadHandler)="onCustomUpload($event)"></p-fileUpload>
+        <img [src]="foto || '/assets/img/default-user-icon.png'" (click)="visibleCropModal = true" />
         <div class="profile-image-overlay">
           <span>Alterar foto</span>
         </div>
@@ -79,15 +78,16 @@
     </div>
     <div class="ui-g">
       <div class="ui-g-6 no-vertical-padding">
-          <label class="form-label">Email</label>
-          <input formControlName="email" type="text" size="255" pInputText>
-          <small class="validation-error-message" [hidden]="profileForm.controls.email.pristine || profileForm.controls.email.valid">
-            O email é obrigatória.
-          </small>
+        <label class="form-label">Email</label>
+        <input formControlName="email" type="text" size="255" pInputText>
+        <small class="validation-error-message" [hidden]="profileForm.controls.email.pristine || profileForm.controls.email.valid">
+          <span *ngIf="profileForm.controls.email.hasError('required')">O email é obrigatório.</span>
+          <span *ngIf="profileForm.controls.email.hasError('email')">O email não está em um formato válido.</span>
+        </small>
       </div>
       <div class="ui-g-6 no-vertical-padding">
-          <label class="form-label">Telefone</label>
-          <p-inputMask mask="(99)99999-9999" formControlName="telefone"></p-inputMask>
+        <label class="form-label">Telefone</label>
+        <p-inputMask mask="(99) 99999-9999" formControlName="telefone"></p-inputMask>
       </div>
     </div>
     <div class="ui-g">
@@ -97,4 +97,8 @@
       </div>
     </div>
   </form>
+</p-dialog>
+<p-dialog header="Alterar foto" [modal]="true" [(visible)]="visibleCropModal" (onHide)="closeCropModal()" class="crop-modal">
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  <button pButton class="upload-image-button" label="Enviar" (click)="upload(data)"></button>
 </p-dialog>

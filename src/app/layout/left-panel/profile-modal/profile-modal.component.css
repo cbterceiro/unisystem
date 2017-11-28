@@ -5,6 +5,61 @@
   width: 180px;
   height: 180px;
   margin: 0 auto;
+  cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+  box-sizing: content-box;
+  display: flex;
+}
+.profile-image:hover {
+  border: 1px solid black;
+}
+.profile-image img {
+  width: 178px;
+  height: 178px;
+  margin: 0 auto;
+  align-self: center;
+}
+
+.profile-image-overlay {
+  opacity: 0;
+  background-color: #4d4d4d;
+  color: #fff;
+  width: 100%;
+  height: 25px;
+  font-size: 13px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.profile-image-overlay span {
+  display: inline-block;
+  padding-top: 10px;
+}
+.profile-image:hover .profile-image-overlay {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+.profile-image:hover .profile-image-overlay span {
+  padding-top: 0;
+  transition: 200ms ease-in-out;
+}
+
+.crop-modal /deep/ .ng2-imgcrop input[type="file"] {
+  display: block;
+  margin-bottom: 10px;
+}
+.crop-modal .upload-image-button {
+  display: block;
+}
+
+/*
+.profile-image {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
   position: relative;
   display: flex;
   border-radius: 5px;
@@ -37,29 +92,4 @@
   padding-top: 70px;
   background-color: rgba(0,0,0,0.5);
 }
-
-.profile-image-overlay {
-  opacity: 0;
-  background-color: #4d4d4d;
-  color: #fff;
-  width: 100%;
-  height: 25px;
-  font-size: 13px;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-.profile-image-overlay span {
-  display: inline-block;
-  padding-top: 10px;
-}
-.profile-image:hover .profile-image-overlay {
-  opacity: 1;
-  transition: opacity 300ms ease-in-out;
-}
-.profile-image:hover .profile-image-overlay span {
-  padding-top: 0;
-  transition: 200ms ease-in-out;
-}
+*/

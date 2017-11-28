@@ -1,10 +1,13 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem, FileUpload, DomHandler } from 'primeng/primeng';
+
+import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { markFormGroupDirty, delay } from '../../../shared/functions';
 
@@ -52,6 +55,13 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.visibleChange.emit(visible);
   }
 
+  foto: any;
+  visibleCropModal: boolean;
+  data: any;
+  imgFile: File;
+  cropperSettings: CropperSettings;
+  @ViewChild('cropper') cropper: ImageCropperComponent;
+
   constructor(
     private formBuilder: FormBuilder,
     private servidorService: ServidorService,
@@ -60,6 +70,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     private domHandler: DomHandler,
     private el: ElementRef,
     private renderer: Renderer2,
+    private sanitizer: DomSanitizer,
     private authenticatedUserService: AuthenticatedUserService,
   ) { }
 
@@ -68,6 +79,20 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setYearRange();
     this.loadServidor();
     this.setupImageListener();
+
+    this.setupImageCropper();
+  }
+
+  setupImageCropper() {
+    this.data = {};
+    this.cropperSettings = new CropperSettings();
+    // this.cropperSettings.noFileInput = true;
+    this.cropperSettings.canvasWidth = 600;
+    this.cropperSettings.canvasHeight = 400;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.width = 300;
+    this.cropperSettings.height = 300;
   }
 
   ngAfterViewInit() {
@@ -88,7 +113,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
       estado: ['ES', Validators.required],
       cidade: [null, Validators.required],
       foto: [null],
-      email: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
       telefone: [null],
     });
   }
@@ -121,6 +146,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   loadServidor(): void {
     const servidor: Servidor = this.authenticatedUserService.getServidor();
     this.profileForm.patchValue(servidor);
+    this.foto = servidor.foto || null;
 
     // Hack para consertar o bug do PrimeNG de exibição de data no formato inválido na primeira vez em que o componente
     // Calendar é exibido na tela
@@ -176,7 +202,39 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     const file: File = event.files[0];
     if (file.size > this.maxFileSize) {
       this.messageService.sendError({ detail: `O tamanho máximo para a imagem é de ${this.maxFileSize / 1024 / 1024} MB.` });
+    } else {
+      this.imgFile = file;
+      const image = new Image();
+      image.src = file['objectURL'];
+      this.cropper.setImage(image);
+      delay(_ => this.visibleCropModal = true);
     }
+  }
+
+  onSelectFile2(event) {
+    console.log('onSelectFile2', event);
+    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+    const file = files[0];
+    console.log('file', file);
+    console.log('url', window.URL.createObjectURL(file));
+    console.log('url sanitized', this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)));
+    this.foto = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+    const image = new Image();
+    image.src = this.foto;
+    console.log('cropper', this.cropper);
+    // this.cropper.setImage(image);
+    delay(_ => this.visibleCropModal = true);
+  }
+
+  upload(data) {
+    console.log('upload', data);
+    console.log('upload image', data.image.length);
+    console.log('upload image', data.image);
+  }
+
+  closeCropModal(): void {
+    this.imgFile = null;
+    // this.fileUpload.clear();
   }
 
   onCustomUpload(event) {
