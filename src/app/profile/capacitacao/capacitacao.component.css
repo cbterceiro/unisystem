@@ -9,28 +9,15 @@ h4, p {
 
 .capacitacoes {
   overflow-y: hidden;
-  max-height: 311px; /* exibe 2 capacitações */
+  max-height: 274px; /* exibe 2 capacitações */
 
   transition: max-height 0.35s ease-out;
 }
 
 .capacitacoesExpandido {
   overflow-y: hidden;
-  max-height: 3111px; /*exibe até 10 capacitações */
+  max-height: 10000px; /*exibe até 10 capacitações */
 
   transition: max-height 0.35s ease-in;
 }
 
-.botaoVerMais {
-  text-align: center;
-  margin: 0 0 -2em -1em;
-  min-height: 31px;
-  width: 100%;
-  border-top-style: solid;
-  border-width: 1px;
-  border-color: #999;
-  padding-top: 6px;
-  cursor: pointer;
-  padding-left: 1em;
-  padding-right: 1em;
-}

@@ -9,28 +9,15 @@ h4, p {
 
 .formacoes {
   overflow-y: hidden;
-  max-height: 247px; /* exibe 2 formações acadêmicas */
+  max-height: 220px; /* exibe 2 formações acadêmicas */
 
   transition: max-height 0.35s ease-out;
 }
 
 .formacoesExpandido {
   overflow-y: hidden;
-  max-height: 1231px; /*exibe até 10 formações acadêmicas */
+  max-height: 10000px; /*exibe até 10 formações acadêmicas */
 
   transition: max-height 0.35s ease-in;
 }
 
-.botaoVerMais {
-  text-align: center;
-  margin: 0 0 -2em -1em;
-  min-height: 31px;
-  width: 100%;
-  border-top-style: solid;
-  border-width: 1px;
-  border-color: #999;
-  padding-top: 6px;
-  cursor: pointer;
-  padding-left: 1em;
-  padding-right: 1em;
-}

@@ -1,7 +1,7 @@
 <div class="funcao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
   <h1>O que você faz...</h1>
 
-  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewFuncao()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewFuncao()" topPosition="20px" rightPosition="23px"></uns-action-icon>
 
   <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
@@ -11,8 +11,8 @@
 
   <div class="{{funcoesClass}}">
     <div *ngFor="let funcao of funcoes; let ultimo = last" class="funcao">
-      <uns-action-icon icon="pencil" label="Editar" (click)="editarFuncao(funcao)" topPosition="0px"></uns-action-icon>
-      <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="22px"></uns-action-icon>
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarFuncao(funcao)" topPosition="25%"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarFuncao(funcao.id)" topPosition="50%"></uns-action-icon>
 
       <h4>{{funcao.nome}}</h4>
       <p *ngIf="funcao.orgao">Orgão: {{funcao.orgao.sigla}}</p>

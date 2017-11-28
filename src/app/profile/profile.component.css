@@ -1,0 +1,43 @@
+:host /deep/ .card{
+    color: #515151;
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    line-height: 15px;
+    font-size: 15px;
+ }
+ 
+:host /deep/ .card h1{
+    margin: 8px 0 8px 8px;
+    font-size: 22px;
+ }
+
+:host /deep/ .card h4{
+    font-size: 15px;
+ }
+
+:host /deep/ .card p{
+    line-height: 13px;
+    font-size: 14px;
+ }
+
+:host /deep/ .action-icon{
+    line-height: 24px;
+    font-size: 16px;
+    /* right: 6px; */
+}
+
+:host /deep/ .botaoVerMais{
+    text-align: center;
+    margin: 0 0 -12px -12px;
+    height: 26px;
+    width: 100%;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: #999;
+    padding-top: 10px;
+    cursor: pointer;
+    padding-left: 12px;
+    padding-right: 12px;
+}
