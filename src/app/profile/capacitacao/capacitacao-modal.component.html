@@ -8,15 +8,16 @@
           A entidade é obrigatória.
         </small>
       </div>
-    </div>
-    <div class="ui-g">
+
       <div class="ui-g-6">
-        <label class="form-label">Entidade</label>
-        <p-autoComplete [suggestions]="sugestoesEntidade" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade"></p-autoComplete>
-        <small class="validation-error-message" [hidden]="capacitacaoForm.controls.entidade.pristine || capacitacaoForm.controls.entidade.valid">
-          A entidade é obrigatória.
-        </small>
+          <label class="form-label">Entidade</label>
+          <p-autoComplete [suggestions]="sugestoesEntidade" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade"></p-autoComplete>
+          <small class="validation-error-message" [hidden]="capacitacaoForm.controls.entidade.pristine || capacitacaoForm.controls.entidade.valid">
+           A entidade é obrigatória.
+          </small>
       </div>
+     </div>
+
       <div class="ui-g-6">
         <label class="form-label">Modalidade</label>
         <p-dropdown [options]="modalidade" [autoWidth]="false" formControlName="modalidade"></p-dropdown>
@@ -24,7 +25,6 @@
           Modalidade é um campo obrigatório.
         </small>
       </div>
-    </div>
     <div class="ui-g">
       <div class="ui-g-6">
         <label class="form-label">Ano de Conclusão</label>

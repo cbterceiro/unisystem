@@ -58,6 +58,7 @@ export class HabilidadeComponent implements OnInit {
   }
 
   atualizaForm(): void {
+    var self = this;
     const servidor = this.authenticatedUserService.getServidor();
     this.isLoading = true;
     this.cService.getAllHabilidadesFromId(servidor.id).subscribe(c => {
@@ -72,6 +73,7 @@ export class HabilidadeComponent implements OnInit {
       if (!this.finishedInitialLoading) {
         this.finishedInitialLoading = true;
         this.afterInitialLoadingEmitter.emit();
+         
       }
     });
   }
@@ -106,6 +108,12 @@ export class HabilidadeComponent implements OnInit {
             self.atualizaForm();
         })
     }, 0);
+    
+     
+  }
+  
+  onChange(event){
+    
     
      
   }

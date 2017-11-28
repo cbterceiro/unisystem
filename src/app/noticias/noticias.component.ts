@@ -23,6 +23,7 @@ export class NoticiasComponent implements OnInit {
     this.getNoticias();
     
     const servidor = this.authenticatedUserService.getServidor();
+    console.log('admin: ' + servidor.admin);
     this.isAdmin = servidor.admin == 1;
   }
 

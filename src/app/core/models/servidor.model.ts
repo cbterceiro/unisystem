@@ -12,6 +12,7 @@ export class Servidor {
   cidade: string;
   nacionalidade: string;
   email: string;
+  telefone: string;
   foto: string;
   admin: number;
 }

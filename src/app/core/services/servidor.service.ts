@@ -21,7 +21,7 @@ export class ServidorService {
 
   getAll(): Observable<Servidor[]> {
     return this.httpClientService.search('/servidores', new SearchModel({
-      fields: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade', 'email', 'foto'],
+      fields: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade', 'email', 'foto', 'admin'],
       orderBy: ['nome asc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }

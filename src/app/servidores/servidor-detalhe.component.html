@@ -8,6 +8,17 @@
   </ng-container>
 </div>
 <ng-container *ngIf="!isLoading">
+  <!-- Habilidades -->
+  <div class="habilidade card card-w-title">
+    <h1>Habilidades</h1>
+    <div *ngIf="servidor.habilidade && !servidor.habilidade.length" class="text-center">
+      {{ servidor.nome }} não possui habilidades cadastradas
+    </div>
+    <div>
+      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips">{{ habilidade.nome }} | {{ habilidade.numRecomendacoes }}</span>
+    </div>
+    <div style="clear: both"></div>
+  </div>
   <!-- Cargos -->
   <div class="cargo card card-w-title">
     <h1>Cargos</h1>
@@ -89,17 +100,7 @@
       <fa [name]="verMais.capacitacoes ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.capacitacoes ? 'Ver menos' : 'Ver mais' }}
     </div>
   </div>
-  <!-- Habilidades -->
-  <div class="habilidade card card-w-title">
-    <h1>Habilidades</h1>
-    <div *ngIf="servidor.habilidade && !servidor.habilidade.length" class="text-center">
-      {{ servidor.nome }} não possui habilidades cadastradas
-    </div>
-    <div>
-      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips">{{ habilidade.nome }} | {{ habilidade.numRecomendacoes }}</span>
-    </div>
-    <div style="clear: both"></div>
-  </div>
+  
   <!-- Publicações -->
   <div class="publicacao card card-w-title">
     <h1>Publicações</h1>
