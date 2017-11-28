@@ -80,10 +80,10 @@ export class CargoModalComponent implements OnChanges {
       this.idToEdit = null;
       this.title = 'Adicionar informações de cargo';
     }
-    
+
     this.cargoForm.get('atual')
-    .valueChanges
-    .subscribe(value => this.handleChange(value));
+      .valueChanges
+      .subscribe(value => this.handleChange(value));
   }
 
   pesquisarCargo(event) {
@@ -92,7 +92,7 @@ export class CargoModalComponent implements OnChanges {
       this.sugestoesCargo = cargos;
     });
   }
-  
+
   pesquisarOrgao(event) {
     const nomeOrgao = event.query;
     this.funcaoService.searchOrgaos(nomeOrgao).subscribe(orgao => {
@@ -111,16 +111,16 @@ export class CargoModalComponent implements OnChanges {
     // console.log((cargo.atual == true ? 'true' : 'false'));
     //console.log(this.cargoForm.controls['atual'].value);
   }
-  
+
   handleChange(value: boolean) {
     let dataFinalForm = this.cargoForm.get('dataFim');
-    
+
     if (value) {
       this.atualChecked = true;
-      dataFinalForm.setValue(null, {onlySelf: true});
+      dataFinalForm.setValue(null, { onlySelf: true });
       dataFinalForm.clearValidators();
       dataFinalForm.updateValueAndValidity();
-     // dataFinalForm.enabled();
+      // dataFinalForm.enabled();
     } else {
       this.atualChecked = false;
       dataFinalForm.setValidators(Validators.required);
@@ -135,6 +135,7 @@ export class CargoModalComponent implements OnChanges {
       cargo.id = this.idToEdit;
       cargo.servidor_id = servidor.id;
       cargo.orgao_id = cargo.orgao.id;
+      cargo.setor_id = cargo.setor.id;
       this.isSubmitting = true;
       this.cargoService.save(cargo).subscribe(success => {
         this.isSubmitting = false;
@@ -146,7 +147,7 @@ export class CargoModalComponent implements OnChanges {
       markFormGroupDirty(this.cargoForm);
     }
   }
-  
+
 
   closeModal(): void {
     this.visible = false;
