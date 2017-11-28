@@ -18,5 +18,5 @@ h4, p {
   overflow-y: hidden;
   max-height: 10000px; /*exibe até 10 formações acadêmicas */
 
-  transition: max-height 0.35s ease-in;
+  transition: max-height 0.75s ease-in;
 }
