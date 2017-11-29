@@ -34,7 +34,7 @@ export class CargoModalComponent implements OnChanges {
 
   sugestoesCargo: string[];
   sugestoesOrgao: ModelId[];
-  sugestoesSetores: string[];
+  sugestoesSetor: ModelId[];
   idToEdit: number;
   atualChecked: boolean;
 
@@ -101,16 +101,12 @@ export class CargoModalComponent implements OnChanges {
   }
 
   pesquisarSetor(event) {
-    // const nomeOrgao = event.query;
-    // // buscar no backend os setores
-    // this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
+    const nomeSetor = event.query;
+    this.funcaoService.searchSetores(nomeSetor).subscribe(orgao => {
+      this.sugestoesSetor = orgao;
+    });
   }
 
-  cbAtualCkick(cargo: Cargo) {
-    // this.cargoForm.controls['atual'].value
-    // console.log((cargo.atual == true ? 'true' : 'false'));
-    //console.log(this.cargoForm.controls['atual'].value);
-  }
 
   handleChange(value: boolean) {
     let dataFinalForm = this.cargoForm.get('dataFim');
