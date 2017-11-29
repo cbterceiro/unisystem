@@ -88,7 +88,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
       estado: ['ES', Validators.required],
       cidade: [null, Validators.required],
       foto: [null],
-      email: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
       telefone: [null],
     });
   }

@@ -21,7 +21,7 @@ export class ServidorService {
 
   getAll(): Observable<Servidor[]> {
     return this.httpClientService.search('/servidores', new SearchModel({
-      fields: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade', 'email', 'foto', 'admin'],
+      fields: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade', 'email', 'telefone', 'foto', 'admin'],
       orderBy: ['nome asc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
@@ -37,9 +37,9 @@ export class ServidorService {
       orderBy: ['nome asc, cargo.dataInicio desc, funcao.dataInicio desc'],
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
-  
-    getByPesquisa2(nome: string, instituicao: string, cargo: string, orgao: string, setor: string, limite: number, offset: number): Observable<Servidor[]> {
-    return this.httpClientService.get('/servidores2?nome='+nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao='+orgao+'&setor='+setor)
+
+  getByPesquisa2(nome: string, instituicao: string, cargo: string, orgao: string, setor: string, limite: number, offset: number): Observable<Servidor[]> {
+    return this.httpClientService.get('/servidores2?nome=' + nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao=' + orgao + '&setor=' + setor)
       .map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
