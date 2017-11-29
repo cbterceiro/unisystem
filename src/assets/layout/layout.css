@@ -104,9 +104,10 @@ body a {
 }
 .card h1 {
   font-size: 1.5em;
-  font-weight: 400;
+  font-weight: bold;
   margin: 1em 0;
   margin-left: 0.5em;
+  color: #623586;
 }
 .card h1:first-child {
   margin-top: .667em;
