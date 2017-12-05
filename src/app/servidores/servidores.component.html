@@ -11,24 +11,23 @@
       <span class="router-detalhe" (click)="redirectToServidorDetalhe(servidor.id)">{{servidor.nome}}</span>
     </h3>
 
-    <p>
-      <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
-    </p>
-    <p>
-      <b>Setor Cargo:</b> {{ servidor.cargo ? servidor.cargo[0]?.setor ? servidor.cargo[0]?.setor.nome : '' : '' }}
-    </p>
-    <p>
-      <b>Órgão Cargo:</b> {{servidor.cargo? servidor.cargo[0]?.orgao? servidor.cargo[0]?.orgao.nome: '' : '' }}
-    </p>
-    
-    <p>
-      <b>Função:</b> {{servidor.funcao[0]?.nome}}
-    </p>
-    <p>
-      <b>Setor Função:</b> {{ servidor.funcao ? servidor.funcao[0]?.setorFuncao ? servidor.funcao[0]?.setorFuncao.nome : '' : '' }}
-    </p>
-    <p>
-      <b>Órgão Função:</b> {{servidor.funcao? servidor.funcao[0]?.orgaoFuncao? servidor.funcao[0]?.orgaoFuncao.nome: '' : '' }}
+    <p *ngIf="servidor.cargo[0]">
+        
+          <b>Cargo Nome:</b> {{servidor.cargo[0]?.nome}}
+     <br/>
+          <b>Cargo Setor:</b> {{ servidor.cargo ? servidor.cargo[0]?.setor ? servidor.cargo[0]?.setor.nome : '' : '' }}
+    <br/>
+          <b>Cargo Órgão:</b> {{servidor.cargo? servidor.cargo[0]?.orgao? servidor.cargo[0]?.orgao.nome: '' : '' }}
+   
+    </p>    
+    <p *ngIf="servidor.funcao[0]">
+      
+        <b>Função Nome:</b> {{servidor.funcao[0]?.nome}}
+    <br/>
+        <b>Função Setor:</b> {{ servidor.funcao ? servidor.funcao[0]?.setorFuncao ? servidor.funcao[0]?.setorFuncao.nome : '' : '' }}
+     <br/>
+        <b>Função Órgão: </b> {{servidor.funcao? servidor.funcao[0]?.orgaoFuncao? servidor.funcao[0]?.orgaoFuncao.nome: '' : '' }}
+      
     </p>
     
     <p>
