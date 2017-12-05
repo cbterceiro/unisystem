@@ -14,7 +14,7 @@ import { HabilidadeService } from './habilidade.service'
   selector: 'uns-habilidade',
   templateUrl: 'habilidade.component.html',
   styleUrls: ['habilidade.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  // encapsulation: ViewEncapsulation.None 
 })
 
 export class HabilidadeComponent implements OnInit {

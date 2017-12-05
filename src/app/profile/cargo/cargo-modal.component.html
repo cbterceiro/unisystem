@@ -11,7 +11,7 @@
       
       <div class="ui-g-6">
         <label class="form-label">Setor</label>
-        <p-autoComplete [suggestions]="sugestoesSetor" (completeMethod)="pesquisarSetor($event)" formControlName="setor"></p-autoComplete>
+        <p-autoComplete [suggestions]="sugestoesSetor" (completeMethod)="pesquisarSetor($event)" formControlName="setor" field="nome"></p-autoComplete>
         <small class="validation-error-message" [hidden]="cargoForm.controls.setor.pristine || cargoForm.controls.setor.valid">
           O setor é obrigatório.
         </small>

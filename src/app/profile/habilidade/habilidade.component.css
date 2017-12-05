@@ -12,18 +12,18 @@
     margin-left: 0.6em;
   }
   
-   .habilidade_wrapper .ui-state-active,
- .habilidade_wrapper .ui-state-highlight {
+   .habilidade_wrapper /deep/ .ui-state-active,
+ .habilidade_wrapper /deep/ .ui-state-highlight {
     background-color: #623586 !important;
     color: #ffffff;
 }
 
- .habilidade_wrapper  .ui-chips-token {
+ .habilidade_wrapper /deep/ .ui-chips-token {
     padding: .4em .5em !important;
         margin: 2px !important;
 }
 
-  .habilidade_wrapper .ui-chips-token-icon.fa.fa-fw.fa-close{
+  .habilidade_wrapper /deep/ .ui-chips-token-icon.fa.fa-fw.fa-close{
   display:  none !important;
 }
   .habilidades {
@@ -38,18 +38,4 @@
     max-height: 891px; /*exibe até 10 habilidades */
 
     transition: max-height 0.35s ease-in;
-  }
-
-  .botaoVerMais {
-    text-align: center;
-    margin: 0 0 -2em -1em;
-    min-height: 31px;
-    width: 100%;
-    border-top-style: solid;
-    border-width: 1px;
-    border-color: #999;
-    padding-top: 6px;
-    cursor: pointer;
-    padding-left: 1em;
-    padding-right: 1em;
   }
