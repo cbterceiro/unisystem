@@ -15,20 +15,33 @@
       <b>Cargo:</b> {{servidor.cargo[0]?.nome}}
     </p>
     <p>
-      <b>Setor:</b> {{ servidor.cargo ? servidor.cargo[0]?.setor ? servidor.cargo[0]?.setor.nome : '' : '' }}
+      <b>Setor Cargo:</b> {{ servidor.cargo ? servidor.cargo[0]?.setor ? servidor.cargo[0]?.setor.nome : '' : '' }}
     </p>
     <p>
-      <b>Órgão:</b> {{servidor.cargo? servidor.cargo[0]?.orgao? servidor.cargo[0]?.orgao.nome: '' : '' }}
+      <b>Órgão Cargo:</b> {{servidor.cargo? servidor.cargo[0]?.orgao? servidor.cargo[0]?.orgao.nome: '' : '' }}
     </p>
-
-    <!--  <p>
-
-      <b>Habilidades:</b>
+    
+    <p>
+      <b>Função:</b> {{servidor.funcao[0]?.nome}}
+    </p>
+    <p>
+      <b>Setor Função:</b> {{ servidor.funcao ? servidor.funcao[0]?.setorFuncao ? servidor.funcao[0]?.setorFuncao.nome : '' : '' }}
+    </p>
+    <p>
+      <b>Órgão Função:</b> {{servidor.funcao? servidor.funcao[0]?.orgaoFuncao? servidor.funcao[0]?.orgaoFuncao.nome: '' : '' }}
+    </p>
+    
+    <p>
+    <b>Habilidades:</b>
     </p>
     <ul>
       <li *ngFor="let habilidade of servidor.habilidade">{{ habilidade.nome }}</li>
     </ul>
-    <p>
+   
+      
+    <!--  <p>
+
+     <p>  
       <b>Email:</b> {{servidor.email}}
     </p>
     <p>

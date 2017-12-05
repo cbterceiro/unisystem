@@ -27,12 +27,18 @@ export class ServidorDetalheComponent implements OnInit {
   ngOnInit() {
     const id = +this.activatedRoute.snapshot.params['id'];
     this.isLoading = true;
-    this.servidorService.getById(id).subscribe(servidor => {
+    this.servidorService.getByIdSemFoto(id).subscribe(servidor => {
       this.servidor = servidor;
       console.log('servidor', servidor);
-      delay(_ => this.updateBackgroundImage(servidor.foto));
       this.isLoading = false;
     });
+    
+    this.servidorService.getFotoById(id).subscribe(servidor => {
+      delay(_ => this.updateBackgroundImage(servidor.foto));
+      this.isLoading = false;
+    });    
+    
+    // 
     this.initVerMais();
   }
 
