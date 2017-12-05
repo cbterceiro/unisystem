@@ -15,4 +15,5 @@
 }
 .noticia .img-destaque img {
   max-width: 100%;
+  max-height: 360px;
 }

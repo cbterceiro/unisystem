@@ -1,10 +1,11 @@
 <div class="topbar">
   <div class="topbar-content wrapper">
-    <!--<span>Unisystem</span>-->
+    <!-- <img src="../../../assets/img/Brasao_GovernoW.png" class="brasao-governo" /> -->
     <div class="search-area">
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="Encontrar servidores" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)]}"></button>
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);"
+          [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)]}"></button>
       </div>
     </div>
   </div>
@@ -48,7 +49,7 @@
       <span class="ui-g-3">
         <button pButton type="button"  label="Limpar" (click)="limparCampos()"></button>
       </span>
-<!--class="ui-button-secondary" icon="fa-eraser" -->
+      <!--class="ui-button-secondary" icon="fa-eraser" -->
       <span class="ui-g-3">
         <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)]}"></button>
       </span>

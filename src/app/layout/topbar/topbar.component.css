@@ -6,11 +6,11 @@
   text-align: center;
   background-color: #623586;
   color: #ffffff;
-  background-image: url('../../../assets/img/logo_amarela.png');
+  background-image: url('../../../assets/img/Brasao_Governo.png'), url('../../../assets/img/logo_amarela.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 80px 50px;
-  background-position: 13% 0%; 
+  background-size: 117px 46px, 80px 50px;
+  background-position: 10% 2px, 22% 0%; 
 }
 .topbar-content {
   height: 100%;
@@ -33,4 +33,8 @@
 
 .search-overlay h1{
   font-size:20px;
+}
+
+.brasao-governo{
+  height: 50px;
 }
