@@ -103,17 +103,11 @@ export class HabilidadeComponent implements OnInit {
      var element = elements[elements.length - 1];
       element.firstElementChild.click()
       const servidor = self.authenticatedUserService.getServidor();
-            self.cService.savehabilidade({id: 0, nome: value, numRecomendacoes: 0, servidor_id:  servidor.id}).subscribe(ok => {
+            self.cService.savehabilidade({id: 0, nome: value, numRecomendacoes: 0, servidor_id:  servidor.id, recomendado: false}).subscribe(ok => {
             self.messageService.sendSuccess({ detail: 'Habilidade incluída com sucesso.' });
             self.atualizaForm();
         })
     }, 0);
-    
-     
-  }
-  
-  onChange(event){
-    
     
      
   }

@@ -15,7 +15,16 @@
       {{ servidor.nome }} não possui habilidades cadastradas
     </div>
     <div>
-      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips">{{ habilidade.nome }} | {{ habilidade.numRecomendacoes }}</span>
+      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips">
+        {{ habilidade.nome }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ habilidade.numRecomendacoes }} &nbsp;&nbsp;&nbsp; 
+        <span [ngClass]="{'habilidade_recomendacao fa': true, 
+        'fa-thumbs-o-up': habilidade.recomendado == 0, 
+        'fa-thumbs-up': habilidade.recomendado == 1}"
+       (click)="onClickRecomendacao(habilidade)">
+          
+        </span>
+     
+        </span>
     </div>
     <div style="clear: both"></div>
   </div>

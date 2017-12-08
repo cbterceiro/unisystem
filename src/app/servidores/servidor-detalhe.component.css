@@ -100,3 +100,11 @@
   color: #ffffff;
   font-size: 0.9em;
 }
+
+.habilidade-recomended {
+  color: #f1a70d;
+}
+
+.habilidade_recomendacao{
+    cursor: pointer;
+}

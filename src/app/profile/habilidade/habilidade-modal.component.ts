@@ -117,13 +117,13 @@ export class HabilidadeModalComponent implements OnInit {
       const servidor = this.authenticatedUserService.getServidor();
       habilidade.servidor_id = servidor.id;
       for(let i=0; i<habilidade.nome.length; i++){
-        this.cService.savehabilidade({id: habilidade.id, nome: habilidade.nome[i], numRecomendacoes: habilidade.numRecomendacoes, servidor_id: habilidade.servidor_id}).subscribe(ok => {
-        this.isSubmitting = false;
-        this.messageService.sendSuccess({ detail: 'Habilidade atualizada com sucesso.' });
-        this.onSave.emit(true);
+        //this.cService.savehabilidade({id: habilidade.id, nome: habilidade.nome[i], numRecomendacoes: habilidade.numRecomendacoes, servidor_id: habilidade.servidor_id}).subscribe(ok => {
+        //this.isSubmitting = false;
+       // this.messageService.sendSuccess({ detail: 'Habilidade atualizada com sucesso.' });
+        //this.onSave.emit(true);
         //if(i == habilidade.nome.length-1)
-          this.closeModal();
-        })
+          //this.closeModal();
+        //})
       }  
     }
   }
