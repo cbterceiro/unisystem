@@ -38,3 +38,36 @@
 .brasao-governo{
   height: 50px;
 }
+
+.topbar-icons{
+  top: 0;
+  color:aliceblue;
+}
+
+.topbar-fonts{
+  position: relative;
+  bottom: 0;
+  right: 32%;
+  font-size: 12px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  color:aliceblue;
+}
+
+.topbar-div{
+  position: relative;
+  text-align: center;
+  padding-top: 5px;
+  left: 15px;
+}
+
+.topbar-icons:hover{
+  color: #feb101;
+}
+
+.topbar-div:hover .topbar-icons{
+  color: #feb101;
+}
+
+.topbar-div:hover .topbar-fonts{
+  color: #feb101;
+}
