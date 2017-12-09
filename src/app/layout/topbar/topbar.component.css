@@ -6,7 +6,7 @@
   text-align: center;
   background-color: #623586;
   color: #ffffff;
-  background-image: url('../../../assets/img/Brasao_Governo.png'), url('../../../assets/img/logo_amarela.png');
+  background-image: url('../../../assets/img/Brasao_GovernoW.png'), url('../../../assets/img/logo_amarela.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 117px 46px, 80px 50px;
@@ -40,34 +40,11 @@
 }
 
 .topbar-icons{
+  margin-left: 50px;  
   top: 0;
   color:aliceblue;
 }
 
-.topbar-fonts{
-  position: relative;
-  bottom: 0;
-  right: 32%;
-  font-size: 12px;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
-  color:aliceblue;
-}
-
-.topbar-div{
-  position: relative;
-  text-align: center;
-  padding-top: 5px;
-  left: 15px;
-}
-
 .topbar-icons:hover{
-  color: #feb101;
-}
-
-.topbar-div:hover .topbar-icons{
-  color: #feb101;
-}
-
-.topbar-div:hover .topbar-fonts{
   color: #feb101;
 }
