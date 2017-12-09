@@ -18,7 +18,10 @@ export class HabilidadeService {
 
   getAllHabilidadesFromId(id: number): Observable<Habilidade[]> {
     return this.httpClientService.get(`/servidores/${id}/habilidade`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => {
+        return res.json() || []
+        
+      });
   }
   
     getAllHabilidades(): Observable<Habilidade[]> {
@@ -50,6 +53,11 @@ export class HabilidadeService {
   recomendarHabilidade(habilidade: Habilidade, idLogado: number): Observable<any> {
     return this.httpClientService.post(`/habilidade/${habilidade.id}/recomendacao/${idLogado}`, {})
         .map((res: Response) => res.json() || {});
+  }
+  
+   getQuemRecomendou(habilidade: Habilidade): Observable<any> {
+    return this.httpClientService.get(`/habilidade/${habilidade.id}/recomendacao/`)
+       .map((res: Response) => res.json() || {});
   }
   
   removerRecomendacaoHabilidade(habilidade: Habilidade, idLogado: number): Observable<any> {

@@ -10,8 +10,9 @@
       (onAdd)="addHabilidade($event.value);">
     <ng-template let-item pTemplate="item" >
      {{item.nome}} 
-     <span *ngIf="item.numRecomendacoes > 0"><span style="padding-right:0.3em;padding-left:0.3em">|</span> 
-     {{item.numRecomendacoes}}</span>
+     &nbsp;&nbsp; 
+     <span *ngIf="item.numRecomendacoes > 0">
+     {{item.numRecomendacoes}}&nbsp;&nbsp; </span>
      <i style="margin-left:1em" class="habilidadeclose fa fa-close" (click)="removeHabilidade($event.target,item)" style="cursor: pointer;"></i>
     
     </ng-template>

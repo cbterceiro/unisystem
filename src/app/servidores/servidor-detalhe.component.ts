@@ -15,9 +15,11 @@ export class ServidorDetalheComponent implements OnInit {
 
   servidor: any;
   isLoading: boolean;
-
+  exibeModalRecomendacao = false;
   verMais: any;
-
+  quemRecomendouList: any;
+  isLoadingRecomendacao : boolean;
+  defaultImageUrl: string = '/assets/img/default-user-icon.png';
   constructor(
       private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute,
@@ -45,6 +47,20 @@ export class ServidorDetalheComponent implements OnInit {
     
     // 
     this.initVerMais();
+  }
+  
+  onClickDetalheRecomendacao(habilidade) :void{
+    if(habilidade.numRecomendacoes > 0){
+    this.exibeModalRecomendacao = true;
+    this.isLoadingRecomendacao = true;
+     this.habilidadeService.getQuemRecomendou(habilidade)
+        .subscribe(servidores =>  {
+          if(servidores){
+             this.quemRecomendouList = servidores;
+               this.isLoadingRecomendacao = false;
+          }
+        });
+    }
   }
   
   onClickRecomendacao(habilidade): void {
@@ -89,6 +105,11 @@ export class ServidorDetalheComponent implements OnInit {
       capacitacoes: false,
       publicacoes: false,
     }
+  }
+  
+   closeModal(): void {
+     this.quemRecomendouList = null;
+    this.exibeModalRecomendacao = false;
   }
 
   verMaisToggle(obj: any): void {
