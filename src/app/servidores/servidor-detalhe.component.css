@@ -92,6 +92,7 @@
 .habilidade-chips {
   display: block;
   float: left;
+   cursor: pointer;
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -107,4 +108,12 @@
 
 .habilidade_recomendacao{
     cursor: pointer;
+}
+
+img.recomendacao {
+  border-radius: 8px;
+  height: 60px;
+  width: 60px;
+  float: right;
+  box-sizing: border-box;
 }

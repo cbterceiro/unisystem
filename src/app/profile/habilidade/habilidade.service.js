@@ -15,7 +15,9 @@ var HabilidadeService = (function () {
     }
     HabilidadeService.prototype.getAllHabilidadesFromId = function (id) {
         return this.httpClientService.get("/servidores/" + id + "/habilidade")
-            .map(function (res) { return res.json() || []; });
+            .map(function (res) {
+            return res.json() || [];
+        });
     };
     HabilidadeService.prototype.getAllHabilidades = function () {
         return this.httpClientService.get('/habilidade')
@@ -39,6 +41,10 @@ var HabilidadeService = (function () {
     };
     HabilidadeService.prototype.recomendarHabilidade = function (habilidade, idLogado) {
         return this.httpClientService.post("/habilidade/" + habilidade.id + "/recomendacao/" + idLogado, {})
+            .map(function (res) { return res.json() || {}; });
+    };
+    HabilidadeService.prototype.getQuemRecomendou = function (habilidade) {
+        return this.httpClientService.get("/habilidade/" + habilidade.id + "/recomendacao/")
             .map(function (res) { return res.json() || {}; });
     };
     HabilidadeService.prototype.removerRecomendacaoHabilidade = function (habilidade, idLogado) {
