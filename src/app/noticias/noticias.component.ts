@@ -13,6 +13,8 @@ export class NoticiasComponent implements OnInit {
   noticias: Noticia[] = [];
   isLoading: boolean;
   isAdmin: boolean;
+  limite: number[] = [];
+  lerMais: boolean[] = [];
   
   constructor(
     private noticiaService: NoticiaService,
@@ -33,7 +35,8 @@ export class NoticiasComponent implements OnInit {
     this.noticiaService.getNoticias().subscribe(noticias => {
       this.noticias = noticias;
       this.isLoading = false;
-      console.log('conteudo: ' + noticias[1].conteudo);
+      for (var n = 0; n < noticias.length; n++)
+        this.limite[n] = 200;
     });
   }
 }
