@@ -38,13 +38,23 @@ export class ServidorService {
     })).map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
-  getByPesquisa2(nome: string, instituicao: string, cargo: string, orgao: string, setor: string, limite: number, offset: number): Observable<Servidor[]> {
-    return this.httpClientService.get('/servidores2?nome=' + nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao=' + orgao + '&setor=' + setor)
+  getByPesquisa2(nome: string, instituicao: string, cargo: string, orgao: string, setor: string, habilidade: string, funcao: string, limite: number, offset: number): Observable<Servidor[]> {
+    return this.httpClientService.get('/servidores2?nome=' + nome + '&instituicao=' + instituicao + '&cargo=' + cargo + '&orgao=' + orgao + '&setor=' + setor + '&habilidade=' + habilidade + '&funcao=' + funcao)
       .map((res: Response) => this.jsonToServidores(res.json() || []));
   }
 
   getById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}`)
+      .map((res: Response) => this.jsonToServidor(res.json() || {}));
+  }
+  
+    getByIdSemFoto(id: number): Observable<Servidor> {
+    return this.httpClientService.get(`/servidores3/${id}`)
+      .map((res: Response) => this.jsonToServidor(res.json() || {}));
+  }
+  
+  getFotoById(id: number): Observable<Servidor> {
+    return this.httpClientService.get(`/servidores/${id}/foto`)
       .map((res: Response) => this.jsonToServidor(res.json() || {}));
   }
 

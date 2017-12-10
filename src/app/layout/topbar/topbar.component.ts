@@ -13,6 +13,9 @@ export class TopbarComponent implements OnInit {
   orgao: string;
   setor: string;
 
+  habilidade: string;
+  funcao: string;
+  
   constructor() { }
 
   ngOnInit() {
@@ -29,5 +32,7 @@ export class TopbarComponent implements OnInit {
     this.cargo = '';
     this.orgao = '';
     this.setor = '';
+    this.habilidade = '';
+    this.funcao = '';
   }
 }
