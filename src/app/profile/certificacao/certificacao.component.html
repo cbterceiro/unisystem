@@ -1,0 +1,30 @@
+<div class="certificacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
+  <h1>Certificação</h1>
+
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCertificacao()" topPosition="20px" rightPosition="23px"></uns-action-icon>
+
+  <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
+
+  <div *ngIf="!isLoading && certificacoes && !certificacoes.length" class="text-center">
+    Você não possui certificação cadastrada
+  </div>
+
+  <div class="{{certificacoesClass}}">
+    <div *ngFor="let certificacao of certificacoes; let ultimo = last" class="certificacao">
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarCertificacao(certificacao)" topPosition="25%"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarCertificacao(certificacao.id)" topPosition="50%"></uns-action-icon>
+
+      <h4>{{certificacao.entidade}}</h4>
+      <p>{{certificacao.nomeCurso}}</p>
+      <p>Conclusão: {{certificacao.anoFim}}</p>
+      
+      <hr *ngIf="!ultimo">
+    </div>
+  </div>
+  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
+    <fa name={{arrowExpand}}></fa>{{labelExpand}}
+  </div>
+
+</div>
+
+<uns-certificacao-modal [(visible)]="exibeModalCertificacao" (onSave)="getCertificacoes()" [certificacaoEdit]="objToEdit"></uns-certificacao-modal>
