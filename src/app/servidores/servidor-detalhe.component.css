@@ -1,0 +1,119 @@
+.servidor{
+  /*background-image: url(/assets/img/background-mundo.png);*/
+  /*background-size: 100%;*/
+  /*background-position: 50% 160%;*/
+  /*background-repeat: no-repeat;*/
+  /*transition:all 0.5s ease;*/
+  /*-webkit-transition:all 0.5s ease;*/
+  /*-o-transition:all 0.5s ease;*/
+  /*-moz-transition:all 0.5s ease;*/
+  /*opacity: 0.5;*/
+  
+  position: relative;
+  overflow: hidden;
+}
+
+.servidor:before{
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: 1;
+  opacity: 0.4;
+  background-image: url(/assets/img/background-mundo.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 150%;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+}
+
+
+.servidor .servidor-foto {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  background-image: url('/assets/img/default-user-icon.png');
+  background-repeat: no-repeat;
+  background-size: 160px;
+  background-position: 10px;
+  z-index: 6;
+  position: relative;
+  border-radius: 8px;
+}
+
+.servidor .servidor-info {
+  text-align: center;
+}
+.servidor .servidor-info .nome {
+  font-size: 0.9em;
+}
+
+
+.botaoVerMais {
+  text-align: center;
+  margin: 0 0 -2em -1em;
+  min-height: 31px;
+  width: 100%;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #999;
+  padding-top: 6px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.verMais h4, p {
+  line-height: 1em;
+  margin-left: 0.6em;
+}
+
+.verMais {
+  overflow-y: hidden;
+  transition: max-height 0.35s ease-out;
+}
+.verMais.expandido {
+  max-height: 9999px !important;
+  transition: max-height 0.35s ease-out;
+}
+
+.verMais.cargos { max-height: 247px; }
+.verMais.funcoes { max-height: 374px; }
+.verMais.formacoes { max-height: 247px; }
+.verMais.capacitacoes { max-height: 311px; }
+.verMais.publicacoes { max-height: 311px; }
+
+.habilidade-chips {
+  display: block;
+  float: left;
+   cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 2px 8px;
+  background-color: #623586;
+  color: #ffffff;
+  font-size: 0.9em;
+}
+
+.habilidade-recomended {
+  color: #f1a70d;
+}
+
+.habilidade_recomendacao{
+    cursor: pointer;
+}
+
+img.recomendacao {
+  border-radius: 8px;
+  height: 60px;
+  width: 60px;
+  float: right;
+  box-sizing: border-box;
+}

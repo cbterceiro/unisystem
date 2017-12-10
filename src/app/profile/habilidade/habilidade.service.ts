@@ -18,18 +18,16 @@ export class HabilidadeService {
 
   getAllHabilidadesFromId(id: number): Observable<Habilidade[]> {
     return this.httpClientService.get(`/servidores/${id}/habilidade`)
-      .map((res: Response) => res.json() || []);
+      .map((res: Response) => {
+        return res.json() || []
+        
+      });
   }
   
     getAllHabilidades(): Observable<Habilidade[]> {
     return this.httpClientService.get('/habilidade')
       .map((res: Response) => res.json() || []);
   }
-  
-  /*  getAllSetores(): Observable<Setor[]> {
-    return this.httpClientService.get('/setor')
-      .map((res: Response) => res.json() || []);
-  }*/
   
   getAllHabilidadesContains(habilidade: string): Observable<Habilidade[]> {
     //return this.httpClientService.get('/habilidade')
@@ -42,13 +40,7 @@ export class HabilidadeService {
       .map((res: Response) => res.json().map(h => h.nome) || {});
   }
   
-  /*
-    getAllSetoresContains(habilidade: string): Observable<Setor[]> {
-    //return this.httpClientService.get('/habilidade')
-     // .map((res: Response) => res.json() || []);
-     return new Observable<Setor[]>();
-  }*/
-   
+
   savehabilidade(habilidade: Habilidade): Observable<any> {
     return habilidade.id ? this.updatehabilidade(habilidade) : this.create(habilidade);
   }
@@ -56,6 +48,21 @@ export class HabilidadeService {
     private updatehabilidade(habilidade: Habilidade): Observable<any> {
     return this.httpClientService.put(`/habilidade/${habilidade.id}`, habilidade)
       .map((res: Response) => res.json());
+  }
+  
+  recomendarHabilidade(habilidade: Habilidade, idLogado: number): Observable<any> {
+    return this.httpClientService.post(`/habilidade/${habilidade.id}/recomendacao/${idLogado}`, {})
+        .map((res: Response) => res.json() || {});
+  }
+  
+   getQuemRecomendou(habilidade: Habilidade): Observable<any> {
+    return this.httpClientService.get(`/habilidade/${habilidade.id}/recomendacao/`)
+       .map((res: Response) => res.json() || {});
+  }
+  
+  removerRecomendacaoHabilidade(habilidade: Habilidade, idLogado: number): Observable<any> {
+    return this.httpClientService.delete(`/habilidade/${habilidade.id}/recomendacao/${idLogado}`)
+       .map((res: Response) => res.json() || {});
   }
   
     private create(habilidade: Habilidade): Observable<any> {
@@ -68,25 +75,5 @@ export class HabilidadeService {
       .map((res: Response) => res.json() || {});
   }
   
-/*
-  getById(id: number): Observable<Servidor> {
-    return this.httpClientService.get(`/servidores/${id}`)
-      .map((res: Response) => res.json() || {});
-  }
 
-  delete(id: number): Observable<any> {
-    return this.httpClientService.delete(`/servidores/${id}`)
-      .map((res: Response) => res.json() || {});
-  }
-
-  private create(servidor: Servidor): Observable<any> {
-    return this.httpClientService.post('/servidores', servidor)
-      .map((res: Response) => res.json());
-  }
-
-  private update(servidor: Servidor): Observable<any> {
-    return this.httpClientService.put(`/servidores/${servidor.id}`, servidor)
-      .map((res: Response) => res.json());
-  }
-  */
 }

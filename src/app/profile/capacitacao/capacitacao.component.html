@@ -1,7 +1,7 @@
 <div class="capacitacao card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
   <h1>Capacitação</h1>
 
-  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCapacitacao()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCapacitacao()" topPosition="20px" rightPosition="23px"></uns-action-icon>
 
   <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
@@ -11,8 +11,8 @@
 
   <div class="{{capacitacoesClass}}">
     <div *ngFor="let capacitacao of capacitacoes; let ultimo = last" class="capacitacao">
-      <uns-action-icon icon="pencil" label="Editar" (click)="editarCapacitacao(capacitacao)" topPosition="0px"></uns-action-icon>
-      <uns-action-icon icon="trash" label="Remover" (click)="deletarCapacitacao(capacitacao.id)" topPosition="22px"></uns-action-icon>
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarCapacitacao(capacitacao)" topPosition="25%"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarCapacitacao(capacitacao.id)" topPosition="50%"></uns-action-icon>
 
       <h4>{{capacitacao.entidade}}</h4>
       <p>{{capacitacao.nomeCurso}} ({{capacitacao.modalidade}})</p>

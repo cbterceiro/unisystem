@@ -2,7 +2,8 @@
   padding: 0;
 }
 .fa {
-  margin-right: 7px;
+  margin-right: 3px;
+  width: 19px;
 }
 .left-panel-items {
   list-style-type: none;
@@ -10,10 +11,15 @@
   padding: 10px 0;
 }
 .left-panel-items li a {
+  color: #515151;
   padding: 5px 0 5px 20px;
   display: block;
   cursor: pointer;
 }
 .left-panel-items li:hover {
   background-color: #e4e4e4;
+}
+
+.left-panel-items li a i {
+  text-align: center;
 }

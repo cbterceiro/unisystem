@@ -15,16 +15,14 @@ var HabilidadeService = (function () {
     }
     HabilidadeService.prototype.getAllHabilidadesFromId = function (id) {
         return this.httpClientService.get("/servidores/" + id + "/habilidade")
-            .map(function (res) { return res.json() || []; });
+            .map(function (res) {
+            return res.json() || [];
+        });
     };
     HabilidadeService.prototype.getAllHabilidades = function () {
         return this.httpClientService.get('/habilidade')
             .map(function (res) { return res.json() || []; });
     };
-    /*  getAllSetores(): Observable<Setor[]> {
-      return this.httpClientService.get('/setor')
-        .map((res: Response) => res.json() || []);
-    }*/
     HabilidadeService.prototype.getAllHabilidadesContains = function (habilidade) {
         //return this.httpClientService.get('/habilidade')
         // .map((res: Response) => res.json() || []);
@@ -34,18 +32,24 @@ var HabilidadeService = (function () {
         return this.httpClientService.get("/habilidade/nome/" + nome)
             .map(function (res) { return res.json().map(function (h) { return h.nome; }) || {}; });
     };
-    /*
-      getAllSetoresContains(habilidade: string): Observable<Setor[]> {
-      //return this.httpClientService.get('/habilidade')
-       // .map((res: Response) => res.json() || []);
-       return new Observable<Setor[]>();
-    }*/
     HabilidadeService.prototype.savehabilidade = function (habilidade) {
         return habilidade.id ? this.updatehabilidade(habilidade) : this.create(habilidade);
     };
     HabilidadeService.prototype.updatehabilidade = function (habilidade) {
         return this.httpClientService.put("/habilidade/" + habilidade.id, habilidade)
             .map(function (res) { return res.json(); });
+    };
+    HabilidadeService.prototype.recomendarHabilidade = function (habilidade, idLogado) {
+        return this.httpClientService.post("/habilidade/" + habilidade.id + "/recomendacao/" + idLogado, {})
+            .map(function (res) { return res.json() || {}; });
+    };
+    HabilidadeService.prototype.getQuemRecomendou = function (habilidade) {
+        return this.httpClientService.get("/habilidade/" + habilidade.id + "/recomendacao/")
+            .map(function (res) { return res.json() || {}; });
+    };
+    HabilidadeService.prototype.removerRecomendacaoHabilidade = function (habilidade, idLogado) {
+        return this.httpClientService["delete"]("/habilidade/" + habilidade.id + "/recomendacao/" + idLogado)
+            .map(function (res) { return res.json() || {}; });
     };
     HabilidadeService.prototype.create = function (habilidade) {
         return this.httpClientService.post('/habilidade', habilidade)

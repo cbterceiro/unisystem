@@ -8,12 +8,13 @@ import { SelectItem } from 'primeng/primeng';
 
 import { AuthenticatedUserService } from '../../authentication';
 
-import { MessageService } from '../../core';
+import { MessageService, ModelId } from '../../core';
 
 import { markFormGroupDirty } from '../../shared/functions';
 
 import { Cargo } from './cargo.model';
 import { CargoService } from './cargo.service';
+import { FuncaoService } from '../funcao/funcao.service';
 
 @Component({
   selector: 'uns-cargo-modal',
@@ -32,8 +33,8 @@ export class CargoModalComponent implements OnChanges {
   cargoForm: FormGroup;
 
   sugestoesCargo: string[];
-  sugestoesOrgao: string[];
-  sugestoesSetores: string[];
+  sugestoesOrgao: ModelId[];
+  sugestoesSetor: ModelId[];
   idToEdit: number;
   atualChecked: boolean;
 
@@ -44,6 +45,7 @@ export class CargoModalComponent implements OnChanges {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private cargoService: CargoService,
+    private funcaoService: FuncaoService,
     private authenticatedUserService: AuthenticatedUserService,
     private messageService: MessageService,
   ) { }
@@ -53,6 +55,8 @@ export class CargoModalComponent implements OnChanges {
       this.cargoForm = this.formBuilder.group({
         nome: [this.cargoEdit.nome, Validators.required],
         orgao: [this.cargoEdit.orgao],
+        setor: [this.cargoEdit.setor],
+        orgao_id: [this.cargoEdit.orgao.id],
         atual: [this.cargoEdit.atual],
         dataInicio: [this.cargoEdit.dataInicio, Validators.required],
         dataFim: [this.cargoEdit.dataFim, Validators.required],
@@ -65,7 +69,9 @@ export class CargoModalComponent implements OnChanges {
       this.atualChecked = false;
       this.cargoForm = this.formBuilder.group({
         nome: ['', Validators.required],
-        orgao: ['', Validators.required],
+        setor: ['', Validators.required],
+        orgao: [null, Validators.required],
+        orgao_id: null,
         atual: [false],
         dataInicio: [null, Validators.required],
         dataFim: [null, Validators.required],
@@ -74,10 +80,10 @@ export class CargoModalComponent implements OnChanges {
       this.idToEdit = null;
       this.title = 'Adicionar informações de cargo';
     }
-    
+
     this.cargoForm.get('atual')
-    .valueChanges
-    .subscribe(value => this.handleChange(value));
+      .valueChanges
+      .subscribe(value => this.handleChange(value));
   }
 
   pesquisarCargo(event) {
@@ -86,36 +92,31 @@ export class CargoModalComponent implements OnChanges {
       this.sugestoesCargo = cargos;
     });
   }
-  
+
   pesquisarOrgao(event) {
-    //const nomeOrgao = event.query;
-    //this.orgaoService.searchCargos(nomeOrgao).subscribe(orgao => {
-      //this.sugestoesOrgao = orgao;
-    //});
+    const nomeOrgao = event.query;
+    this.funcaoService.searchOrgaos(nomeOrgao).subscribe(orgao => {
+      this.sugestoesOrgao = orgao;
+    });
   }
 
   pesquisarSetor(event) {
-    const nomeOrgao = event.query;
-    // buscar no backend os setores
-    this.sugestoesOrgao = ['Setor 1', 'Setor 2'];
+    const nomeSetor = event.query;
+    this.funcaoService.searchSetores(nomeSetor).subscribe(orgao => {
+      this.sugestoesSetor = orgao;
+    });
   }
 
-  cbAtualCkick(cargo: Cargo) {
-    // this.cargoForm.controls['atual'].value
-    // console.log((cargo.atual == true ? 'true' : 'false'));
-    //console.log(this.cargoForm.controls['atual'].value);
-  }
-  
+
   handleChange(value: boolean) {
     let dataFinalForm = this.cargoForm.get('dataFim');
-    console.log(dataFinalForm);
-    
+
     if (value) {
       this.atualChecked = true;
-      dataFinalForm.setValue(null, {onlySelf: true});
+      dataFinalForm.setValue(null, { onlySelf: true });
       dataFinalForm.clearValidators();
       dataFinalForm.updateValueAndValidity();
-     // dataFinalForm.enabled();
+      // dataFinalForm.enabled();
     } else {
       this.atualChecked = false;
       dataFinalForm.setValidators(Validators.required);
@@ -129,6 +130,8 @@ export class CargoModalComponent implements OnChanges {
       const servidor = this.authenticatedUserService.getServidor();
       cargo.id = this.idToEdit;
       cargo.servidor_id = servidor.id;
+      cargo.orgao_id = cargo.orgao.id;
+      cargo.setor_id = cargo.setor.id;
       this.isSubmitting = true;
       this.cargoService.save(cargo).subscribe(success => {
         this.isSubmitting = false;
@@ -140,6 +143,7 @@ export class CargoModalComponent implements OnChanges {
       markFormGroupDirty(this.cargoForm);
     }
   }
+
 
   closeModal(): void {
     this.visible = false;

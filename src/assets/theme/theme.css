@@ -21,6 +21,12 @@ body .ui-dropdown.ui-state-focus .ui-dropdown-label {
 body .form-label {
   display: block;
 }
+body .ui-spinner .ui-spinner-up {
+  border-top-right-radius: 0.25em;
+}
+body .ui-spinner .ui-spinner-down {
+  border-bottom-right-radius: 0.25em;
+}
 
 /* Form validation */
 body .ui-inputtext.ng-dirty.ng-invalid,

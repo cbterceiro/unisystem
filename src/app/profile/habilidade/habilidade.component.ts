@@ -14,7 +14,7 @@ import { HabilidadeService } from './habilidade.service'
   selector: 'uns-habilidade',
   templateUrl: 'habilidade.component.html',
   styleUrls: ['habilidade.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  // encapsulation: ViewEncapsulation.None 
 })
 
 export class HabilidadeComponent implements OnInit {
@@ -58,6 +58,7 @@ export class HabilidadeComponent implements OnInit {
   }
 
   atualizaForm(): void {
+    var self = this;
     const servidor = this.authenticatedUserService.getServidor();
     this.isLoading = true;
     this.cService.getAllHabilidadesFromId(servidor.id).subscribe(c => {
@@ -72,6 +73,7 @@ export class HabilidadeComponent implements OnInit {
       if (!this.finishedInitialLoading) {
         this.finishedInitialLoading = true;
         this.afterInitialLoadingEmitter.emit();
+         
       }
     });
   }
@@ -101,7 +103,7 @@ export class HabilidadeComponent implements OnInit {
      var element = elements[elements.length - 1];
       element.firstElementChild.click()
       const servidor = self.authenticatedUserService.getServidor();
-            self.cService.savehabilidade({id: 0, nome: value, numRecomendacoes: 0, servidor_id:  servidor.id}).subscribe(ok => {
+            self.cService.savehabilidade({id: 0, nome: value, numRecomendacoes: 0, servidor_id:  servidor.id, recomendado: false}).subscribe(ok => {
             self.messageService.sendSuccess({ detail: 'Habilidade incluída com sucesso.' });
             self.atualizaForm();
         })

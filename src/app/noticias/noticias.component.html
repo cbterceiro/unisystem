@@ -1,4 +1,4 @@
-<uns-noticia-form (onSave)="getNoticias()"></uns-noticia-form>
+<uns-noticia-form *ngIf="isAdmin" (onSave)="getNoticias()"></uns-noticia-form>
 
 <div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}">
   <h1>Notícias Recentes</h1>
@@ -12,5 +12,8 @@
   <div class="img-destaque" *ngIf="noticia.imgDestaque">
     <img class="img-destaque" [attr.src]="noticia.imgDestaque | safeUrl" />
   </div>
-  <p class="conteudo" [innerHTML]="noticia.conteudo | safeHtml"></p>
+  <p ng-init="lerMais = false; limite=200" class="conteudo" [innerHTML]="noticia.conteudo | slice:3:limite | safeHtml">
+  </p>
+  <!-- <a *ngIf="lerMais" href ng-click="limite=200; lerMais=false"> Ler Menos</a> -->
+  <!-- <a *ngIf="!lerMais" ng-click="limite=noticia.conteudo.length; lerMais=true">...Ler Mais</a> -->
 </div>

@@ -78,6 +78,20 @@
       </div>
     </div>
     <div class="ui-g">
+      <div class="ui-g-6 no-vertical-padding">
+        <label class="form-label">Email</label>
+        <input formControlName="email" type="text" size="255" pInputText>
+        <small class="validation-error-message" [hidden]="profileForm.controls.email.pristine || profileForm.controls.email.valid">
+          <span *ngIf="profileForm.controls.email.hasError('required')">O email é obrigatório.</span>
+          <span *ngIf="profileForm.controls.email.hasError('email')">O email não está em um formato válido.</span>
+        </small>
+      </div>
+      <div class="ui-g-6 no-vertical-padding">
+        <label class="form-label">Telefone</label>
+        <p-inputMask mask="(99) 99999-9999" formControlName="telefone"></p-inputMask>
+      </div>
+    </div>
+    <div class="ui-g">
       <div class="ui-g-12">
         <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
         <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!profileForm.valid"></button>

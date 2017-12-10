@@ -1,7 +1,7 @@
 <div class="cargo card card-w-title" (mouseover)="hideAddIcon = false" (mouseout)="hideAddIcon = true">
   <h1>Cargos</h1>
 
-  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCargo()" topPosition="30px" rightPosition="27px"></uns-action-icon>
+  <uns-action-icon [hidden]="hideAddIcon" icon="plus" label="Adicionar" (click)="addNewCargo()" topPosition="20px" rightPosition="23px"></uns-action-icon>
 
   <uns-spinner [isLoading]="isLoading && finishedInitialLoading"></uns-spinner>
 
@@ -11,17 +11,13 @@
 
   <div class="{{cargosClass}}">
     <div *ngFor="let cargo of cargos; let ultimo = last" class="cargo">
-      <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)" topPosition="0px"></uns-action-icon>
-      <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="22px"></uns-action-icon>
+      <uns-action-icon icon="pencil" label="Editar" (click)="editarCargo(cargo)" topPosition="25%"></uns-action-icon>
+      <uns-action-icon icon="trash" label="Remover" (click)="deletarCargo(cargo.id)" topPosition="50%"></uns-action-icon>
 
       <h4>{{cargo.nome}}</h4>
-      <p>{{cargo.orgao}}</p>
-      <p *ngIf="cargo.dataFim" >Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
+      <p *ngIf="cargo.orgao">Orgão: {{cargo.orgao.sigla}}</p>
+      <p *ngIf="cargo.dataFim">Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
       <p *ngIf="!cargo.dataFim">Inicio: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} </p>
-
-      
-
-      <!--<p>Nível: {{cargo.nivel}}</p>-->
 
       <hr *ngIf="!ultimo">
     </div>

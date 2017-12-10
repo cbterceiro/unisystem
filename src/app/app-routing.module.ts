@@ -12,6 +12,8 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, canActivateChild: [AuthenticationGuard], children: [
       { path: 'profile', loadChildren: 'app/profile/profile.module#ProfileModule' },
+      { path: 'equipe', loadChildren: 'app/equipe/equipe.module#EquipeModule' },
+      { path: 'contato', loadChildren: 'app/contato/contato.module#ContatoModule' },
       { path: 'servidores', loadChildren: 'app/servidores/servidores.module#ServidoresModule' },
       { path: 'noticias', loadChildren: 'app/noticias/noticias.module#NoticiasModule' },
       { path: '', redirectTo: 'noticias', pathMatch: 'full' },

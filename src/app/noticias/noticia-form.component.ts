@@ -41,6 +41,7 @@ export class NoticiaFormComponent implements OnInit {
 
   onSubmit(isValid: boolean, noticia: Noticia): void {
     if (isValid) {
+      this.isSubmitting = true;
       this.noticiaService.create(noticia).subscribe(id => {
         const file = this.fileUpload.files && this.fileUpload.files[0];
         if (!file) {
@@ -48,6 +49,7 @@ export class NoticiaFormComponent implements OnInit {
           this.noticiaForm.reset({ titulo: '', conteudo: '' });
           this.noticiaForm.get('conteudo').markAsPristine();
           this.onSave.emit(true);
+          this.isSubmitting = false;
         } else {
           this.noticiaService.updateImgDestaque(id, file).subscribe(
             img => {
@@ -56,6 +58,7 @@ export class NoticiaFormComponent implements OnInit {
               this.noticiaForm.get('conteudo').markAsPristine();
               this.onSave.emit(true);
               this.fileUpload.clear();
+              this.isSubmitting = false;
             },
             error => {
               console.error(error);
@@ -64,6 +67,7 @@ export class NoticiaFormComponent implements OnInit {
               this.noticiaForm.get('conteudo').markAsPristine();
               this.onSave.emit(true);
               this.fileUpload.clear();
+              this.isSubmitting = false;
             }
           );
         }

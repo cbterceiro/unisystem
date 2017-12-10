@@ -3,11 +3,13 @@
   height: 100%;
   margin-bottom: 0.667em;
   font-size: 15px;
+  line-height: 16px;
 }
 
 .card img{
   width: 100%;
   float: left;
+  margin-bottom: 0.5em;
 }
 
 .card a{

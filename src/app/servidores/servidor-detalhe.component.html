@@ -1,0 +1,149 @@
+<div class="servidor card">
+  <uns-spinner [isLoading]="isLoading"></uns-spinner>
+  <ng-container *ngIf="!isLoading">
+    <div class="servidor-foto"></div>
+    <div class="servidor-info">
+      <span class="nome">{{ servidor.nome }}</span>
+    </div>
+  </ng-container>
+</div>
+<ng-container *ngIf="!isLoading">
+  <!-- Habilidades -->
+  <div class="habilidade card card-w-title">
+    <h1>Habilidades</h1>
+    <div *ngIf="servidor.habilidade && !servidor.habilidade.length" class="text-center">
+      {{ servidor.nome }} não possui habilidades cadastradas
+    </div>
+    <div>
+      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips" (click)="onClickDetalheRecomendacao(habilidade)">
+        {{ habilidade.nome }} &nbsp;&nbsp;<span *ngIf="habilidade.numRecomendacoes > 0">&nbsp;&nbsp; {{ habilidade.numRecomendacoes }}</span> &nbsp;&nbsp;&nbsp; 
+        <span [ngClass]="{'habilidade_recomendacao fa': true, 
+        'fa-thumbs-o-up': habilidade.recomendado == 0, 
+        'fa-thumbs-up': habilidade.recomendado == 1}"
+       (click)="onClickRecomendacao(habilidade)">
+          
+        </span>
+     
+        </span>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <!-- Cargos -->
+  <div class="cargo card card-w-title">
+    <h1>Cargos</h1>
+    <div *ngIf="servidor.cargo && !servidor.cargo.length" class="text-center">
+      {{ servidor.nome }} não possui cargos cadastrados
+    </div>
+    <div [ngClass]="{'verMais cargos': true, 'expandido': verMais.cargos}">
+      <div *ngFor="let cargo of servidor.cargo; let ultimo = last" class="cargo">
+        <h4>{{cargo.nome}}</h4>
+        <p *ngIf="cargo.orgao">Orgão: {{cargo.orgao.sigla}}</p>
+        <p *ngIf="cargo.dataFim">Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
+        <p *ngIf="!cargo.dataFim">Inicio: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} </p>
+
+        <hr *ngIf="!ultimo">
+      </div>
+    </div>
+    <div *ngIf="servidor.cargo && servidor.cargo.length > 2" (click)="verMais.cargos = !verMais.cargos" class="botaoVerMais">
+      <fa [name]="verMais.cargos ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.cargos ? 'Ver menos' : 'Ver mais' }}
+    </div>
+  </div>
+  <!-- Funções -->
+  <div class="funcao card card-w-title">
+    <h1>O que {{ servidor.sexo == 'Feminino' ? 'ela' : 'ele' }} faz...</h1>
+    <div *ngIf="servidor.funcao && !servidor.funcao.length" class="text-center">
+      {{ servidor.nome }} não possui funções cadastradas
+    </div>
+    <div [ngClass]="{'verMais funcoes': true, 'expandido': verMais.funcoes}">
+      <div *ngFor="let funcao of servidor.funcao; let ultimo = last" class="funcao">
+        <h4>{{funcao.nome}}</h4>
+        <p *ngIf="funcao.orgaoFuncao">Orgão: {{funcao.orgaoFuncao.sigla}}</p>
+        <p *ngIf="funcao.setorFuncao">Setor: {{funcao.setorFuncao.nome}}</p>
+        <p>Descrição: {{funcao.descricao}}</p>
+        <p *ngIf="funcao.dataFim">Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}} </p>
+        <p *ngIf="!funcao.dataFim">Inicio: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} </p>
+
+        <hr *ngIf="!ultimo">
+      </div>
+    </div>
+    <div *ngIf="servidor.funcao && servidor.funcao.length > 2" (click)="verMais.funcoes = !verMais.funcoes" class="botaoVerMais">
+      <fa [name]="verMais.funcoes ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.funcoes ? 'Ver menos' : 'Ver mais' }}
+    </div>
+  </div>
+  <!-- Formações Acadêmicas -->
+  <div class="formacao card card-w-title">
+    <h1>Formação Acadêmica</h1>
+    <div *ngIf="servidor.formacaoAcademica && !servidor.formacaoAcademica.length" class="text-center">
+      {{ servidor.nome }} não possui formações acadêmicas cadastradas
+    </div>
+    <div [ngClass]="{'verMais formacoes': true, 'expandido': verMais.formacoes}">
+      <div *ngFor="let formacao of servidor.formacaoAcademica; let ultimo = last" class="formacao">
+        <h4>{{formacao.instituicaoAcademica?.nome}}</h4>
+        <p>{{formacao.curso}}</p>
+        <p>{{formacao.dataInicio | date: 'dd/MM/yyyy'}} à {{formacao.dataFim | date: 'dd/MM/yyyy'}}</p>
+
+        <hr *ngIf="!ultimo">
+      </div>
+    </div>
+    <div *ngIf="servidor.formacaoAcademica && servidor.formacaoAcademica.length > 2" (click)="verMais.formacoes = !verMais.formacoes" class="botaoVerMais">
+      <fa [name]="verMais.formacoes ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.formacoes ? 'Ver menos' : 'Ver mais' }}
+    </div>
+  </div>
+  <!-- Capacitações -->
+  <div class="capacitacao card card-w-title">
+    <h1>Capacitação</h1>
+    <div *ngIf="servidor.atividadeComplementar && !servidor.atividadeComplementar.length" class="text-center">
+      {{ servidor.nome }} não possui capacitações cadastradas
+    </div>
+    <div [ngClass]="{'verMais capacitacoes': true, 'expandido': verMais.capacitacoes}">
+      <div *ngFor="let capacitacao of servidor.atividadeComplementar; let ultimo = last" class="capacitacao">
+        <h4>{{capacitacao.entidade}}</h4>
+        <p>{{capacitacao.nomeCurso}} ({{capacitacao.modalidade}})</p>
+        <p>Conclusão: {{capacitacao.anoFim}}</p>
+        <p>Carga Horária: {{capacitacao.cargaHoraria}}</p>
+
+        <hr *ngIf="!ultimo">
+      </div>
+    </div>
+    <div *ngIf="servidor.atividadeComplementar && servidor.atividadeComplementar.length > 2" (click)="verMais.capacitacoes = !verMais.capacitacoes" class="botaoVerMais">
+      <fa [name]="verMais.capacitacoes ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.capacitacoes ? 'Ver menos' : 'Ver mais' }}
+    </div>
+  </div>
+  
+  <!-- Publicações -->
+  <div class="publicacao card card-w-title">
+    <h1>Publicações</h1>
+    <div *ngIf="servidor.publicacao && !servidor.publicacao.length" class="text-center">
+      {{ servidor.nome }} não possui publicações cadastradas
+    </div>
+    <div [ngClass]="{'verMais publicacoes': true, 'expandido': verMais.publicacoes}">
+      <div *ngFor="let publicacao of servidor.publicacao; let ultimo = last" class="publicacao">
+        <h4>{{publicacao.titulo}}</h4>
+        <p>{{publicacao.ano}}</p>
+        <p>{{publicacao.local}}</p>
+        <p>{{publicacao.tipo}}</p>
+
+        <hr *ngIf="!ultimo">
+      </div>
+    </div>
+    <div *ngIf="servidor.publicacao && servidor.publicacao.length > 2" (click)="verMais.publicacoes = !verMais.publicacoes" class="botaoVerMais">
+      <fa [name]="verMais.publicacoes ? 'chevron-up': 'chevron-down'"></fa>{{ verMais.publicacoes ? 'Ver menos' : 'Ver mais' }}
+    </div>
+  </div>
+</ng-container>
+
+<p-dialog header="Quem recomendou" [modal]="true" [(visible)]="exibeModalRecomendacao" [width]="600" [positionTop]="30" [blockScroll]=true [contentStyle]="{'overflow':'auto','max-height':'500px'}"
+  (onHide)="closeModal()">
+      <uns-spinner [isLoading]="isLoadingRecomendacao"></uns-spinner>
+       <div *ngFor="let servidor of quemRecomendouList" class="ui-g">
+           <div class="ui-g-2">
+               <img class="recomendacao" [src]="servidor.servidor.foto || defaultImageUrl">
+           </div>
+           <div class="ui-g-10">
+                <h4>
+                  <span>{{servidor.servidor.nome}}</span>
+                </h4>
+           </div>
+    </div>
+</p-dialog>
+

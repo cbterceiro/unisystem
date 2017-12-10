@@ -1,11 +1,20 @@
 <div class="topbar">
   <div class="topbar-content wrapper">
-    <span>Unisystem</span>
+    <!-- <img src="../../../assets/img/Brasao_GovernoW.png" class="brasao-governo" /> -->
     <div class="search-area">
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="Encontrar servidores" [(ngModel)]="nomeCompleto" (focus)="op.show($event)">
-        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], habilidades: [(habilidades)]}"></button>
+        <button pButton type="button" icon="fa-search" class="ui-button-secondary" (click)="pesquisarServidor(); op.hide($event);"
+          [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)], habilidade: [(habilidade)], funcao: [(funcao)]}"></button>
       </div>
+    </div>
+    <div>
+      <a href="#" [routerLink]="['/equipe']">
+        <i _ngcontent-c4="" fa="" name="users" class="fa fa-users fa-lg topbar-icons" ng-reflect-name="users" title="Sobre a nossa equipe"></i>
+      </a>
+      <a href="#" [routerLink]="['/contato']">
+        <i _ngcontent-c4="" fa="" name="letter" class="fa fa-comments fa-lg topbar-icons" ng-reflect-name="letter" title="Fale conosco"></i>
+      </a>
     </div>
   </div>
 </div>
@@ -38,19 +47,29 @@
     </div>
 
     <div class="ui-g-6">
-      <label class="form-label">Habilidades</label>
-      <input type="text" [(ngModel)]="habilidades" pInputText>
+      <label class="form-label">Setor</label>
+      <input type="text" [(ngModel)]="setor" pInputText>
     </div>
-
+    
+    <div class="ui-g-6">
+      <label class="form-label">Habilidade</label>
+      <input type="text" [(ngModel)]="habilidade" pInputText>
+    </div>
+    
+    <div class="ui-g-6">
+      <label class="form-label">Função</label>
+      <input type="text" [(ngModel)]="funcao" pInputText>
+    </div>
+    
     <div class="ui-g-12">
-      <div class="ui-g-7"></div>
-
-      <span class="ui-g-2">
-        <button pButton type="button" class="ui-button-secondary" icon="fa-eraser" (click)="limparCampos()"></button>
-      </span>
+      <div class="ui-g-6"></div>
 
       <span class="ui-g-3">
-        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], habilidades: [(habilidades)]}"></button>
+        <button pButton type="button"  label="Limpar" (click)="limparCampos()"></button>
+      </span>
+      <!--class="ui-button-secondary" icon="fa-eraser" -->
+      <span class="ui-g-3">
+        <button pButton type="button" label="Pesquisar" (click)="pesquisarServidor(); op.hide($event);" [routerLink]="['/servidores']" [queryParams]="{nome: [(nomeCompleto)], instituicao: [(instituicao)], cargo: [(cargo)], orgao: [(orgao)], setor: [(setor)], habilidade: [(habilidade)], funcao: [(funcao)]}"></button>
       </span>
     </div>
   </div>

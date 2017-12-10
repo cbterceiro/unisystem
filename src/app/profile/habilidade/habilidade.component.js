@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 var core_1 = require("@angular/core");
-var core_2 = require("@angular/core");
 // import { HabilidadeModalComponent } from './habilidade-modal.component';
 var HabilidadeComponent = (function () {
     function HabilidadeComponent(cService, confirmationService, authenticatedUserService, messageService, el) {
@@ -37,6 +36,7 @@ var HabilidadeComponent = (function () {
     };
     HabilidadeComponent.prototype.atualizaForm = function () {
         var _this = this;
+        var self = this;
         var servidor = this.authenticatedUserService.getServidor();
         this.isLoading = true;
         this.cService.getAllHabilidadesFromId(servidor.id).subscribe(function (c) {
@@ -73,7 +73,7 @@ var HabilidadeComponent = (function () {
             var element = elements[elements.length - 1];
             element.firstElementChild.click();
             var servidor = self.authenticatedUserService.getServidor();
-            self.cService.savehabilidade({ id: 0, nome: value, numRecomendacoes: 0, servidor_id: servidor.id }).subscribe(function (ok) {
+            self.cService.savehabilidade({ id: 0, nome: value, numRecomendacoes: 0, servidor_id: servidor.id, recomendado: false }).subscribe(function (ok) {
                 self.messageService.sendSuccess({ detail: 'Habilidade incluída com sucesso.' });
                 self.atualizaForm();
             });
@@ -126,8 +126,7 @@ HabilidadeComponent = __decorate([
     core_1.Component({
         selector: 'uns-habilidade',
         templateUrl: 'habilidade.component.html',
-        styleUrls: ['habilidade.component.css'],
-        encapsulation: core_2.ViewEncapsulation.None
+        styleUrls: ['habilidade.component.css']
     })
 ], HabilidadeComponent);
 exports.HabilidadeComponent = HabilidadeComponent;

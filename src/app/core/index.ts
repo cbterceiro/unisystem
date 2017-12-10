@@ -7,6 +7,7 @@ export * from './services/message.service';
 export * from './services/servidor.service';
 export * from './services/noticia.service';
 export * from './models/servidor.model';
+export * from './models/model-id';
 export * from './models/search.model';
 export * from './models/noticia.model';
 export * from './models/noticia-externa.model';
