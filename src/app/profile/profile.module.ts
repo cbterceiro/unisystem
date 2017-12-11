@@ -22,6 +22,10 @@ import { CapacitacaoComponent } from './capacitacao/capacitacao.component';
 import { CapacitacaoModalComponent } from './capacitacao/capacitacao-modal.component';
 import { CapacitacaoService } from './capacitacao/capacitacao.service';
 
+import { CertificacaoComponent } from './certificacao/certificacao.component';
+import { CertificacaoModalComponent } from './certificacao/certificacao-modal.component';
+import { CertificacaoService } from './certificacao/certificacao.service';
+
 import { HabilidadeComponent } from './habilidade/habilidade.component';
 import { HabilidadeModalComponent } from './habilidade/habilidade-modal.component';
 import { HabilidadeService } from './habilidade/habilidade.service';
@@ -45,6 +49,8 @@ import { PublicacaoService } from './publicacao/publicacao.service';
     FormacaoAcademicaModalComponent,
     CapacitacaoComponent,
     CapacitacaoModalComponent,
+    CertificacaoComponent,
+    CertificacaoModalComponent,
     HabilidadeComponent,
     HabilidadeModalComponent,
     PublicacaoComponent,
@@ -52,6 +58,7 @@ import { PublicacaoService } from './publicacao/publicacao.service';
   ],
   providers: [
     CapacitacaoService,
+    CertificacaoService,
     FormacaoAcademicaService,
     CargoService,
     FuncaoService,

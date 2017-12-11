@@ -1,0 +1,49 @@
+.ql-editor {
+    white-space: initial;
+  }
+.conteudo {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.contato .conteudo /deep/ p {
+    margin-bottom: 10px;
+}
+.contato .img-destaque {
+    text-align: center;
+    margin-bottom: 0.2em;
+}
+.contato .img-destaque img {
+    max-width: 100%;
+    max-height: 360px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li i {
+    text-align: center;
+    padding: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.icons:hover{
+    color: #feb101;
+}
+
+.a:hover .icons{
+    color: #feb101;
+}
+
+
+
+  

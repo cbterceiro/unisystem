@@ -8,7 +8,6 @@ import { FileUploadService } from './file-upload.service';
 import { SearchModel } from '../models/search.model';
 
 import { Servidor } from '../models/servidor.model';
-
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -16,7 +15,9 @@ export class ServidorService {
 
   constructor(
     private httpClientService: HttpClientService,
-    private fileUploadService: FileUploadService,
+    private fileUploadService: FileUploadService
+
+
   ) { }
 
   getAll(): Observable<Servidor[]> {
@@ -44,13 +45,19 @@ export class ServidorService {
   }
 
   getById(id: number): Observable<Servidor> {
-    return this.httpClientService.get(`/servidores/${id}`)
-      .map((res: Response) => this.jsonToServidor(res.json() || {}));
+    return this.httpClientService.get(`/servidores/${id}/`)
+      .map((res: Response) => {
+        return this.jsonToServidor(res.json() || {})
+        
+      });
   }
   
-    getByIdSemFoto(id: number): Observable<Servidor> {
-    return this.httpClientService.get(`/servidores3/${id}`)
-      .map((res: Response) => this.jsonToServidor(res.json() || {}));
+    getByIdSemFoto(id: number, idLogado:number): Observable<Servidor> {
+    return this.httpClientService.get(`/servidores3/${id}/${idLogado}`)
+      .map((res: Response) => {
+        return this.jsonToServidor(res.json() || {})
+        
+      });
   }
   
   getFotoById(id: number): Observable<Servidor> {

@@ -1,0 +1,37 @@
+<p-dialog [header]="title" [modal]="true" [(visible)]="visible" [width]="800" [positionTop]="30" [contentStyle]="{overflow: 'visible'}" (onHide)="closeModal()">
+  <form [formGroup]="certificacaoForm" class="ui-fluid" (submit)="onSubmit(certificacaoForm.valid, certificacaoForm.value)">
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Nome Do Curso</label>
+        <input formControlName="nomeCurso" type="text" pInputText>
+        <small class="validation-error-message" [hidden]="certificacaoForm.controls.nomeCurso.pristine || certificacaoForm.controls.nomeCurso.valid">
+          O nome do curso é obrigatório.
+        </small>
+      </div>
+
+      <div class="ui-g-6">
+          <label class="form-label">Entidade</label>
+          <p-autoComplete [suggestions]="sugestoesEntidade" (completeMethod)="pesquisarEntidades($event)" formControlName="entidade"></p-autoComplete>
+          <small class="validation-error-message" [hidden]="certificacaoForm.controls.entidade.pristine || certificacaoForm.controls.entidade.valid">
+           A entidade é obrigatória.
+          </small>
+      </div>
+     </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="form-label">Ano de Conclusão</label>
+        <p-spinner formControlName="anoFim" [min]="0" [max]="anoAtual" [maxlength]="4" [formatInput]="0-0"></p-spinner>
+        <small class="validation-error-message" [hidden]="certificacaoForm.controls.anoFim.pristine || certificacaoForm.controls.anoFim.valid">
+          O ano de conclusão é obrigatório.
+        </small>
+      </div>
+  
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <uns-spinner [isLoading]="isSubmitting"></uns-spinner>
+        <button *ngIf="!isSubmitting" pButton type="submit" label="Salvar" [disabled]="!certificacaoForm.valid"></button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

@@ -21,6 +21,7 @@
   text-align: center;
   margin-bottom: 0.8em;
 }
+
 .noticia .img-destaque img {
   max-width: 100%;
   max-height: 360px;
@@ -34,4 +35,13 @@
   font-size: 0.8em;
   text-align: right;
   margin-bottom: 1em;
+}
+
+a {
+   cursor:pointer;
+   color:#01579b;
+}
+
+a:hover {
+     text-decoration:underline;
 }

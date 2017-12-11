@@ -1,0 +1,23 @@
+.certificacao {
+  position: relative;
+}
+
+h4, p {
+  line-height: 1em;
+  margin-left: 0.6em;
+}
+
+.certificacoes {
+  overflow-y: hidden;
+  max-height: 273px; /* exibe 2 certificacoes */
+
+  transition: max-height 0.35s ease-out;
+}
+
+.certificacoesExpandido {
+  overflow-y: hidden;
+  max-height: 10000px; /*exibe até 10 certificacoes */
+
+  transition: max-height 0.75s ease-in;
+}
+

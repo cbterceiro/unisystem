@@ -15,7 +15,16 @@
       {{ servidor.nome }} não possui habilidades cadastradas
     </div>
     <div>
-      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips">{{ habilidade.nome }} | {{ habilidade.numRecomendacoes }}</span>
+      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips" (click)="onClickDetalheRecomendacao(habilidade)">
+        {{ habilidade.nome }} &nbsp;&nbsp;<span *ngIf="habilidade.numRecomendacoes > 0">&nbsp;&nbsp; {{ habilidade.numRecomendacoes }}</span> &nbsp;&nbsp;&nbsp; 
+        <span [ngClass]="{'habilidade_recomendacao fa': true, 
+        'fa-thumbs-o-up': habilidade.recomendado == 0, 
+        'fa-thumbs-up': habilidade.recomendado == 1}"
+       (click)="onClickRecomendacao(habilidade)">
+          
+        </span>
+     
+        </span>
     </div>
     <div style="clear: both"></div>
   </div>
@@ -123,24 +132,18 @@
   </div>
 </ng-container>
 
-<!--
-<div class="cargo card card-w-title" *ngIf="!isLoading">
-  <h1>Cargos</h1>
-  <div *ngIf="cargos && !cargos.length" class="text-center">
-    Você não possui cargos cadastrados
-  </div>
-  <div class="{{cargosClass}}">
-    <div *ngFor="let cargo of cargos; let ultimo = last" class="cargo">
-      <h4>{{cargo.nome}}</h4>
-      <p *ngIf="cargo.orgao">Orgão: {{cargo.orgao.sigla}}</p>
-      <p *ngIf="cargo.dataFim">Período: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} à {{cargo.dataFim | date: 'dd/MM/yyyy'}} </p>
-      <p *ngIf="!cargo.dataFim">Inicio: {{cargo.dataInicio | date: 'dd/MM/yyyy'}} </p>
-
-      <hr *ngIf="!ultimo">
+<p-dialog header="Quem recomendou" [modal]="true" [(visible)]="exibeModalRecomendacao" [width]="600" [positionTop]="30" [blockScroll]=true [contentStyle]="{'overflow':'auto','max-height':'500px'}"
+  (onHide)="closeModal()">
+      <uns-spinner [isLoading]="isLoadingRecomendacao"></uns-spinner>
+       <div *ngFor="let servidor of quemRecomendouList" class="ui-g">
+           <div class="ui-g-2">
+               <img class="recomendacao" [src]="servidor.servidor.foto || defaultImageUrl">
+           </div>
+           <div class="ui-g-10">
+                <h4>
+                  <span>{{servidor.servidor.nome}}</span>
+                </h4>
+           </div>
     </div>
-  </div>
-  <div (click)="verMais()" class="botaoVerMais" [hidden]="hideVerMais">
-    <fa name={{arrowExpand}}></fa>{{labelExpand}}
-  </div>
-</div>
--->
+</p-dialog>
+

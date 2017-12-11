@@ -7,12 +7,11 @@
     Ainda não existem notícias publicadas
   </div>
 </div>
-<div class="card noticia ql-editor" *ngFor="let noticia of noticias">
+<div class="card noticia ql-editor" *ngFor="let noticia of noticias; let i = index">
   <ng-container *ngIf="isDono(noticia.servidor.id)">
     <uns-action-icon icon="pencil" styleClass="noticia-icon" label="Editar" (click)="editarNoticia(noticia)" topPosition="15px"></uns-action-icon>
     <uns-action-icon icon="trash" styleClass="noticia-icon" label="Remover" (click)="removerNoticia(noticia.id)" topPosition="40px"></uns-action-icon>
   </ng-container>
-
   <h1 class="titulo">{{ noticia.titulo }}</h1>
   <div class="data-noticia">
     {{ noticia.dataCriacao | date:'dd/MM/yyyy HH\'h\'mm' }}
@@ -21,8 +20,7 @@
   <div class="img-destaque" *ngIf="noticia.imgDestaque">
     <img class="img-destaque" [attr.src]="noticia.imgDestaque | safeUrl" />
   </div>
-  <p ng-init="lerMais = false; limite=200" class="conteudo" [innerHTML]="noticia.conteudo | slice:3:limite | safeHtml">
-  </p>
-  <!-- <a *ngIf="lerMais" href ng-click="limite=200; lerMais=false"> Ler Menos</a> -->
-  <!-- <a *ngIf="!lerMais" ng-click="limite=noticia.conteudo.length; lerMais=true">...Ler Mais</a> -->
+  <p ng-init="lerMais[i] = true;" class="conteudo" [innerHTML]="noticia.conteudo | slice:3:limite[i] | safeHtml"></p>
+  <a *ngIf="!lerMais[i] && noticia.conteudo.length > 200" (click)="limite[i]=noticia.conteudo.length; lerMais[i]=true">Ler Mais</a>
+  <a *ngIf="lerMais[i]" (click)="limite[i]=200; lerMais[i]=false">Ler Menos</a>
 </div>
