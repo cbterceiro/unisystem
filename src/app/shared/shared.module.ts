@@ -10,14 +10,18 @@ import { CalendarDefaultConfigDirective } from './calendar-default-config.direct
 
 import { SpinnerComponent } from './spinner.component';
 import { ActionIconComponent } from './action-icon.component';
+import { HabilidadeModalComponent } from './habilidade-modal.component';
+
 
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { SafeUrlPipe } from './safe-url.pipe';
+import { OrderByPipe } from './orderBy.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     Angular2FontawesomeModule,
+    PrimeNgModule
   ],
   declarations: [
     CalendarDefaultConfigDirective,
@@ -25,6 +29,8 @@ import { SafeUrlPipe } from './safe-url.pipe';
     ActionIconComponent,
     SafeHtmlPipe,
     SafeUrlPipe,
+    OrderByPipe,
+    HabilidadeModalComponent
   ],
   exports: [
     CommonModule,
@@ -32,12 +38,13 @@ import { SafeUrlPipe } from './safe-url.pipe';
     ReactiveFormsModule,
     PrimeNgModule,
     Angular2FontawesomeModule,
-
     CalendarDefaultConfigDirective,
     SpinnerComponent,
     ActionIconComponent,
     SafeHtmlPipe,
     SafeUrlPipe,
+    OrderByPipe,
+    HabilidadeModalComponent
   ]
   // providers: [ NÃO CRIE PROVIDERS AQUI ]
 

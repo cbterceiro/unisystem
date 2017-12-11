@@ -6,5 +6,5 @@
 exports.__esModule = true;
 exports.environment = {
     production: false,
-    backendServerPath: 'http://localhost:8080'
+    backendServerPath: 'https://unisystem-nathaliars.c9users.io/'
 };

@@ -27,7 +27,6 @@ import { CertificacaoModalComponent } from './certificacao/certificacao-modal.co
 import { CertificacaoService } from './certificacao/certificacao.service';
 
 import { HabilidadeComponent } from './habilidade/habilidade.component';
-import { HabilidadeModalComponent } from './habilidade/habilidade-modal.component';
 import { HabilidadeService } from './habilidade/habilidade.service';
 
 import { PublicacaoComponent } from './publicacao/publicacao.component';
@@ -52,7 +51,6 @@ import { PublicacaoService } from './publicacao/publicacao.service';
     CertificacaoComponent,
     CertificacaoModalComponent,
     HabilidadeComponent,
-    HabilidadeModalComponent,
     PublicacaoComponent,
     PublicacaoModalComponent,
   ],

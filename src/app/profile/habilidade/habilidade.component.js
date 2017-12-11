@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 var core_1 = require("@angular/core");
-// import { HabilidadeModalComponent } from './habilidade-modal.component';
 var HabilidadeComponent = (function () {
     function HabilidadeComponent(cService, confirmationService, authenticatedUserService, messageService, el) {
         this.cService = cService;
@@ -15,8 +14,6 @@ var HabilidadeComponent = (function () {
         this.authenticatedUserService = authenticatedUserService;
         this.messageService = messageService;
         this.el = el;
-        //constructor() { }
-        // modalhabilidade: HabilidadeModalComponent;
         this.exibeModalhabilidade = false;
         this.habilidadesClass = 'habilidades';
         this.arrowExpand = 'chevron-down';
@@ -24,15 +21,16 @@ var HabilidadeComponent = (function () {
         this.hideVerMais = true; // flag para mostrar/esconder o botão de Ver Mais
         this.hideAddIcon = true;
         this.afterInitialLoadingEmitter = new core_1.EventEmitter();
+        this.exibeModalRecomendacao = false;
     }
-    /*
-     this.CountryService.GetCountries()
-       .subscribe(countries => {
-           this.myGridOptions.rowData = countries as CountryData[]
-       })*/
     HabilidadeComponent.prototype.ngOnInit = function () {
         this.atualizaForm();
-        //this.funcoes =
+    };
+    HabilidadeComponent.prototype.onClickDetalheRecomendacao = function (habilidade) {
+        if (habilidade.numRecomendacoes > 0) {
+            this.exibeModalRecomendacao = true;
+            this.habilidade = habilidade;
+        }
     };
     HabilidadeComponent.prototype.atualizaForm = function () {
         var _this = this;
@@ -62,8 +60,6 @@ var HabilidadeComponent = (function () {
     HabilidadeComponent.prototype.editarhabilidade = function (habilidade) {
         console.log('editando habilidade ');
         this.objToEdit = habilidade;
-        //this.modalhabilidade.setupForm();
-        //this.modalhabilidade.setupForm();
         this.exibeModalhabilidade = true;
     };
     HabilidadeComponent.prototype.addHabilidade = function (value) {
@@ -82,7 +78,7 @@ var HabilidadeComponent = (function () {
     HabilidadeComponent.prototype.removeHabilidade = function (element, habilidade) {
         var _this = this;
         this.confirmationService.confirm({
-            message: 'Tem certeza que deseja remover esta habilidade? \n',
+            message: 'Tem certeza que deseja remover esta habilidade? As recomendações serão perdidas. \n',
             accept: function () {
                 _this.cService["delete"](habilidade.id).subscribe(function (success) {
                     _this.messageService.sendSuccess({ detail: 'Habilidade removida com sucesso.' });

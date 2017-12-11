@@ -112,11 +112,3 @@
 .habilidade_recomendacao{
     cursor: pointer;
 }
-
-img.recomendacao {
-  border-radius: 8px;
-  height: 60px;
-  width: 60px;
-  float: right;
-  box-sizing: border-box;
-}

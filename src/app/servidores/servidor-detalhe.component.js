@@ -20,7 +20,6 @@ var ServidorDetalheComponent = (function () {
         this.authenticatedUserService = authenticatedUserService;
         this.el = el;
         this.exibeModalRecomendacao = false;
-        this.defaultImageUrl = '/assets/img/default-user-icon.png';
     }
     ServidorDetalheComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -38,18 +37,13 @@ var ServidorDetalheComponent = (function () {
         this.initVerMais();
     };
     ServidorDetalheComponent.prototype.onClickDetalheRecomendacao = function (habilidade) {
-        var _this = this;
         if (habilidade.numRecomendacoes > 0) {
             this.exibeModalRecomendacao = true;
-            this.isLoadingRecomendacao = true;
-            this.habilidadeService.getQuemRecomendou(habilidade)
-                .subscribe(function (servidores) {
-                if (servidores) {
-                    _this.quemRecomendouList = servidores;
-                    _this.isLoadingRecomendacao = false;
-                }
-            });
+            this.habilidade = habilidade;
         }
+    };
+    ServidorDetalheComponent.prototype.podeRecomendar = function () {
+        return this.servidor.id != this.authenticatedUserService.getServidor().id;
     };
     ServidorDetalheComponent.prototype.onClickRecomendacao = function (habilidade) {
         var _this = this;
@@ -93,10 +87,6 @@ var ServidorDetalheComponent = (function () {
             capacitacoes: false,
             publicacoes: false
         };
-    };
-    ServidorDetalheComponent.prototype.closeModal = function () {
-        this.quemRecomendouList = null;
-        this.exibeModalRecomendacao = false;
     };
     ServidorDetalheComponent.prototype.verMaisToggle = function (obj) {
     };

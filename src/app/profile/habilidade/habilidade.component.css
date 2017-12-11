@@ -21,6 +21,7 @@
  .habilidade_wrapper /deep/ .ui-chips-token {
     padding: .4em .5em !important;
         margin: 2px !important;
+        cursor: pointer;
 }
 
   .habilidade_wrapper /deep/ .ui-chips-token-icon.fa.fa-fw.fa-close{

@@ -15,13 +15,13 @@
       {{ servidor.nome }} não possui habilidades cadastradas
     </div>
     <div>
-      <span *ngFor="let habilidade of servidor.habilidade" class="habilidade-chips" (click)="onClickDetalheRecomendacao(habilidade)">
-        {{ habilidade.nome }} &nbsp;&nbsp;<span *ngIf="habilidade.numRecomendacoes > 0">&nbsp;&nbsp; {{ habilidade.numRecomendacoes }}</span> &nbsp;&nbsp;&nbsp; 
-        <span [ngClass]="{'habilidade_recomendacao fa': true, 
+      <span *ngFor="let habilidade of servidor.habilidade  | orderBy : '-numRecomendacoes'" class="habilidade-chips" (click)="onClickDetalheRecomendacao(habilidade)">
+        {{ habilidade.nome }} &nbsp;&nbsp;<span *ngIf="habilidade.numRecomendacoes > 0">&nbsp;&nbsp; {{ habilidade.numRecomendacoes }}</span>
+           &nbsp;&nbsp;
+        <span *ngIf="podeRecomendar()" [ngClass]="{'habilidade_recomendacao fa': true,
         'fa-thumbs-o-up': habilidade.recomendado == 0, 
         'fa-thumbs-up': habilidade.recomendado == 1}"
-       (click)="onClickRecomendacao(habilidade)">
-          
+       (click)="$event.stopPropagation();onClickRecomendacao(habilidade)">
         </span>
      
         </span>
@@ -132,18 +132,5 @@
   </div>
 </ng-container>
 
-<p-dialog header="Quem recomendou" [modal]="true" [(visible)]="exibeModalRecomendacao" [width]="600" [positionTop]="30" [blockScroll]=true [contentStyle]="{'overflow':'auto','max-height':'500px'}"
-  (onHide)="closeModal()">
-      <uns-spinner [isLoading]="isLoadingRecomendacao"></uns-spinner>
-       <div *ngFor="let servidor of quemRecomendouList" class="ui-g">
-           <div class="ui-g-2">
-               <img class="recomendacao" [src]="servidor.servidor.foto || defaultImageUrl">
-           </div>
-           <div class="ui-g-10">
-                <h4>
-                  <span>{{servidor.servidor.nome}}</span>
-                </h4>
-           </div>
-    </div>
-</p-dialog>
+<uns-habilidade-modal [(visible)]="exibeModalRecomendacao"  [habilidade]="habilidade"></uns-habilidade-modal>
 

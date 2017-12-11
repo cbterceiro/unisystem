@@ -8,19 +8,14 @@ import {ViewEncapsulation} from '@angular/core';
 
 import { Habilidade } from './habilidade.model'
 import { HabilidadeService } from './habilidade.service'
-// import { HabilidadeModalComponent } from './habilidade-modal.component';
 
 @Component({
   selector: 'uns-habilidade',
   templateUrl: 'habilidade.component.html',
   styleUrls: ['habilidade.component.css'],
-  // encapsulation: ViewEncapsulation.None 
 })
 
 export class HabilidadeComponent implements OnInit {
-  //constructor() { }
-
-  // modalhabilidade: HabilidadeModalComponent;
   exibeModalhabilidade: boolean = false;
   objToEdit: Habilidade;
 
@@ -34,6 +29,9 @@ export class HabilidadeComponent implements OnInit {
 
   finishedInitialLoading: true;
   @Output('onAfterInitialLoading') afterInitialLoadingEmitter: EventEmitter<any> = new EventEmitter<any>();
+  
+  exibeModalRecomendacao = false;
+  habilidade: any;
 
   constructor(private cService: HabilidadeService,
     private confirmationService: ConfirmationService,
@@ -44,17 +42,17 @@ export class HabilidadeComponent implements OnInit {
 
   habilidades: Habilidade[];
 
-  /*
-   this.CountryService.GetCountries()
-     .subscribe(countries => {
-         this.myGridOptions.rowData = countries as CountryData[]
-     })*/
-
   ngOnInit() {
 
     this.atualizaForm();
-    //this.funcoes =
 
+  }
+
+onClickDetalheRecomendacao(habilidade) :void{
+    if(habilidade.numRecomendacoes > 0){
+        this.exibeModalRecomendacao = true;
+        this.habilidade = habilidade;
+    }
   }
 
   atualizaForm(): void {
@@ -88,9 +86,6 @@ export class HabilidadeComponent implements OnInit {
   editarhabilidade(habilidade: Habilidade): void {
     console.log('editando habilidade ');
     this.objToEdit = habilidade;
-    //this.modalhabilidade.setupForm();
-    //this.modalhabilidade.setupForm();
-
     this.exibeModalhabilidade = true;
 
   }
@@ -114,7 +109,7 @@ export class HabilidadeComponent implements OnInit {
   
   removeHabilidade(element, habilidade: Habilidade){
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja remover esta habilidade? \n',
+      message: 'Tem certeza que deseja remover esta habilidade? As recomendações serão perdidas. \n',
       accept: () => {
         this.cService.delete(habilidade.id).subscribe(success => {
           this.messageService.sendSuccess({ detail: 'Habilidade removida com sucesso.' });

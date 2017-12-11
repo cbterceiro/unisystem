@@ -24,7 +24,7 @@ ServidoresModule = __decorate([
         ],
         declarations: [
             servidores_component_1.ServidoresComponent,
-            servidor_detalhe_component_1.ServidorDetalheComponent,
+            servidor_detalhe_component_1.ServidorDetalheComponent
         ],
         providers: []
     })

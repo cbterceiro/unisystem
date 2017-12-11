@@ -14,8 +14,10 @@ var primeng_module_1 = require("./primeng/primeng.module");
 var calendar_default_config_directive_1 = require("./calendar-default-config.directive");
 var spinner_component_1 = require("./spinner.component");
 var action_icon_component_1 = require("./action-icon.component");
+var habilidade_modal_component_1 = require("./habilidade-modal.component");
 var safe_html_pipe_1 = require("./safe-html.pipe");
 var safe_url_pipe_1 = require("./safe-url.pipe");
+var orderBy_pipe_1 = require("./orderBy.pipe");
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -33,6 +35,8 @@ SharedModule = __decorate([
             action_icon_component_1.ActionIconComponent,
             safe_html_pipe_1.SafeHtmlPipe,
             safe_url_pipe_1.SafeUrlPipe,
+            orderBy_pipe_1.OrderByPipe,
+            habilidade_modal_component_1.HabilidadeModalComponent
         ],
         exports: [
             common_1.CommonModule,
@@ -45,6 +49,8 @@ SharedModule = __decorate([
             action_icon_component_1.ActionIconComponent,
             safe_html_pipe_1.SafeHtmlPipe,
             safe_url_pipe_1.SafeUrlPipe,
+            orderBy_pipe_1.OrderByPipe,
+            habilidade_modal_component_1.HabilidadeModalComponent
         ]
         // providers: [ NÃO CRIE PROVIDERS AQUI ]
         // O módulo com recursos compartilhados não deve prover nenhum serviço para injeção. Este módulo tem como propósito
