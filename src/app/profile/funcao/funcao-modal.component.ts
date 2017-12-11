@@ -53,8 +53,8 @@ export class FuncaoModalComponent implements OnChanges {
     if (this.funcaoEdit && this.visible) {
       this.funcaoForm = this.formBuilder.group({
         nome: [this.funcaoEdit.nome, Validators.required],
-        setor: [this.funcaoEdit.setor], // terá setor aqui?
-        orgao: [this.funcaoEdit.orgao],
+        setor: [this.funcaoEdit.setorFuncao], // terá setor aqui?
+        orgao: [this.funcaoEdit.orgaoFuncao],
         atual: [this.funcaoEdit.atual],
         descricao: [this.funcaoEdit.descricao],
         dataInicio: [this.funcaoEdit.dataInicio, Validators.required],
@@ -126,7 +126,7 @@ export class FuncaoModalComponent implements OnChanges {
       funcao.id = this.idToEdit;
       funcao.servidor_id = servidor.id;
       funcao.orgao_id = funcao.orgao ? funcao.orgao.id : null;
-      funcao.setor_id = funcao.setor.id;      
+      funcao.setor_id = funcao.setor ? funcao.setor.id : null;      
       this.isSubmitting = true;
       this.funcaoService.save(funcao).subscribe(success => {
         this.isSubmitting = false;

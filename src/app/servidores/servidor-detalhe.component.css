@@ -54,6 +54,9 @@
   font-size: 0.9em;
 }
 
+.descricao{
+  margin-left: 10px;
+}
 
 .botaoVerMais {
   text-align: center;
