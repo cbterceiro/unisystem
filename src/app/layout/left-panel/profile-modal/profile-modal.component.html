@@ -2,7 +2,7 @@
   <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.valid, profileForm.value)">
     <div class="ui-g profile-image-g">
       <div class="profile-image">
-        <img [src]="foto || '/assets/img/default-user-icon.png'" (click)="visibleCropModal = true" />
+        <img [src]="profileForm.controls.foto.value || '/assets/img/default-user-icon.png'" (click)="visibleCropModal = true" />
         <div class="profile-image-overlay">
           <span>Alterar foto</span>
         </div>
@@ -99,6 +99,25 @@
   </form>
 </p-dialog>
 <p-dialog header="Alterar foto" [modal]="true" [(visible)]="visibleCropModal" (onHide)="closeCropModal()" class="crop-modal">
-  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
-  <button pButton class="upload-image-button" label="Enviar" (click)="upload(data)"></button>
+  <div class="ui-g">
+    <div class="ui-g-12 file-upload-container">
+      <input type="file" id="file-upload-input" (change)="fileChangeListener($event)" class="file-upload-input" />
+      <label for="file-upload-input" class="file-upload-label">Selecione uma imagem</label>
+      <span class="file-upload-filename">{{ imgFileName }}</span>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <img-cropper #cropper [image]="imageData" [settings]="cropperSettings"></img-cropper>
+    </div>
+  </div>
+  <uns-spinner [isLoading]="isUpdatingPicture"></uns-spinner>
+  <div class="ui-g ui-fluid upload-image-buttons" *ngIf="!isUpdatingPicture">
+    <div class="ui-g-6">
+      <button pButton label="Enviar" (click)="upload(imageData)"></button>
+    </div>
+    <div class="ui-g-6">
+      <button pButton label="Cancelar" (click)="closeCropModal()"></button>
+    </div>
+  </div>
 </p-dialog>

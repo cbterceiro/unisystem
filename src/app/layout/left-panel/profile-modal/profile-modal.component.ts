@@ -55,10 +55,9 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.visibleChange.emit(visible);
   }
 
-  foto: any;
+  imageData: any;
   visibleCropModal: boolean;
-  data: any;
-  imgFile: File;
+  imgFileName: string;
   cropperSettings: CropperSettings;
   @ViewChild('cropper') cropper: ImageCropperComponent;
 
@@ -84,9 +83,9 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setupImageCropper() {
-    this.data = {};
+    this.imageData = {};
     this.cropperSettings = new CropperSettings();
-    // this.cropperSettings.noFileInput = true;
+    this.cropperSettings.noFileInput = true;
     this.cropperSettings.canvasWidth = 600;
     this.cropperSettings.canvasHeight = 400;
     this.cropperSettings.minWidth = 100;
@@ -146,7 +145,6 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   loadServidor(): void {
     const servidor: Servidor = this.authenticatedUserService.getServidor();
     this.profileForm.patchValue(servidor);
-    this.foto = servidor.foto || null;
 
     // Hack para consertar o bug do PrimeNG de exibição de data no formato inválido na primeira vez em que o componente
     // Calendar é exibido na tela
@@ -192,72 +190,51 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateBackgroundImage(base64Img: string) {
-    const element = this.el.nativeElement.querySelector('p-fileupload .ui-fileupload-choose');
-    if (base64Img && element) {
-      this.renderer.setStyle(element, 'background-image', `url('${base64Img}')`);
-    }
+    this.profileForm.get('foto').setValue(base64Img);
   }
 
-  onSelectFile(event) {
-    const file: File = event.files[0];
+  fileChangeListener(event) {
+    const file = event.target.files[0];
     if (file.size > this.maxFileSize) {
       this.messageService.sendError({ detail: `O tamanho máximo para a imagem é de ${this.maxFileSize / 1024 / 1024} MB.` });
-    } else {
-      this.imgFile = file;
-      const image = new Image();
-      image.src = file['objectURL'];
-      this.cropper.setImage(image);
-      delay(_ => this.visibleCropModal = true);
+      return;
     }
-  }
-
-  onSelectFile2(event) {
-    console.log('onSelectFile2', event);
-    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    const file = files[0];
-    console.log('file', file);
-    console.log('url', window.URL.createObjectURL(file));
-    console.log('url sanitized', this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file)));
-    this.foto = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
     const image = new Image();
-    image.src = this.foto;
-    console.log('cropper', this.cropper);
-    // this.cropper.setImage(image);
-    delay(_ => this.visibleCropModal = true);
+    const reader = new FileReader();
+    reader.onloadend = (loadEvent) => {
+      image.src = loadEvent.target['result'];
+      this.cropper.setImage(image);
+    };
+    reader.readAsDataURL(file);
+    this.imgFileName = file.name;
   }
 
-  upload(data) {
-    console.log('upload', data);
-    console.log('upload image', data.image.length);
-    console.log('upload image', data.image);
-  }
-
-  closeCropModal(): void {
-    this.imgFile = null;
-    // this.fileUpload.clear();
-  }
-
-  onCustomUpload(event) {
-    const file = event.files && event.files[0];
+  upload(imageData) {
     const id = this.profileForm.get('id').value;
-    if (file && id) {
-      this.isUpdatingPicture = true;
-      this.servidorService.updateImg(id, file).subscribe(
+    this.isUpdatingPicture = true;
+    if (imageData.image && id) {
+      this.servidorService.updateImg(id, imageData.image).subscribe(
         img => {
           this.isUpdatingPicture = false;
           this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
           this.profileForm.get('foto').setValue(img.foto);
           this.authenticatedUserService.updateServidor(this.profileForm.value);
-          this.fileUpload.clear();
+          this.closeCropModal();
         },
         error => {
           this.isUpdatingPicture = false;
           this.messageService.sendError({ detail: error.json().msg || 'Erro no envio da foto.' });
-          this.fileUpload.clear();
-          this.closeModal();
+          this.closeCropModal();
+          delay(_ => this.closeModal());
         }
       );
     }
+  }
+
+  closeCropModal(): void {
+    this.imgFileName = null;
+    this.visibleCropModal = false;
+    this.cropper.reset();
   }
 
   ngOnDestroy() {
