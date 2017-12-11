@@ -34,7 +34,7 @@
     <b>Habilidades:</b>
     </p>
     <ul>
-      <li *ngFor="let habilidade of servidor.habilidade">{{ habilidade.nome }}</li>
+      <li *ngFor="let habilidade of servidor.habilidade  | slice:0:5">{{ habilidade.nome }}</li>
     </ul>
    
       

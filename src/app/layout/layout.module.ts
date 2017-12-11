@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { ImageCropperModule } from 'ng2-img-cropper';
+
 import { SharedModule } from '../shared/shared.module';
 
 import { MainComponent } from './main.component';
@@ -13,6 +15,7 @@ import { ProfileModalComponent } from './left-panel/profile-modal/profile-modal.
 
 @NgModule({
   imports: [
+    ImageCropperModule,
     SharedModule,
     RouterModule,
   ],
