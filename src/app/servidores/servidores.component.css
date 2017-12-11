@@ -14,3 +14,8 @@ img.router-detalhe {
 img.router-detalhe:hover {
   border: 1px solid #fcaf05;
 }
+
+.servidor
+{
+  min-height: 180px;
+}

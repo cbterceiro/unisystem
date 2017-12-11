@@ -68,7 +68,6 @@ export class ServidoresComponent implements OnInit {
         this.servidorService.getByPesquisa2(
       this.nomeCompleto, this.instituicao, this.cargo, this.orgao, this.setor, this.habilidade, this.funcao, this.limite, this.offset
     ).subscribe(servidores => {
-      console.log(servidores);
       this.servidores = servidores;
       
       //Buscando imagem separada a query fica mais rápida...

@@ -6,5 +6,5 @@
 exports.__esModule = true;
 exports.environment = {
     production: false,
-    backendServerPath: 'http://localhost:8080'
+    backendServerPath: 'http://uni-back2-slayper.c9users.io'
 };
