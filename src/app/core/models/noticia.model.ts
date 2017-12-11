@@ -3,4 +3,6 @@ export class Noticia {
   titulo: string;
   imgDestaque: string;
   conteudo: string;
+  dataCriacao: Date;
+  dataAtualizacao: Date;
 }
