@@ -5,37 +5,20 @@
   width: 180px;
   height: 180px;
   margin: 0 auto;
-  position: relative;
-  display: flex;
-  border-radius: 5px;
   cursor: pointer;
+  position: relative;
+  border-radius: 5px;
   box-sizing: content-box;
+  display: flex;
 }
 .profile-image:hover {
-  border: 1px solid #4d4d4d;
-  transition: border 300ms ease-in-out;
+  border: 1px solid black;
 }
-.profile-image /deep/ .ui-fileupload-choose {
-  width: 180px;
-  height: 100%;
-  background-image: url('/assets/img/default-user-icon.png');
-  background-color: #fff;
-  background-repeat: no-repeat;
-  background-size: 180px;
-}
-.profile-image /deep/ .ui-fileupload-choose:hover {
-  background-color: #fff;
-}
-.profile-image /deep/ .ui-button-icon-left,
-.profile-image /deep/ .ui-button-text {
-  display: none;
-}
-.profile-image /deep/ .spinner {
-  position: absolute;
-  z-index: 1;
-  height: 180px;
-  padding-top: 70px;
-  background-color: rgba(0,0,0,0.5);
+.profile-image img {
+  width: 178px;
+  height: 178px;
+  margin: 0 auto;
+  align-self: center;
 }
 
 .profile-image-overlay {
@@ -62,4 +45,41 @@
 .profile-image:hover .profile-image-overlay span {
   padding-top: 0;
   transition: 200ms ease-in-out;
+}
+
+.crop-modal /deep/ .ng2-imgcrop input[type="file"] {
+  display: block;
+  margin-bottom: 10px;
+}
+.crop-modal .upload-image-buttons button {
+  display: block;
+}
+.crop-modal .file-upload-container {
+  width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.crop-modal .file-upload-container .file-upload-input {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.crop-modal .file-upload-container .file-upload-filename {
+  margin-left: 8px;
+}
+.crop-modal .file-upload-container .file-upload-label {
+  color: white;
+  background-color: #0275d8;
+  display: inline-block;
+  cursor: pointer;
+  padding: .5em 1em;
+  border-radius: 5px;
+}
+.crop-modal .file-upload-container .file-upload-input:focus + .file-upload-label,
+.crop-modal .file-upload-container .file-upload-label:hover {
+  background-color: #0267bf;
 }

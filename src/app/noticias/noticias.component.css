@@ -1,3 +1,11 @@
+.noticia {
+  position: relative;
+}
+
+.noticia /deep/ .noticia-icon span {
+  padding-top: 3px;
+}
+
 .noticia.ql-editor {
   white-space: initial;
 }
@@ -19,7 +27,17 @@
   max-height: 360px;
 }
 
-a{
+.noticia .titulo {
+  margin-bottom: 0.1em;
+}
+
+.noticia .data-noticia {
+  font-size: 0.8em;
+  text-align: right;
+  margin-bottom: 1em;
+}
+
+a {
    cursor:pointer;
    color:#01579b;
 }

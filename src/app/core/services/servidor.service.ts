@@ -47,19 +47,17 @@ export class ServidorService {
   getById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}/`)
       .map((res: Response) => {
-        return this.jsonToServidor(res.json() || {})
-        
+        return this.jsonToServidor(res.json() || {});
       });
   }
-  
-    getByIdSemFoto(id: number, idLogado:number): Observable<Servidor> {
+
+  getByIdSemFoto(id: number, idLogado: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores3/${id}/${idLogado}`)
       .map((res: Response) => {
-        return this.jsonToServidor(res.json() || {})
-        
+        return this.jsonToServidor(res.json() || {});
       });
   }
-  
+
   getFotoById(id: number): Observable<Servidor> {
     return this.httpClientService.get(`/servidores/${id}/foto`)
       .map((res: Response) => this.jsonToServidor(res.json() || {}));
@@ -76,8 +74,8 @@ export class ServidorService {
     return s.id ? this.update(s) : this.create(s);
   }
 
-  updateImg(id: number, file: File) {
-    return this.fileUploadService.uploadFile(`/servidores/${id}/foto`, 'foto', file)
+  updateImg(id: number, base64Img: string) {
+    return this.httpClientService.post(`/servidores/${id}/foto`, { foto: base64Img })
       .map((res: Response) => res.json() || {});
   }
 

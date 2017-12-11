@@ -2,8 +2,7 @@
   <form [formGroup]="profileForm" class="ui-fluid" (submit)="onSubmit(profileForm.valid, profileForm.value)">
     <div class="ui-g profile-image-g">
       <div class="profile-image">
-        <uns-spinner [isLoading]="isUpdatingPicture"></uns-spinner>
-        <p-fileUpload #fileUpload accept="image/*" mode="basic" auto="auto" [maxFileSize]="maxFileSize" (onSelect)="onSelectFile($event)" customUpload="true" (uploadHandler)="onCustomUpload($event)"></p-fileUpload>
+        <img [src]="profileForm.controls.foto.value || '/assets/img/default-user-icon.png'" (click)="visibleCropModal = true" />
         <div class="profile-image-overlay">
           <span>Alterar foto</span>
         </div>
@@ -98,4 +97,27 @@
       </div>
     </div>
   </form>
+</p-dialog>
+<p-dialog header="Alterar foto" [modal]="true" [(visible)]="visibleCropModal" (onHide)="closeCropModal()" class="crop-modal">
+  <div class="ui-g">
+    <div class="ui-g-12 file-upload-container">
+      <input type="file" id="file-upload-input" (change)="fileChangeListener($event)" class="file-upload-input" />
+      <label for="file-upload-input" class="file-upload-label">Selecione uma imagem</label>
+      <span class="file-upload-filename">{{ imgFileName }}</span>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <img-cropper #cropper [image]="imageData" [settings]="cropperSettings"></img-cropper>
+    </div>
+  </div>
+  <uns-spinner [isLoading]="isUpdatingPicture"></uns-spinner>
+  <div class="ui-g ui-fluid upload-image-buttons" *ngIf="!isUpdatingPicture">
+    <div class="ui-g-6">
+      <button pButton label="Enviar" (click)="upload(imageData)"></button>
+    </div>
+    <div class="ui-g-6">
+      <button pButton label="Cancelar" (click)="closeCropModal()"></button>
+    </div>
+  </div>
 </p-dialog>

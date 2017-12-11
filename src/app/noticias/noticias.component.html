@@ -1,6 +1,6 @@
-<uns-noticia-form *ngIf="isAdmin" (onSave)="getNoticias()"></uns-noticia-form>
+<uns-noticia-form #noticiaForm *ngIf="isAdmin" [idServidor]="idServidor" (onSave)="getNoticias()"></uns-noticia-form>
 
-<div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}">
+<div class="noticias card" [ngClass]="{'card-w-title': noticias && !noticias.length}" #noticiasTitleCard>
   <h1>Notícias Recentes</h1>
   <uns-spinner [isLoading]="isLoading"></uns-spinner>
   <div *ngIf="!isLoading && noticias && !noticias.length" class="text-center">
@@ -8,7 +8,15 @@
   </div>
 </div>
 <div class="card noticia ql-editor" *ngFor="let noticia of noticias; let i = index">
+  <ng-container *ngIf="isDono(noticia.servidor.id)">
+    <uns-action-icon icon="pencil" styleClass="noticia-icon" label="Editar" (click)="editarNoticia(noticia)" topPosition="15px"></uns-action-icon>
+    <uns-action-icon icon="trash" styleClass="noticia-icon" label="Remover" (click)="removerNoticia(noticia.id)" topPosition="40px"></uns-action-icon>
+  </ng-container>
   <h1 class="titulo">{{ noticia.titulo }}</h1>
+  <div class="data-noticia">
+    {{ noticia.dataCriacao | date:'dd/MM/yyyy HH\'h\'mm' }}
+    <span *ngIf="noticia.dataAtualizacao">- Atualizado em {{ noticia.dataAtualizacao | date:'dd/MM/yyyy HH\'h\'mm' }}</span>
+  </div>
   <div class="img-destaque" *ngIf="noticia.imgDestaque">
     <img class="img-destaque" [attr.src]="noticia.imgDestaque | safeUrl" />
   </div>

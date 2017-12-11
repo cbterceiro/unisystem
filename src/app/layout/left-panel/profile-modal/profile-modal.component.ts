@@ -1,10 +1,13 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs/Subscription';
 
 import { SelectItem, FileUpload, DomHandler } from 'primeng/primeng';
+
+import { CropperSettings, ImageCropperComponent } from 'ng2-img-cropper';
 
 import { markFormGroupDirty, delay } from '../../../shared/functions';
 
@@ -52,6 +55,12 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.visibleChange.emit(visible);
   }
 
+  imageData: any;
+  visibleCropModal: boolean;
+  imgFileName: string;
+  cropperSettings: CropperSettings;
+  @ViewChild('cropper') cropper: ImageCropperComponent;
+
   constructor(
     private formBuilder: FormBuilder,
     private servidorService: ServidorService,
@@ -60,6 +69,7 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     private domHandler: DomHandler,
     private el: ElementRef,
     private renderer: Renderer2,
+    private sanitizer: DomSanitizer,
     private authenticatedUserService: AuthenticatedUserService,
   ) { }
 
@@ -68,6 +78,20 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setYearRange();
     this.loadServidor();
     this.setupImageListener();
+
+    this.setupImageCropper();
+  }
+
+  setupImageCropper() {
+    this.imageData = {};
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.noFileInput = true;
+    this.cropperSettings.canvasWidth = 600;
+    this.cropperSettings.canvasHeight = 400;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.width = 300;
+    this.cropperSettings.height = 300;
   }
 
   ngAfterViewInit() {
@@ -166,40 +190,51 @@ export class ProfileModalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateBackgroundImage(base64Img: string) {
-    const element = this.el.nativeElement.querySelector('p-fileupload .ui-fileupload-choose');
-    if (base64Img && element) {
-      this.renderer.setStyle(element, 'background-image', `url('${base64Img}')`);
-    }
+    this.profileForm.get('foto').setValue(base64Img);
   }
 
-  onSelectFile(event) {
-    const file: File = event.files[0];
+  fileChangeListener(event) {
+    const file = event.target.files[0];
     if (file.size > this.maxFileSize) {
       this.messageService.sendError({ detail: `O tamanho máximo para a imagem é de ${this.maxFileSize / 1024 / 1024} MB.` });
+      return;
     }
+    const image = new Image();
+    const reader = new FileReader();
+    reader.onloadend = (loadEvent) => {
+      image.src = loadEvent.target['result'];
+      this.cropper.setImage(image);
+    };
+    reader.readAsDataURL(file);
+    this.imgFileName = file.name;
   }
 
-  onCustomUpload(event) {
-    const file = event.files && event.files[0];
+  upload(imageData) {
     const id = this.profileForm.get('id').value;
-    if (file && id) {
-      this.isUpdatingPicture = true;
-      this.servidorService.updateImg(id, file).subscribe(
+    this.isUpdatingPicture = true;
+    if (imageData.image && id) {
+      this.servidorService.updateImg(id, imageData.image).subscribe(
         img => {
           this.isUpdatingPicture = false;
           this.messageService.sendSuccess({ detail: 'Foto atualizada com sucesso.' });
           this.profileForm.get('foto').setValue(img.foto);
           this.authenticatedUserService.updateServidor(this.profileForm.value);
-          this.fileUpload.clear();
+          this.closeCropModal();
         },
         error => {
           this.isUpdatingPicture = false;
           this.messageService.sendError({ detail: error.json().msg || 'Erro no envio da foto.' });
-          this.fileUpload.clear();
-          this.closeModal();
+          this.closeCropModal();
+          delay(_ => this.closeModal());
         }
       );
     }
+  }
+
+  closeCropModal(): void {
+    this.imgFileName = null;
+    this.visibleCropModal = false;
+    this.cropper.reset();
   }
 
   ngOnDestroy() {

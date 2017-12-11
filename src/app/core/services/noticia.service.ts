@@ -25,19 +25,31 @@ export class NoticiaService {
 
   getNoticias(): Observable<Noticia[]> {
     return this.httpClientService.search('/noticias', new SearchModel({
-      fields: ['id', 'titulo', 'conteudo', 'imgDestaque'],
+      fields: ['id', 'titulo', 'conteudo', 'imgDestaque', 'dataCriacao', 'dataAtualizacao', 'servidor.id'],
       orderBy: ['created_at desc']
     })).map((res: Response) => this.jsonToNoticias(res.json() || []));
   }
 
-  create(noticia: Noticia): Observable<number> {
-    return this.httpClientService.post('/noticias', noticia)
+  create(noticia: Noticia, idServidor: number): Observable<number> {
+    noticia['servidor_id'] = idServidor;
+    return this.httpClientService.post(`/noticias`, noticia)
       .map((res: Response) => res.json().id);
+  }
+
+  update(noticia: Noticia, idServidor: number): Observable<boolean> {
+    noticia['servidor_id'] = idServidor;
+    return this.httpClientService.put(`/noticias/${noticia.id}`, noticia)
+      .map((res: Response) => res.ok);
   }
 
   updateImgDestaque(id: number, file: File): Observable<boolean> {
     return this.fileUploadService.uploadFile(`/noticias/${id}/foto`, 'foto', file)
       .map((res: Response) => res.json() || {});
+  }
+
+  delete(idNoticia: number): Observable<boolean> {
+    return this.httpClientService.delete(`/noticias/${idNoticia}`)
+      .map((res: Response) => res.ok);
   }
 
   private jsonToNoticia(json: any): Noticia {

@@ -6,25 +6,25 @@
   text-align: center;
   background-color: #623586;
   color: #ffffff;
-  background-image: url('../../../assets/img/Brasao_GovernoW.png'), url('../../../assets/img/labges.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 117px 46px, 80px 50px;
-  background-position: 10% 2px, 22% 0%; 
 }
 .topbar-content {
   height: 100%;
   display: flex;
   align-items: center;
+  background-image: url('../../../assets/img/Brasao_GovernoW.png'), url('../../../assets/img/labges.jpg');
+  background-repeat: no-repeat;
+  background-size: 117px 46px, 80px 50px;
+  background-position: 0 0, 135px 0;
 }
 
 .search-area {
   margin-left:250px;
-  width: 600px;
+  width: 100%;
+  max-width: 573px;
 }
 
 .search-area input{
-  width: 540px;
+  width: 100%;
 }
 
 .search-overlay{
@@ -40,7 +40,7 @@
 }
 
 .topbar-icons{
-  margin-left: 50px;  
+  margin-left: 50px;
   top: 0;
   color:aliceblue;
 }
