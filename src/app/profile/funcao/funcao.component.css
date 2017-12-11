@@ -10,6 +10,10 @@ h4, p {
   margin-left: 0.6em;
 }
 
+.descricao{
+  margin-left: 10px;
+}
+
 .funcoes {
   overflow-y: hidden;
   max-height: 327px; /* exibe 2 funções */

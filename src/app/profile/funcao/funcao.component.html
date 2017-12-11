@@ -17,7 +17,7 @@
       <h4>{{funcao.nome}}</h4>
       <p *ngIf="funcao.orgao">Orgão: {{funcao.orgao.sigla}}</p>
       <p *ngIf="funcao.setor">Setor: {{funcao.setor.nome}}</p>
-      <p>Descrição: {{funcao.descricao}}</p>
+      <!-- <div class="descricao">Descrição: <p [innerHTML]="funcao.descricao | safeHtml"></p></div> -->
       <p *ngIf="funcao.dataFim" >Período: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} à {{funcao.dataFim | date: 'dd/MM/yyyy'}} </p>
       <p *ngIf="!funcao.dataFim">Inicio: {{funcao.dataInicio | date: 'dd/MM/yyyy'}} </p>
 
