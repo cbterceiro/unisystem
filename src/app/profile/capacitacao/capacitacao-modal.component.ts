@@ -85,7 +85,8 @@ export class CapacitacaoModalComponent implements OnChanges {
 
   pesquisarEntidades(event) {
     const entidade = event.query;
-    this.capacitacaoService.searchEntidades(entidade).subscribe(entidades => {
+    this.capacitacaoService.searchEntidadesAutoComplete(entidade).subscribe(entidades => {
+      console.log(entidades);
       this.sugestoesEntidade = entidades;
     });
   }
