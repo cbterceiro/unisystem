@@ -39,6 +39,11 @@ export class CapacitacaoService {
       filters: [`entidade like %${entidade}%`]
     })).map((res: Response) => (res.json() || []).map(c => c.entidade));
   }
+  
+  searchEntidadesAutoComplete(entidade: string): Observable<string[]> {
+     return this.httpClientService.get(`/instituicoes-academicas/nome/${entidade}`)
+      .map((res: Response) => res.json().map(c => c.nome) || []);
+  }
 
   private create(Capacitacao: Capacitacao): Observable<any> {
     return this.httpClientService.post('/atividades-complementares', Capacitacao)

@@ -65,7 +65,7 @@ export class CapacitacaoModalComponent implements OnChanges {
       this.capacitacaoForm = this.formBuilder.group({
         entidade: ['', Validators.required],
         nomeCurso: ['', Validators.required],
-        modalidade: ['', Validators.required],
+        modalidade: ['Presencial', Validators.required],
         anoFim: [2017, Validators.required],
        // dataInicio: [null, Validators.required],
        // dataFim: [null, Validators.required],
@@ -85,7 +85,8 @@ export class CapacitacaoModalComponent implements OnChanges {
 
   pesquisarEntidades(event) {
     const entidade = event.query;
-    this.capacitacaoService.searchEntidades(entidade).subscribe(entidades => {
+    this.capacitacaoService.searchEntidadesAutoComplete(entidade).subscribe(entidades => {
+      console.log(entidades);
       this.sugestoesEntidade = entidades;
     });
   }
