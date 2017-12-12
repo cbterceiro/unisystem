@@ -73,7 +73,7 @@
 }
 .crop-modal .file-upload-container .file-upload-label {
   color: white;
-  background-color: #0275d8;
+  background-color: #623586;
   display: inline-block;
   cursor: pointer;
   padding: .5em 1em;
@@ -81,5 +81,5 @@
 }
 .crop-modal .file-upload-container .file-upload-input:focus + .file-upload-label,
 .crop-modal .file-upload-container .file-upload-label:hover {
-  background-color: #0267bf;
+  background-color: #623586;
 }

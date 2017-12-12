@@ -6,7 +6,6 @@
 .left-panel {
   float: left;
   width: 240px;
-  position: fixed;
 }
 
 .content {
@@ -27,7 +26,6 @@
   .left-panel {
     width: 100%;
     float: none;
-    position: initial;
   }
   .content {
     width: 100%;
