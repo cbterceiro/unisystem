@@ -10,7 +10,7 @@
      &nbsp;&nbsp; 
      <span *ngIf="item.numRecomendacoes > 0">
      {{item.numRecomendacoes}}&nbsp;&nbsp; </span>
-     <i style="margin-left:1em" class="habilidadeclose fa fa-close" (click)="removeHabilidade($event.target,item)" style="cursor: pointer;"></i>
+     <i style="margin-left:1em" class="habilidadeclose fa fa-close" (click)="$event.stopPropagation();removeHabilidade($event.target,item)" style="cursor: pointer;"></i>
     </div>
     </ng-template>
 </p-chips>

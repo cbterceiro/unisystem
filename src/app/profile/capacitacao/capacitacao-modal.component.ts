@@ -65,7 +65,7 @@ export class CapacitacaoModalComponent implements OnChanges {
       this.capacitacaoForm = this.formBuilder.group({
         entidade: ['', Validators.required],
         nomeCurso: ['', Validators.required],
-        modalidade: ['', Validators.required],
+        modalidade: ['Presencial', Validators.required],
         anoFim: [2017, Validators.required],
        // dataInicio: [null, Validators.required],
        // dataFim: [null, Validators.required],
