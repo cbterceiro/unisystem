@@ -137,3 +137,12 @@ body a {
     width: calc(100% - 20px);
   }
 }
+
+body .ui-button {
+    color: #ffffff !important;;
+    background-color: #623586 !important;
+}
+
+.global_spinner{
+  color: #623586 !important;
+}
