@@ -40,7 +40,7 @@
 }
 
 .topbar-icons{
-  margin-left: 50px;
+  
   top: 0;
   color:aliceblue;
 }
@@ -48,3 +48,4 @@
 .topbar-icons:hover{
   color: #feb101;
 }
+
