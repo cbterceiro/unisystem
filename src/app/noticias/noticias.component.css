@@ -24,7 +24,7 @@
 
 .noticia .img-destaque img {
   max-width: 100%;
-  max-height: 300px;
+  max-height: 180px;
 }
 
 .noticia .titulo {
@@ -47,5 +47,5 @@
 }
 
 .conteudo_leia_mais{
-  text-align: center;  
+  text-align: center;
 }
