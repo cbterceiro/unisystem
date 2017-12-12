@@ -20,7 +20,9 @@
   <div class="img-destaque" *ngIf="noticia.imgDestaque">
     <img class="img-destaque" [attr.src]="noticia.imgDestaque | safeUrl" />
   </div>
+  <div class="conteudo_leia_mais">
   <p ng-init="lerMais[i] = true;" class="conteudo" [innerHTML]="noticia.conteudo | slice:3:limite[i] | safeHtml"></p>
-  <a *ngIf="!lerMais[i] && noticia.conteudo.length > 200" (click)="limite[i]=noticia.conteudo.length; lerMais[i]=true">Ler Mais</a>
-  <a *ngIf="lerMais[i]" (click)="limite[i]=200; lerMais[i]=false">Ler Menos</a>
+    <a *ngIf="!lerMais[i] && noticia.conteudo.length > 200" (click)="limite[i]=noticia.conteudo.length; lerMais[i]=true">Ler Mais</a>
+    <a *ngIf="lerMais[i]" (click)="limite[i]=200; lerMais[i]=false">Ler Menos</a>
+  </div>
 </div>

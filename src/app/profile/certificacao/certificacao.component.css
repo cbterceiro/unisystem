@@ -16,7 +16,7 @@ h4, p {
 
 .certificacoesExpandido {
   overflow-y: hidden;
-  max-height: 10000px; /*exibe até 10 certificacoes */
+  max-height: 10000px;
 
   transition: max-height 0.75s ease-in;
 }

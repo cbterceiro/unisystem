@@ -23,7 +23,7 @@ h4, p {
 
 .funcoesExpandido {
   overflow-y: hidden;
-  max-height: 10000px; /*exibe até 10 funções */
+  max-height: 10000px;
 
   transition: max-height 0.75s ease-in;
 }

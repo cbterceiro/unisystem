@@ -11,10 +11,10 @@
   height: 100%;
   display: flex;
   align-items: center;
-  background-image: url('../../../assets/img/Brasao_GovernoW.png'), url('../../../assets/img/labges.jpg');
+  background-image: url('../../../assets/img/Brasao_GovernoW.png'), url('../../../assets/img/labges_branco.png');
   background-repeat: no-repeat;
-  background-size: 117px 46px, 80px 50px;
-  background-position: 0 0, 135px 0;
+  background-size: 117px 46px, 115px 40px;
+  background-position: 0 0, 130px 50%;
 }
 
 .search-area {

@@ -24,7 +24,7 @@
 
 .noticia .img-destaque img {
   max-width: 100%;
-  max-height: 360px;
+  max-height: 300px;
 }
 
 .noticia .titulo {
@@ -37,11 +37,15 @@
   margin-bottom: 1em;
 }
 
-a {
+.noticia a {
    cursor:pointer;
    color:#01579b;
 }
 
-a:hover {
+.noticia a:hover {
      text-decoration:underline;
+}
+
+.conteudo_leia_mais{
+  text-align: center;  
 }
